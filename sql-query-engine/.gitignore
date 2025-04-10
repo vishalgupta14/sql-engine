@@ -1,0 +1,73 @@
+# === Maven ===
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.properties
+
+# === IntelliJ IDEA ===
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# === Eclipse ===
+.classpath
+.project
+.settings/
+
+# === VS Code ===
+.vscode/
+
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+
+# === Logs & temp ===
+*.log
+logs/
+*.tmp
+*.swp
+
+# === Build tools ===
+/build/
+
+# === Spring Boot ===
+spring.log
+
+# === Environment ===
+.env
+*.env
+
+# === Database ===
+*.h2.db
+*.mv.db
+
+# === Node/npm (if frontend present) ===
+node_modules/
+dist/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# === Docker ===
+/docker-compose.override.yml
+**/.docker
+
+# === Coverage reports ===
+/coverage/
+*.lcov
+
+# === Generated gRPC code ===
+/generated/
+**/proto/*.java
+**/proto/*.class
+
+# === IDE Run configs ===
+*.run.xml
+.idea/**/runConfigurations/
+
+# === System ===
+*.bak
+*.orig
+*.rej
