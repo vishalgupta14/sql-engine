@@ -1,0 +1,6 @@
+
+⚠️ Queries You Might Want to Block or Restrict
+Query	Reason
+SELECT INTO ...	Writes into a new table — not just read-only
+SELECT ... FOR UPDATE	Locks rows — can affect DB concurrency
+Arbitrary user-typed SQL	Bypasses safety, opens SQL injection risks
