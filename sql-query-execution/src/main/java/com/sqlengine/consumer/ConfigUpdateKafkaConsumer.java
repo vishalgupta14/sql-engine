@@ -22,7 +22,7 @@ public class ConfigUpdateKafkaConsumer {
     }
 
     @KafkaListener(
-        topics = "db-config-update-topic",
+        topics = "${messaging.db-config-update-topic}",
         groupId = "#{T(java.util.UUID).randomUUID().toString()}"
     )
     public void handleUpdate(String message) {

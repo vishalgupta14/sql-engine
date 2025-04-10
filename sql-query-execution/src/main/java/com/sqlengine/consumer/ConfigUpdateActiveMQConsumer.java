@@ -30,7 +30,7 @@ public class ConfigUpdateActiveMQConsumer {
     }
 
     @JmsListener(
-        destination = "db-config-update-topic",
+        destination = "${messaging.db-config-update-topic}",
         containerFactory = "topicListenerFactory",
         subscription = "#{T(java.util.UUID).randomUUID().toString()}"
     )

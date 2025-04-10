@@ -16,11 +16,11 @@ import java.util.List;
 
 
 @Service
-public class QueryExecutionService {
+public class GrpcQueryExecutionService {
 
     private final QueryRunnerServiceGrpc.QueryRunnerServiceStub stub;
 
-    public QueryExecutionService(ManagedChannel channel) {
+    public GrpcQueryExecutionService(ManagedChannel channel) {
         this.stub = QueryRunnerServiceGrpc.newStub(channel);
     }
 

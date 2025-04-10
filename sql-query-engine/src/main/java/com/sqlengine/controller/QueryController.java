@@ -5,7 +5,7 @@ import com.sqlengine.manager.QueryTemplateCacheManager;
 import com.sqlengine.model.QueryTemplate;
 import com.sqlengine.service.DatabaseConfigService;
 import com.sqlengine.service.GrpcMetadataClientService;
-import com.sqlengine.service.QueryExecutionService;
+import com.sqlengine.service.GrpcQueryExecutionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class QueryController {
     private final GrpcMetadataClientService grpcMetadataClientService;
     private final QueryTemplateCacheManager queryTemplateCacheManager;
     private final DatabaseConfigService databaseConfigService;
-    private final QueryExecutionService executionService;
+    private final GrpcQueryExecutionService executionService;
 
     @PostMapping("/run")
     public Mono<String> runQuery(@RequestBody QueryExecutionRequest request) {

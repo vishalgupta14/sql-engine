@@ -6,6 +6,7 @@ import com.sqlengine.model.DatabaseConfig;
 import com.sqlengine.producer.MessageProducer;
 import com.sqlengine.repository.DatabaseConfigRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
@@ -20,6 +21,9 @@ public class DatabaseConfigService {
 
     private final DatabaseConfigRepository repository;
     private final MessageProducer messageProducer;
+
+    @Value("${messaging.db-config-update-topic}")
+    private String dbConfigUpdateTopic;
 
     public Mono<DatabaseConfig> save(DatabaseConfig config) {
         validateDatabaseConfig(config.getConfig());
@@ -85,7 +89,7 @@ public class DatabaseConfigService {
 
         try {
             String json = new ObjectMapper().writeValueAsString(msg);
-            messageProducer.sendMessage("db-config-update-topic", json, true);
+            messageProducer.sendMessage(dbConfigUpdateTopic, json, true);
         } catch (Exception e) {
             throw new RuntimeException("Failed to send DB config update message", e);
         }
