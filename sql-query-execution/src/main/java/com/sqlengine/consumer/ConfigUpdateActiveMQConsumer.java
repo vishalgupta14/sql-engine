@@ -21,12 +21,11 @@ import java.util.UUID;
 public class ConfigUpdateActiveMQConsumer {
 
     private final DatabaseConnectionPoolManager poolManager;
-    private final ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private final String clientId = UUID.randomUUID().toString();
 
-    public ConfigUpdateActiveMQConsumer(DatabaseConnectionPoolManager poolManager, ObjectMapper objectMapper) {
+    public ConfigUpdateActiveMQConsumer(DatabaseConnectionPoolManager poolManager) {
         this.poolManager = poolManager;
-        this.objectMapper = objectMapper;
     }
 
     @JmsListener(
