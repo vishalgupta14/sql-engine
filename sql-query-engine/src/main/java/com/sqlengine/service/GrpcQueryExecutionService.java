@@ -54,7 +54,7 @@ public class GrpcQueryExecutionService {
                 ManagedChannelBuilder.forAddress(host, providerPortMap.get(p))
                         .usePlaintext()
                         .build());
-        diffrent
+
         QueryRunnerServiceGrpc.QueryRunnerServiceStub stub = QueryRunnerServiceGrpc.newStub(channel);
 
         QueryRunRequest request = QueryRunRequest.newBuilder()
