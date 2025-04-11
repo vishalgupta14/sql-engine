@@ -5,58 +5,35 @@ import com.sqlengine.grpc.QueryRunnerServiceGrpc;
 import com.sqlengine.grpc.QueryRunnerServiceGrpc.QueryRunnerServiceStub;
 import com.sqlengine.grpc.TableSchemaRequest;
 import com.sqlengine.grpc.TableSchemaResponse;
+import com.sqlengine.manager.GrpcChannelHashRingManager;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class GrpcMetadataClientService {
 
-    private final Map<DatabaseProvider, Integer> providerPortMap;
-    private final String host;
-    private final Map<DatabaseProvider, ManagedChannel> channelPool = new ConcurrentHashMap<>();
-
-    public GrpcMetadataClientService(
-            @Value("${grpc.execution.mysql.port}") int mysqlPort,
-            @Value("${grpc.execution.mariadb.port}") int mariadbPort,
-            @Value("${grpc.execution.postgresql.port}") int postgresPort,
-            @Value("${grpc.execution.oracle.port}") int oraclePort,
-            @Value("${grpc.execution.mssql.port}") int mssqlPort,
-            @Value("${grpc.execution.host}") String host
-    ) {
-        this.host = host;
-        this.providerPortMap = Map.of(
-                DatabaseProvider.MYSQL, mysqlPort,
-                DatabaseProvider.MARIADB, mariadbPort,
-                DatabaseProvider.POSTGRESQL, postgresPort,
-                DatabaseProvider.ORACLE, oraclePort,
-                DatabaseProvider.MSSQL, mssqlPort
-        );
-    }
+    private final GrpcChannelHashRingManager channelManager;
 
     /**
-     * Fetches the table schema from a remote gRPC metadata service based on DB provider.
+     * Fetches the table schema from a remote gRPC metadata service using sticky routing based on configId.
      *
      * @param configId  The ID of the DatabaseConfig
      * @param tableName The table to fetch schema for
-     * @param provider  The database provider (MYSQL, POSTGRESQL, etc.)
      * @return Mono emitting a List of Column Metadata Maps
      */
-    public Mono<List<Map<String, Object>>> getTableSchema(String configId, String tableName, DatabaseProvider provider) {
-        ManagedChannel channel = channelPool.computeIfAbsent(provider, p ->
-                ManagedChannelBuilder.forAddress(host, providerPortMap.get(p))
-                        .usePlaintext()
-                        .build());
-
+    public Mono<List<Map<String, Object>>> getTableSchema(String configId, String tableName) {
+        ManagedChannel channel = channelManager.getChannelForKey(configId);
         QueryRunnerServiceStub stub = QueryRunnerServiceGrpc.newStub(channel);
 
         TableSchemaRequest request = TableSchemaRequest.newBuilder()
@@ -83,7 +60,7 @@ public class GrpcMetadataClientService {
 
                     @Override
                     public void onError(Throwable t) {
-                        log.error("❌ gRPC error while fetching table schema", t);
+                        log.error("❌ gRPC error while fetching table schema");
                         sink.error(t);
                     }
 

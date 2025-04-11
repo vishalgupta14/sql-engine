@@ -1,6 +1,7 @@
 package com.sqlengine.controller;
 
 import com.sqlengine.dto.QueryExecutionRequest;
+import com.sqlengine.enums.DatabaseProvider;
 import com.sqlengine.manager.QueryTemplateCacheManager;
 import com.sqlengine.model.QueryTemplate;
 import com.sqlengine.service.DatabaseConfigService;
@@ -45,30 +46,35 @@ public class QueryController {
             @RequestParam(required = false) String templateId,
             @RequestParam(required = false) String tableName
     ) {
-        return Mono.defer(() -> {
-            if (templateId == null && tableName == null) {
-                return Mono.just(ResponseEntity.badRequest()
-                        .body((Object) Map.of("error", "Either 'templateId' or 'tableName' must be provided")));
-            }
+        if (templateId == null && tableName == null) {
+            return Mono.just(ResponseEntity.badRequest()
+                    .body((Object) Map.of("error", "Either 'templateId' or 'tableName' must be provided")));
+        }
 
-            return Mono.justOrEmpty(templateId)
-                    .flatMap(id -> Mono.fromCallable(() -> queryTemplateCacheManager.getById(id)))
-                    .map(QueryTemplate::getTableName)
-                    .switchIfEmpty(Mono.justOrEmpty(tableName))
-                    .flatMap(finalTable ->
-                            grpcMetadataClientService.getTableSchema(configId, finalTable)
-                                    .map(schema -> ResponseEntity.ok((Object) Map.of(
-                                            "table", finalTable,
-                                            "columns", schema
-                                    )))
-                    )
-                    .onErrorResume(ex -> {
-                        log.error("❌ Error fetching table schema", ex);
-                        return Mono.just(ResponseEntity.internalServerError()
-                                .body((Object) Map.of("error", ex.getMessage())));
-                    });
-        });
+        return databaseConfigService.findById(configId)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("No DatabaseConfig found for ID: " + configId)))
+                .flatMap(config -> {
+                    DatabaseProvider provider = config.getProvider();
+
+                    Mono<String> finalTableNameMono = Mono.justOrEmpty(templateId)
+                            .flatMap(id -> Mono.fromCallable(() -> queryTemplateCacheManager.getById(id)))
+                            .map(QueryTemplate::getTableName)
+                            .switchIfEmpty(Mono.justOrEmpty(tableName));
+
+                    return finalTableNameMono
+                            .flatMap(finalTableName ->
+                                    grpcMetadataClientService.getTableSchema(configId, finalTableName, provider)
+                                            .map(columns -> ResponseEntity.ok((Object) Map.of(
+                                                    "table", finalTableName,
+                                                    "columns", columns
+                                            )))
+                            );
+                })
+                .onErrorResume(ex -> {
+                    log.error("❌ Error fetching table schema", ex);
+                    return Mono.just(ResponseEntity.internalServerError()
+                            .body((Object) Map.of("error", ex.getMessage())));
+                });
     }
-
 
 }

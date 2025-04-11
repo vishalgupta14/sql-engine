@@ -1,60 +1,32 @@
 package com.sqlengine.service;
 
-import com.sqlengine.enums.DatabaseProvider;
 import com.sqlengine.grpc.QueryRunRequest;
 import com.sqlengine.grpc.QueryRunResponse;
 import com.sqlengine.grpc.QueryRunnerServiceGrpc;
+import com.sqlengine.manager.GrpcChannelHashRingManager;
 import com.sqlengine.mapper.GrpcModelMapper;
 import com.sqlengine.model.DatabaseConfig;
 import com.sqlengine.model.QueryTemplate;
 import com.sqlengine.model.query.QueryCondition;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 @Service
+@RequiredArgsConstructor
 public class GrpcQueryExecutionService {
 
-    private final Map<DatabaseProvider, Integer> providerPortMap;
-    private final String host;
-    private final Map<DatabaseProvider, ManagedChannel> channelPool = new ConcurrentHashMap<>();
-
-    public GrpcQueryExecutionService(
-            @Value("${grpc.execution.mysql.port}") int mysqlPort,
-            @Value("${grpc.execution.mariadb.port}") int mariadbPort,
-            @Value("${grpc.execution.postgresql.port}") int postgresPort,
-            @Value("${grpc.execution.oracle.port}") int oraclePort,
-            @Value("${grpc.execution.mssql.port}") int mssqlPort,
-            @Value("${grpc.execution.host}") String host
-    ) {
-        this.host = host;
-
-        this.providerPortMap = Map.of(
-                DatabaseProvider.MYSQL, mysqlPort,
-                DatabaseProvider.MARIADB, mariadbPort,
-                DatabaseProvider.POSTGRESQL, postgresPort,
-                DatabaseProvider.ORACLE, oraclePort,
-                DatabaseProvider.MSSQL, mssqlPort
-        );
-    }
+    private final GrpcChannelHashRingManager channelManager;
 
     public Mono<String> runQuery(QueryTemplate template, DatabaseConfig config, List<QueryCondition> override) {
-        DatabaseProvider provider = config.getProvider();
+        String key = config.getId();
 
-        // Resolve gRPC channel by provider
-        ManagedChannel channel = channelPool.computeIfAbsent(provider, p ->
-                ManagedChannelBuilder.forAddress(host, providerPortMap.get(p))
-                        .usePlaintext()
-                        .build());
-
+        ManagedChannel channel = channelManager.getChannelForKey(key);
         QueryRunnerServiceGrpc.QueryRunnerServiceStub stub = QueryRunnerServiceGrpc.newStub(channel);
 
         QueryRunRequest request = QueryRunRequest.newBuilder()
@@ -76,9 +48,11 @@ public class GrpcQueryExecutionService {
                     }
 
                     @Override
-                    public void onCompleted() {}
+                    public void onCompleted() {
+                    }
                 })
         );
     }
 }
+
 
