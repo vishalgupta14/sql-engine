@@ -117,6 +117,8 @@ message QueryTemplate {
   bool deleteWithJoin = 31;
   string deleteTableAlias = 32;
 
+  // For CREATE TABLE and other DDL
+  string ddlStatement = 33;
 
 }
 

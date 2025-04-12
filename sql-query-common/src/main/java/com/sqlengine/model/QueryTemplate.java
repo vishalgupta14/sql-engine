@@ -135,5 +135,6 @@ public class QueryTemplate {
     /** Optional alias for target table in DELETE ... JOIN */
     private String deleteTableAlias;
 
+    private String ddlStatement; // e.g., "CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(255))"
 
 }

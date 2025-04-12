@@ -79,6 +79,7 @@ public class GrpcModelMapper {
         template.setSqlQuery(proto.getSqlQuery());
         template.setDeleteWithJoin(proto.getDeleteWithJoin());
         template.setDeleteTableAlias(proto.getDeleteTableAlias());
+        template.setDdlStatement(proto.getDdlStatement());
         return template;
     }
 
@@ -179,6 +180,7 @@ public class GrpcModelMapper {
         builder.setSqlQuery(Optional.ofNullable(template.getSqlQuery()).orElse(""));
         builder.setDeleteWithJoin(template.isDeleteWithJoin());
         builder.setDeleteTableAlias(Optional.ofNullable(template.getDeleteTableAlias()).orElse(""));
+        builder.setDdlStatement(Optional.ofNullable(template.getDdlStatement()).orElse(""));
         return builder.build();
     }
 
