@@ -27,23 +27,35 @@ public class GrpcModelMapper {
         template.setOffset(proto.getOffset());
         template.setGroupBy(proto.getGroupByList());
 
-        template.setCtes(proto.getCtesList().stream().map(c -> new CteBlock(c.getName(), c.getQuery())).collect(Collectors.toList()));
-        template.setJoins(proto.getJoinsList().stream().map(j ->
-                new JoinConfig(com.sqlengine.enums.JoinType.valueOf(j.getJoinType().name()), j.getTable(), j.getAlias(), j.getOnCondition())
-        ).collect(Collectors.toList()));
-        template.setSubqueries(proto.getSubqueriesList().stream().map(s -> new SubqueryBlock(s.getName(), s.getQuery())).collect(Collectors.toList()));
-        template.setSelectedColumns(proto.getSelectedColumnsList().stream().map(col -> {
-            SelectedColumn sc = new SelectedColumn();
-            sc.setAlias(col.getAlias());
-            sc.setExpression(col.getExpression());
-            return sc;
-        }).collect(Collectors.toList()));
-        template.setUnions(proto.getUnionsList().stream().map(u -> {
-            UnionQuery uq = new UnionQuery();
-            uq.setUnionAll(u.getUnionAll());
-            uq.setTemplate(toInternal(u.getTemplate()));
-            return uq;
-        }).collect(Collectors.toList()));
+        template.setCtes(proto.getCtesList().stream()
+                .map(c -> new CteBlock(c.getName(), c.getQuery()))
+                .collect(Collectors.toList()));
+
+        template.setJoins(proto.getJoinsList().stream()
+                .map(j -> new JoinConfig(
+                        com.sqlengine.enums.JoinType.valueOf(j.getJoinType().name()),
+                        j.getTable(), j.getAlias(), j.getOnCondition()))
+                .collect(Collectors.toList()));
+
+        template.setSubqueries(proto.getSubqueriesList().stream()
+                .map(s -> new SubqueryBlock(s.getName(), s.getQuery()))
+                .collect(Collectors.toList()));
+
+        template.setSelectedColumns(proto.getSelectedColumnsList().stream()
+                .map(col -> {
+                    SelectedColumn sc = new SelectedColumn();
+                    sc.setAlias(col.getAlias());
+                    sc.setExpression(col.getExpression());
+                    return sc;
+                }).collect(Collectors.toList()));
+
+        template.setUnions(proto.getUnionsList().stream()
+                .map(u -> {
+                    UnionQuery uq = new UnionQuery();
+                    uq.setUnionAll(u.getUnionAll());
+                    uq.setTemplate(toInternal(u.getTemplate()));
+                    return uq;
+                }).collect(Collectors.toList()));
 
         template.setUpdatedValues(new HashMap<>(proto.getUpdatedValuesMap()));
 
@@ -53,6 +65,20 @@ public class GrpcModelMapper {
 
         template.setCreatedAt(LocalDateTime.parse(proto.getCreatedAt()));
         template.setUpdatedAt(LocalDateTime.parse(proto.getUpdatedAt()));
+
+        // INSERT-specific fields
+        template.setInsertFromSelect(proto.getInsertFromSelect());
+        template.setInsertColumns(proto.getInsertColumnsList());
+        template.setConflictColumns(proto.getConflictColumnsList());
+        template.setUseReplace(proto.getUseReplace());
+        template.setUseMerge(proto.getUseMerge());
+        template.setInsertValues(new HashMap<>(proto.getInsertValuesMap()));
+        template.setUpsertValues(new HashMap<>(proto.getUpsertValuesMap()));
+        template.setReturningFields(proto.getReturningFieldsList());
+        template.setPrimaryKeyField(proto.getPrimaryKeyField());
+        template.setSqlQuery(proto.getSqlQuery());
+        template.setDeleteWithJoin(proto.getDeleteWithJoin());
+        template.setDeleteTableAlias(proto.getDeleteTableAlias());
         return template;
     }
 
@@ -121,7 +147,10 @@ public class GrpcModelMapper {
 
         if (template.getSubqueries() != null)
             template.getSubqueries().forEach(sub -> builder.addSubqueries(
-                    com.sqlengine.grpc.SubqueryBlock.newBuilder().setName(sub.getName()).setQuery(sub.getQuery()).build()));
+                    com.sqlengine.grpc.SubqueryBlock.newBuilder()
+                            .setName(sub.getName())
+                            .setQuery(sub.getQuery())
+                            .build()));
 
         if (template.getUnions() != null)
             template.getUnions().forEach(union -> builder.addUnions(
@@ -130,6 +159,26 @@ public class GrpcModelMapper {
                             .setTemplate(toProto(union.getTemplate()))
                             .build()));
 
+        // INSERT-specific fields
+        builder.setInsertFromSelect(template.isInsertFromSelect());
+        builder.addAllInsertColumns(template.getInsertColumns() != null ? template.getInsertColumns() : List.of());
+        builder.addAllConflictColumns(template.getConflictColumns() != null ? template.getConflictColumns() : List.of());
+        builder.setUseReplace(template.isUseReplace());
+        builder.setUseMerge(template.isUseMerge());
+
+        if (template.getInsertValues() != null)
+            builder.putAllInsertValues(template.getInsertValues().entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString())));
+
+        if (template.getUpsertValues() != null)
+            builder.putAllUpsertValues(template.getUpsertValues().entrySet().stream()
+                    .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString())));
+
+        builder.addAllReturningFields(template.getReturningFields() != null ? template.getReturningFields() : List.of());
+        builder.setPrimaryKeyField(Optional.ofNullable(template.getPrimaryKeyField()).orElse("id"));
+        builder.setSqlQuery(Optional.ofNullable(template.getSqlQuery()).orElse(""));
+        builder.setDeleteWithJoin(template.isDeleteWithJoin());
+        builder.setDeleteTableAlias(Optional.ofNullable(template.getDeleteTableAlias()).orElse(""));
         return builder.build();
     }
 

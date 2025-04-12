@@ -54,24 +54,39 @@ public class QueryRunnerServiceImpl extends QueryRunnerServiceGrpc.QueryRunnerSe
                         .map(GrpcModelMapper::toInternal).collect(Collectors.toList()));
             }
 
-            // Get database client & execute
             DatabaseClient dbClient = poolManager.getDatabaseClient(config);
-            QueryExecutionStrategy strategy = strategyFactory.getStrategy(template.getQueryType());
 
-            strategy.execute(template, config, dbClient)
-                    .map(Object::toString)
-                    .map(result -> QueryRunResponse.newBuilder().setJsonResult(result).build())
-                    .subscribe(responseObserver::onNext,
-                               error -> {
-                                   responseObserver.onError(error);
-                                   log.error("Query execution failed", error);
-                               },
-                               responseObserver::onCompleted);
+            if (template.getSqlQuery() != null && !template.getSqlQuery().isBlank()) {
+                dbClient.sql(template.getSqlQuery())
+                        .fetch()
+                        .all()
+                        .collectList()
+                        .map(result -> QueryRunResponse.newBuilder().setJsonResult(result.toString()).build())
+                        .subscribe(responseObserver::onNext,
+                                error -> {
+                                    responseObserver.onError(error);
+                                    log.error("Native SQL execution failed", error);
+                                },
+                                responseObserver::onCompleted);
+            } else {
+                QueryExecutionStrategy strategy = strategyFactory.getStrategy(template.getQueryType());
+
+                strategy.execute(template, config, dbClient)
+                        .map(Object::toString)
+                        .map(result -> QueryRunResponse.newBuilder().setJsonResult(result).build())
+                        .subscribe(responseObserver::onNext,
+                                error -> {
+                                    responseObserver.onError(error);
+                                    log.error("Query execution failed", error);
+                                },
+                                responseObserver::onCompleted);
+            }
 
         } catch (Exception e) {
             responseObserver.onError(e);
         }
     }
+
 
     @Override
     public void getTableSchema(TableSchemaRequest request, StreamObserver<TableSchemaResponse> responseObserver) {

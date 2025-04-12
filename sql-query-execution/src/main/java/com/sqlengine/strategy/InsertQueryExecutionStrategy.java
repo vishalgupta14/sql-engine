@@ -14,6 +14,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component("insert")
@@ -29,109 +30,98 @@ public class InsertQueryExecutionStrategy implements QueryExecutionStrategy {
 
     @Override
     public Mono<Object> execute(QueryTemplate template, DatabaseConfig config, DatabaseClient dbClient) {
+        if (template.getInsertValues() == null || template.getInsertValues().isEmpty()) {
+            return Mono.error(new IllegalArgumentException("❌ insertValues are required for INSERT query"));
+        }
+
+        String table = template.getTableName();
+        Map<String, Object> insertValues = template.getInsertValues();
+        List<String> returningFields = template.getReturningFields();
+
+        StringJoiner columnsJoiner = new StringJoiner(", ");
+        StringJoiner valuesJoiner = new StringJoiner(", ");
         Map<String, Object> params = new HashMap<>();
-        String sql = buildInsertSql(template, config.getProvider(), params);
+
+        insertValues.forEach((col, val) -> {
+            columnsJoiner.add(col);
+            String paramKey = "val_" + col;
+            valuesJoiner.add(":" + paramKey);
+            params.put(paramKey, val);
+        });
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO ").append(table)
+                .append(" (").append(columnsJoiner).append(") ")
+                .append("VALUES (").append(valuesJoiner).append(")");
+
+        // ✅ DB-native RETURNING support
+        if (returningFields != null && !returningFields.isEmpty()) {
+            if (supportsReturning(config.getProvider())) {
+                sql.append(" RETURNING ").append(String.join(", ", returningFields));
+            }
+        }
 
         log.debug("🟢 Generated INSERT SQL: {}", sql);
 
-        DatabaseClient.GenericExecuteSpec spec = dbClient.sql(sql);
+        DatabaseClient.GenericExecuteSpec spec = dbClient.sql(sql.toString());
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             spec = spec.bind(entry.getKey(), Parameter.fromOrEmpty(entry.getValue(), Object.class));
         }
 
-        // Handle RETURNING fallback
-        if (template.getReturningFields() != null && !template.getReturningFields().isEmpty()) {
-            return spec.fetch().all().collectList().map(list -> Map.of("returning", list));
-        }
+        return spec.fetch().all().collectList().flatMap(result -> {
+            if (!result.isEmpty()) {
+                return Mono.just(result);
+            }
 
-        return spec.fetch().rowsUpdated().map(updated -> Map.of("rowsInserted", updated));
+            // 🔁 Emulate RETURNING logic
+            if (returningFields != null && !returningFields.isEmpty() && !supportsReturning(config.getProvider())) {
+                log.info("ℹ️ Emulating RETURNING clause...");
+                return emulateReturningAfterInsert(template, config, dbClient);
+            }
+
+            return Mono.just(Map.of("inserted", 1));
+        });
     }
 
-    private String buildInsertSql(QueryTemplate template, DatabaseProvider provider, Map<String, Object> params) {
-        StringBuilder sql = new StringBuilder();
+    private Mono<Object> emulateReturningAfterInsert(QueryTemplate template,
+                                                     DatabaseConfig config,
+                                                     DatabaseClient dbClient) {
 
-        if (Boolean.TRUE.equals(template.isUseReplace()) && supportsReplace(provider)) {
-            sql.append("REPLACE INTO ");
-        } else if (Boolean.TRUE.equals(template.isUseMerge())) {
-            throw new UnsupportedOperationException("MERGE INSERT not implemented yet");
-        } else {
-            sql.append("INSERT INTO ");
-        }
+        String table = template.getTableName();
+        Map<String, Object> insertValues = template.getInsertValues();
+        List<String> returningFields = template.getReturningFields();
 
-        sql.append(template.getTableName());
+        return tableMetadataManager.getColumnTypesReactive(config, dbClient, table)
+                .flatMap(columnTypes -> {
+                    StringJoiner whereJoiner = new StringJoiner(" AND ");
+                    Map<String, Object> params = new HashMap<>();
 
-        if (Boolean.TRUE.equals(template.isInsertFromSelect())) {
-            sql.append(" (").append(String.join(", ", template.getInsertColumns())).append(") ");
-            sql.append(template.getSubqueries().get(0).getQuery()); // Assumes one SELECT subquery
-        } else {
-            List<String> columns = new ArrayList<>();
-            List<String> valuePlaceholders = new ArrayList<>();
-
-            for (Map.Entry<String, Object> entry : template.getInsertValues().entrySet()) {
-                String col = entry.getKey();
-                String paramKey = "val_" + col;
-                columns.add(col);
-                valuePlaceholders.add(":" + paramKey);
-                params.put(paramKey, entry.getValue());
-            }
-
-            sql.append(" (").append(String.join(", ", columns)).append(") ");
-            sql.append("VALUES (").append(String.join(", ", valuePlaceholders)).append(")");
-        }
-
-        // Upsert / conflict resolution
-        if (template.getConflictColumns() != null && !template.getConflictColumns().isEmpty()) {
-            switch (provider) {
-                case POSTGRESQL -> {
-                    sql.append(" ON CONFLICT (")
-                            .append(String.join(", ", template.getConflictColumns()))
-                            .append(")");
-
-                    if (template.getUpsertValues() != null && !template.getUpsertValues().isEmpty()) {
-                        sql.append(" DO UPDATE SET ");
-                        List<String> updates = new ArrayList<>();
-                        for (Map.Entry<String, Object> e : template.getUpsertValues().entrySet()) {
-                            String col = e.getKey();
-                            String paramKey = "upsert_" + col;
-                            updates.add(col + " = :" + paramKey);
-                            params.put(paramKey, e.getValue());
+                    insertValues.forEach((col, val) -> {
+                        if (columnTypes.containsKey(col.toLowerCase())) {
+                            Object casted = QueryParamCaster.cast(val, columnTypes.get(col.toLowerCase()));
+                            String key = "w_" + col;
+                            whereJoiner.add(col + " = :" + key);
+                            params.put(key, casted);
                         }
-                        sql.append(String.join(", ", updates));
-                    } else {
-                        sql.append(" DO NOTHING");
-                    }
-                }
-                case MYSQL, MARIADB -> {
-                    if (template.getUpsertValues() != null && !template.getUpsertValues().isEmpty()) {
-                        sql.append(" ON DUPLICATE KEY UPDATE ");
-                        List<String> updates = new ArrayList<>();
-                        for (Map.Entry<String, Object> e : template.getUpsertValues().entrySet()) {
-                            String col = e.getKey();
-                            String paramKey = "upsert_" + col;
-                            updates.add(col + " = :" + paramKey);
-                            params.put(paramKey, e.getValue());
-                        }
-                        sql.append(String.join(", ", updates));
-                    }
-                }
-            }
-        }
+                    });
 
-        // RETURNING support
-        if (template.getReturningFields() != null && !template.getReturningFields().isEmpty()) {
-            if (supportsReturning(provider)) {
-                sql.append(" RETURNING ").append(String.join(", ", template.getReturningFields()));
-            }
-        }
+                    String sql = "SELECT " + String.join(", ", returningFields)
+                            + " FROM " + table + " WHERE " + whereJoiner;
 
-        return sql.toString();
+                    log.debug("🧩 Emulated RETURNING SQL: {}", sql);
+
+                    DatabaseClient.GenericExecuteSpec spec = dbClient.sql(sql);
+                    for (Map.Entry<String, Object> entry : params.entrySet()) {
+                        spec = spec.bind(entry.getKey(), Parameter.fromOrEmpty(entry.getValue(), Object.class));
+                    }
+
+                    return spec.fetch().all().collectList().cast(Object.class);
+                });
     }
 
     private boolean supportsReturning(DatabaseProvider provider) {
-        return EnumSet.of(DatabaseProvider.POSTGRESQL, DatabaseProvider.ORACLE, DatabaseProvider.MSSQL).contains(provider);
-    }
-
-    private boolean supportsReplace(DatabaseProvider provider) {
-        return EnumSet.of(DatabaseProvider.MYSQL, DatabaseProvider.MARIADB, DatabaseProvider.SQLITE).contains(provider);
+        return provider == DatabaseProvider.POSTGRESQL
+                || provider == DatabaseProvider.ORACLE
+                || provider == DatabaseProvider.MSSQL;
     }
 }

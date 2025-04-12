@@ -391,4 +391,319 @@ com.sqlengine.grpc.SortDirection         defaultValue);
    */
   com.google.protobuf.ByteString
       getUpdatedAtBytes();
+
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  int getInsertValuesCount();
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  boolean containsInsertValues(
+      java.lang.String key);
+  /**
+   * Use {@link #getInsertValuesMap()} instead.
+   */
+  @java.lang.Deprecated
+  java.util.Map<java.lang.String, java.lang.String>
+  getInsertValues();
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  java.util.Map<java.lang.String, java.lang.String>
+  getInsertValuesMap();
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  /* nullable */
+java.lang.String getInsertValuesOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue);
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  java.lang.String getInsertValuesOrThrow(
+      java.lang.String key);
+
+  /**
+   * <pre>
+   * If true, use INSERT INTO ... SELECT ...
+   * </pre>
+   *
+   * <code>bool insertFromSelect = 22;</code>
+   * @return The insertFromSelect.
+   */
+  boolean getInsertFromSelect();
+
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @return A list containing the insertColumns.
+   */
+  java.util.List<java.lang.String>
+      getInsertColumnsList();
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @return The count of insertColumns.
+   */
+  int getInsertColumnsCount();
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @param index The index of the element to return.
+   * @return The insertColumns at the given index.
+   */
+  java.lang.String getInsertColumns(int index);
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the insertColumns at the given index.
+   */
+  com.google.protobuf.ByteString
+      getInsertColumnsBytes(int index);
+
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @return A list containing the conflictColumns.
+   */
+  java.util.List<java.lang.String>
+      getConflictColumnsList();
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @return The count of conflictColumns.
+   */
+  int getConflictColumnsCount();
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @param index The index of the element to return.
+   * @return The conflictColumns at the given index.
+   */
+  java.lang.String getConflictColumns(int index);
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the conflictColumns at the given index.
+   */
+  com.google.protobuf.ByteString
+      getConflictColumnsBytes(int index);
+
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  int getUpsertValuesCount();
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  boolean containsUpsertValues(
+      java.lang.String key);
+  /**
+   * Use {@link #getUpsertValuesMap()} instead.
+   */
+  @java.lang.Deprecated
+  java.util.Map<java.lang.String, java.lang.String>
+  getUpsertValues();
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  java.util.Map<java.lang.String, java.lang.String>
+  getUpsertValuesMap();
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  /* nullable */
+java.lang.String getUpsertValuesOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue);
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  java.lang.String getUpsertValuesOrThrow(
+      java.lang.String key);
+
+  /**
+   * <pre>
+   * Use REPLACE INTO / INSERT OR REPLACE (MySQL/MariaDB/SQLite)
+   * </pre>
+   *
+   * <code>bool useReplace = 26;</code>
+   * @return The useReplace.
+   */
+  boolean getUseReplace();
+
+  /**
+   * <pre>
+   * Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+)
+   * </pre>
+   *
+   * <code>bool useMerge = 27;</code>
+   * @return The useMerge.
+   */
+  boolean getUseMerge();
+
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @return A list containing the returningFields.
+   */
+  java.util.List<java.lang.String>
+      getReturningFieldsList();
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @return The count of returningFields.
+   */
+  int getReturningFieldsCount();
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @param index The index of the element to return.
+   * @return The returningFields at the given index.
+   */
+  java.lang.String getReturningFields(int index);
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the returningFields at the given index.
+   */
+  com.google.protobuf.ByteString
+      getReturningFieldsBytes(int index);
+
+  /**
+   * <pre>
+   * Optional primary key field (default: "id")
+   * </pre>
+   *
+   * <code>string primaryKeyField = 29;</code>
+   * @return The primaryKeyField.
+   */
+  java.lang.String getPrimaryKeyField();
+  /**
+   * <pre>
+   * Optional primary key field (default: "id")
+   * </pre>
+   *
+   * <code>string primaryKeyField = 29;</code>
+   * @return The bytes for primaryKeyField.
+   */
+  com.google.protobuf.ByteString
+      getPrimaryKeyFieldBytes();
+
+  /**
+   * <code>string sqlQuery = 30;</code>
+   * @return The sqlQuery.
+   */
+  java.lang.String getSqlQuery();
+  /**
+   * <code>string sqlQuery = 30;</code>
+   * @return The bytes for sqlQuery.
+   */
+  com.google.protobuf.ByteString
+      getSqlQueryBytes();
+
+  /**
+   * <pre>
+   * --- DELETE-specific fields ---
+   * </pre>
+   *
+   * <code>bool deleteWithJoin = 31;</code>
+   * @return The deleteWithJoin.
+   */
+  boolean getDeleteWithJoin();
+
+  /**
+   * <code>string deleteTableAlias = 32;</code>
+   * @return The deleteTableAlias.
+   */
+  java.lang.String getDeleteTableAlias();
+  /**
+   * <code>string deleteTableAlias = 32;</code>
+   * @return The bytes for deleteTableAlias.
+   */
+  com.google.protobuf.ByteString
+      getDeleteTableAliasBytes();
 }

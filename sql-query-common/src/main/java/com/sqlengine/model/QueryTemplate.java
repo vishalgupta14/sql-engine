@@ -124,4 +124,16 @@ public class QueryTemplate {
     /** Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+) */
     private boolean useMerge;
 
+    /** Raw SQL query to execute directly if set. */
+    private String sqlQuery;
+
+    // --- DELETE-specific fields ---
+
+    /** Flag to indicate DELETE query with JOIN support */
+    private boolean deleteWithJoin;
+
+    /** Optional alias for target table in DELETE ... JOIN */
+    private String deleteTableAlias;
+
+
 }

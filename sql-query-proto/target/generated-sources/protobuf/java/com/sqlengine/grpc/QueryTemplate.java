@@ -32,6 +32,15 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.LazyStringArrayList.emptyList();
     createdAt_ = "";
     updatedAt_ = "";
+    insertColumns_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    conflictColumns_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    returningFields_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    primaryKeyField_ = "";
+    sqlQuery_ = "";
+    deleteTableAlias_ = "";
   }
 
   @java.lang.Override
@@ -55,6 +64,10 @@ private static final long serialVersionUID = 0L;
         return internalGetUpdatedValues();
       case 15:
         return internalGetOrderBy();
+      case 21:
+        return internalGetInsertValues();
+      case 25:
+        return internalGetUpsertValues();
       default:
         throw new RuntimeException(
             "Invalid map field number: " + number);
@@ -916,6 +929,540 @@ com.sqlengine.grpc.SortDirection defaultValue) {
     }
   }
 
+  public static final int INSERTVALUES_FIELD_NUMBER = 21;
+  private static final class InsertValuesDefaultEntryHolder {
+    static final com.google.protobuf.MapEntry<
+        java.lang.String, java.lang.String> defaultEntry =
+            com.google.protobuf.MapEntry
+            .<java.lang.String, java.lang.String>newDefaultInstance(
+                com.sqlengine.grpc.QueryRunner.internal_static_queryrunner_QueryTemplate_InsertValuesEntry_descriptor, 
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "",
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "");
+  }
+  @SuppressWarnings("serial")
+  private com.google.protobuf.MapField<
+      java.lang.String, java.lang.String> insertValues_;
+  private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+  internalGetInsertValues() {
+    if (insertValues_ == null) {
+      return com.google.protobuf.MapField.emptyMapField(
+          InsertValuesDefaultEntryHolder.defaultEntry);
+    }
+    return insertValues_;
+  }
+  public int getInsertValuesCount() {
+    return internalGetInsertValues().getMap().size();
+  }
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  @java.lang.Override
+  public boolean containsInsertValues(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    return internalGetInsertValues().getMap().containsKey(key);
+  }
+  /**
+   * Use {@link #getInsertValuesMap()} instead.
+   */
+  @java.lang.Override
+  @java.lang.Deprecated
+  public java.util.Map<java.lang.String, java.lang.String> getInsertValues() {
+    return getInsertValuesMap();
+  }
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  @java.lang.Override
+  public java.util.Map<java.lang.String, java.lang.String> getInsertValuesMap() {
+    return internalGetInsertValues().getMap();
+  }
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  @java.lang.Override
+  public /* nullable */
+java.lang.String getInsertValuesOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetInsertValues().getMap();
+    return map.containsKey(key) ? map.get(key) : defaultValue;
+  }
+  /**
+   * <pre>
+   * Key-value pairs for single row insert
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; insertValues = 21;</code>
+   */
+  @java.lang.Override
+  public java.lang.String getInsertValuesOrThrow(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetInsertValues().getMap();
+    if (!map.containsKey(key)) {
+      throw new java.lang.IllegalArgumentException();
+    }
+    return map.get(key);
+  }
+
+  public static final int INSERTFROMSELECT_FIELD_NUMBER = 22;
+  private boolean insertFromSelect_ = false;
+  /**
+   * <pre>
+   * If true, use INSERT INTO ... SELECT ...
+   * </pre>
+   *
+   * <code>bool insertFromSelect = 22;</code>
+   * @return The insertFromSelect.
+   */
+  @java.lang.Override
+  public boolean getInsertFromSelect() {
+    return insertFromSelect_;
+  }
+
+  public static final int INSERTCOLUMNS_FIELD_NUMBER = 23;
+  @SuppressWarnings("serial")
+  private com.google.protobuf.LazyStringArrayList insertColumns_ =
+      com.google.protobuf.LazyStringArrayList.emptyList();
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @return A list containing the insertColumns.
+   */
+  public com.google.protobuf.ProtocolStringList
+      getInsertColumnsList() {
+    return insertColumns_;
+  }
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @return The count of insertColumns.
+   */
+  public int getInsertColumnsCount() {
+    return insertColumns_.size();
+  }
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @param index The index of the element to return.
+   * @return The insertColumns at the given index.
+   */
+  public java.lang.String getInsertColumns(int index) {
+    return insertColumns_.get(index);
+  }
+  /**
+   * <pre>
+   * Columns to insert into (used with insertFromSelect + subqueries)
+   * </pre>
+   *
+   * <code>repeated string insertColumns = 23;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the insertColumns at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getInsertColumnsBytes(int index) {
+    return insertColumns_.getByteString(index);
+  }
+
+  public static final int CONFLICTCOLUMNS_FIELD_NUMBER = 24;
+  @SuppressWarnings("serial")
+  private com.google.protobuf.LazyStringArrayList conflictColumns_ =
+      com.google.protobuf.LazyStringArrayList.emptyList();
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @return A list containing the conflictColumns.
+   */
+  public com.google.protobuf.ProtocolStringList
+      getConflictColumnsList() {
+    return conflictColumns_;
+  }
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @return The count of conflictColumns.
+   */
+  public int getConflictColumnsCount() {
+    return conflictColumns_.size();
+  }
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @param index The index of the element to return.
+   * @return The conflictColumns at the given index.
+   */
+  public java.lang.String getConflictColumns(int index) {
+    return conflictColumns_.get(index);
+  }
+  /**
+   * <pre>
+   * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+   * </pre>
+   *
+   * <code>repeated string conflictColumns = 24;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the conflictColumns at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getConflictColumnsBytes(int index) {
+    return conflictColumns_.getByteString(index);
+  }
+
+  public static final int UPSERTVALUES_FIELD_NUMBER = 25;
+  private static final class UpsertValuesDefaultEntryHolder {
+    static final com.google.protobuf.MapEntry<
+        java.lang.String, java.lang.String> defaultEntry =
+            com.google.protobuf.MapEntry
+            .<java.lang.String, java.lang.String>newDefaultInstance(
+                com.sqlengine.grpc.QueryRunner.internal_static_queryrunner_QueryTemplate_UpsertValuesEntry_descriptor, 
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "",
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "");
+  }
+  @SuppressWarnings("serial")
+  private com.google.protobuf.MapField<
+      java.lang.String, java.lang.String> upsertValues_;
+  private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+  internalGetUpsertValues() {
+    if (upsertValues_ == null) {
+      return com.google.protobuf.MapField.emptyMapField(
+          UpsertValuesDefaultEntryHolder.defaultEntry);
+    }
+    return upsertValues_;
+  }
+  public int getUpsertValuesCount() {
+    return internalGetUpsertValues().getMap().size();
+  }
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  @java.lang.Override
+  public boolean containsUpsertValues(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    return internalGetUpsertValues().getMap().containsKey(key);
+  }
+  /**
+   * Use {@link #getUpsertValuesMap()} instead.
+   */
+  @java.lang.Override
+  @java.lang.Deprecated
+  public java.util.Map<java.lang.String, java.lang.String> getUpsertValues() {
+    return getUpsertValuesMap();
+  }
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  @java.lang.Override
+  public java.util.Map<java.lang.String, java.lang.String> getUpsertValuesMap() {
+    return internalGetUpsertValues().getMap();
+  }
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  @java.lang.Override
+  public /* nullable */
+java.lang.String getUpsertValuesOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetUpsertValues().getMap();
+    return map.containsKey(key) ? map.get(key) : defaultValue;
+  }
+  /**
+   * <pre>
+   * Columns and values to update on conflict (Upsert behavior)
+   * </pre>
+   *
+   * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+   */
+  @java.lang.Override
+  public java.lang.String getUpsertValuesOrThrow(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetUpsertValues().getMap();
+    if (!map.containsKey(key)) {
+      throw new java.lang.IllegalArgumentException();
+    }
+    return map.get(key);
+  }
+
+  public static final int USEREPLACE_FIELD_NUMBER = 26;
+  private boolean useReplace_ = false;
+  /**
+   * <pre>
+   * Use REPLACE INTO / INSERT OR REPLACE (MySQL/MariaDB/SQLite)
+   * </pre>
+   *
+   * <code>bool useReplace = 26;</code>
+   * @return The useReplace.
+   */
+  @java.lang.Override
+  public boolean getUseReplace() {
+    return useReplace_;
+  }
+
+  public static final int USEMERGE_FIELD_NUMBER = 27;
+  private boolean useMerge_ = false;
+  /**
+   * <pre>
+   * Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+)
+   * </pre>
+   *
+   * <code>bool useMerge = 27;</code>
+   * @return The useMerge.
+   */
+  @java.lang.Override
+  public boolean getUseMerge() {
+    return useMerge_;
+  }
+
+  public static final int RETURNINGFIELDS_FIELD_NUMBER = 28;
+  @SuppressWarnings("serial")
+  private com.google.protobuf.LazyStringArrayList returningFields_ =
+      com.google.protobuf.LazyStringArrayList.emptyList();
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @return A list containing the returningFields.
+   */
+  public com.google.protobuf.ProtocolStringList
+      getReturningFieldsList() {
+    return returningFields_;
+  }
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @return The count of returningFields.
+   */
+  public int getReturningFieldsCount() {
+    return returningFields_.size();
+  }
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @param index The index of the element to return.
+   * @return The returningFields at the given index.
+   */
+  public java.lang.String getReturningFields(int index) {
+    return returningFields_.get(index);
+  }
+  /**
+   * <pre>
+   * RETURNING support
+   * </pre>
+   *
+   * <code>repeated string returningFields = 28;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the returningFields at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getReturningFieldsBytes(int index) {
+    return returningFields_.getByteString(index);
+  }
+
+  public static final int PRIMARYKEYFIELD_FIELD_NUMBER = 29;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object primaryKeyField_ = "";
+  /**
+   * <pre>
+   * Optional primary key field (default: "id")
+   * </pre>
+   *
+   * <code>string primaryKeyField = 29;</code>
+   * @return The primaryKeyField.
+   */
+  @java.lang.Override
+  public java.lang.String getPrimaryKeyField() {
+    java.lang.Object ref = primaryKeyField_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      primaryKeyField_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * Optional primary key field (default: "id")
+   * </pre>
+   *
+   * <code>string primaryKeyField = 29;</code>
+   * @return The bytes for primaryKeyField.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getPrimaryKeyFieldBytes() {
+    java.lang.Object ref = primaryKeyField_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      primaryKeyField_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int SQLQUERY_FIELD_NUMBER = 30;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object sqlQuery_ = "";
+  /**
+   * <code>string sqlQuery = 30;</code>
+   * @return The sqlQuery.
+   */
+  @java.lang.Override
+  public java.lang.String getSqlQuery() {
+    java.lang.Object ref = sqlQuery_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      sqlQuery_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string sqlQuery = 30;</code>
+   * @return The bytes for sqlQuery.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getSqlQueryBytes() {
+    java.lang.Object ref = sqlQuery_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      sqlQuery_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int DELETEWITHJOIN_FIELD_NUMBER = 31;
+  private boolean deleteWithJoin_ = false;
+  /**
+   * <pre>
+   * --- DELETE-specific fields ---
+   * </pre>
+   *
+   * <code>bool deleteWithJoin = 31;</code>
+   * @return The deleteWithJoin.
+   */
+  @java.lang.Override
+  public boolean getDeleteWithJoin() {
+    return deleteWithJoin_;
+  }
+
+  public static final int DELETETABLEALIAS_FIELD_NUMBER = 32;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object deleteTableAlias_ = "";
+  /**
+   * <code>string deleteTableAlias = 32;</code>
+   * @return The deleteTableAlias.
+   */
+  @java.lang.Override
+  public java.lang.String getDeleteTableAlias() {
+    java.lang.Object ref = deleteTableAlias_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      deleteTableAlias_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string deleteTableAlias = 32;</code>
+   * @return The bytes for deleteTableAlias.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getDeleteTableAliasBytes() {
+    java.lang.Object ref = deleteTableAlias_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      deleteTableAlias_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -995,6 +1542,48 @@ com.sqlengine.grpc.SortDirection defaultValue) {
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(updatedAt_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 20, updatedAt_);
+    }
+    com.google.protobuf.GeneratedMessageV3
+      .serializeStringMapTo(
+        output,
+        internalGetInsertValues(),
+        InsertValuesDefaultEntryHolder.defaultEntry,
+        21);
+    if (insertFromSelect_ != false) {
+      output.writeBool(22, insertFromSelect_);
+    }
+    for (int i = 0; i < insertColumns_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 23, insertColumns_.getRaw(i));
+    }
+    for (int i = 0; i < conflictColumns_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 24, conflictColumns_.getRaw(i));
+    }
+    com.google.protobuf.GeneratedMessageV3
+      .serializeStringMapTo(
+        output,
+        internalGetUpsertValues(),
+        UpsertValuesDefaultEntryHolder.defaultEntry,
+        25);
+    if (useReplace_ != false) {
+      output.writeBool(26, useReplace_);
+    }
+    if (useMerge_ != false) {
+      output.writeBool(27, useMerge_);
+    }
+    for (int i = 0; i < returningFields_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 28, returningFields_.getRaw(i));
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(primaryKeyField_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 29, primaryKeyField_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sqlQuery_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 30, sqlQuery_);
+    }
+    if (deleteWithJoin_ != false) {
+      output.writeBool(31, deleteWithJoin_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deleteTableAlias_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 32, deleteTableAlias_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -1094,6 +1683,75 @@ com.sqlengine.grpc.SortDirection defaultValue) {
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(updatedAt_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, updatedAt_);
     }
+    for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+         : internalGetInsertValues().getMap().entrySet()) {
+      com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+      insertValues__ = InsertValuesDefaultEntryHolder.defaultEntry.newBuilderForType()
+          .setKey(entry.getKey())
+          .setValue(entry.getValue())
+          .build();
+      size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(21, insertValues__);
+    }
+    if (insertFromSelect_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(22, insertFromSelect_);
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < insertColumns_.size(); i++) {
+        dataSize += computeStringSizeNoTag(insertColumns_.getRaw(i));
+      }
+      size += dataSize;
+      size += 2 * getInsertColumnsList().size();
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < conflictColumns_.size(); i++) {
+        dataSize += computeStringSizeNoTag(conflictColumns_.getRaw(i));
+      }
+      size += dataSize;
+      size += 2 * getConflictColumnsList().size();
+    }
+    for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+         : internalGetUpsertValues().getMap().entrySet()) {
+      com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+      upsertValues__ = UpsertValuesDefaultEntryHolder.defaultEntry.newBuilderForType()
+          .setKey(entry.getKey())
+          .setValue(entry.getValue())
+          .build();
+      size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(25, upsertValues__);
+    }
+    if (useReplace_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(26, useReplace_);
+    }
+    if (useMerge_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(27, useMerge_);
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < returningFields_.size(); i++) {
+        dataSize += computeStringSizeNoTag(returningFields_.getRaw(i));
+      }
+      size += dataSize;
+      size += 2 * getReturningFieldsList().size();
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(primaryKeyField_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(29, primaryKeyField_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(sqlQuery_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(30, sqlQuery_);
+    }
+    if (deleteWithJoin_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(31, deleteWithJoin_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deleteTableAlias_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(32, deleteTableAlias_);
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -1149,6 +1807,30 @@ com.sqlengine.grpc.SortDirection defaultValue) {
         .equals(other.getCreatedAt())) return false;
     if (!getUpdatedAt()
         .equals(other.getUpdatedAt())) return false;
+    if (!internalGetInsertValues().equals(
+        other.internalGetInsertValues())) return false;
+    if (getInsertFromSelect()
+        != other.getInsertFromSelect()) return false;
+    if (!getInsertColumnsList()
+        .equals(other.getInsertColumnsList())) return false;
+    if (!getConflictColumnsList()
+        .equals(other.getConflictColumnsList())) return false;
+    if (!internalGetUpsertValues().equals(
+        other.internalGetUpsertValues())) return false;
+    if (getUseReplace()
+        != other.getUseReplace()) return false;
+    if (getUseMerge()
+        != other.getUseMerge()) return false;
+    if (!getReturningFieldsList()
+        .equals(other.getReturningFieldsList())) return false;
+    if (!getPrimaryKeyField()
+        .equals(other.getPrimaryKeyField())) return false;
+    if (!getSqlQuery()
+        .equals(other.getSqlQuery())) return false;
+    if (getDeleteWithJoin()
+        != other.getDeleteWithJoin()) return false;
+    if (!getDeleteTableAlias()
+        .equals(other.getDeleteTableAlias())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -1221,6 +1903,44 @@ com.sqlengine.grpc.SortDirection defaultValue) {
     hash = (53 * hash) + getCreatedAt().hashCode();
     hash = (37 * hash) + UPDATEDAT_FIELD_NUMBER;
     hash = (53 * hash) + getUpdatedAt().hashCode();
+    if (!internalGetInsertValues().getMap().isEmpty()) {
+      hash = (37 * hash) + INSERTVALUES_FIELD_NUMBER;
+      hash = (53 * hash) + internalGetInsertValues().hashCode();
+    }
+    hash = (37 * hash) + INSERTFROMSELECT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getInsertFromSelect());
+    if (getInsertColumnsCount() > 0) {
+      hash = (37 * hash) + INSERTCOLUMNS_FIELD_NUMBER;
+      hash = (53 * hash) + getInsertColumnsList().hashCode();
+    }
+    if (getConflictColumnsCount() > 0) {
+      hash = (37 * hash) + CONFLICTCOLUMNS_FIELD_NUMBER;
+      hash = (53 * hash) + getConflictColumnsList().hashCode();
+    }
+    if (!internalGetUpsertValues().getMap().isEmpty()) {
+      hash = (37 * hash) + UPSERTVALUES_FIELD_NUMBER;
+      hash = (53 * hash) + internalGetUpsertValues().hashCode();
+    }
+    hash = (37 * hash) + USEREPLACE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getUseReplace());
+    hash = (37 * hash) + USEMERGE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getUseMerge());
+    if (getReturningFieldsCount() > 0) {
+      hash = (37 * hash) + RETURNINGFIELDS_FIELD_NUMBER;
+      hash = (53 * hash) + getReturningFieldsList().hashCode();
+    }
+    hash = (37 * hash) + PRIMARYKEYFIELD_FIELD_NUMBER;
+    hash = (53 * hash) + getPrimaryKeyField().hashCode();
+    hash = (37 * hash) + SQLQUERY_FIELD_NUMBER;
+    hash = (53 * hash) + getSqlQuery().hashCode();
+    hash = (37 * hash) + DELETEWITHJOIN_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getDeleteWithJoin());
+    hash = (37 * hash) + DELETETABLEALIAS_FIELD_NUMBER;
+    hash = (53 * hash) + getDeleteTableAlias().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -1338,6 +2058,10 @@ com.sqlengine.grpc.SortDirection defaultValue) {
           return internalGetUpdatedValues();
         case 15:
           return internalGetOrderBy();
+        case 21:
+          return internalGetInsertValues();
+        case 25:
+          return internalGetUpsertValues();
         default:
           throw new RuntimeException(
               "Invalid map field number: " + number);
@@ -1351,6 +2075,10 @@ com.sqlengine.grpc.SortDirection defaultValue) {
           return internalGetMutableUpdatedValues();
         case 15:
           return internalGetMutableOrderBy();
+        case 21:
+          return internalGetMutableInsertValues();
+        case 25:
+          return internalGetMutableUpsertValues();
         default:
           throw new RuntimeException(
               "Invalid map field number: " + number);
@@ -1441,6 +2169,21 @@ com.sqlengine.grpc.SortDirection defaultValue) {
           com.google.protobuf.LazyStringArrayList.emptyList();
       createdAt_ = "";
       updatedAt_ = "";
+      internalGetMutableInsertValues().clear();
+      insertFromSelect_ = false;
+      insertColumns_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      conflictColumns_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      internalGetMutableUpsertValues().clear();
+      useReplace_ = false;
+      useMerge_ = false;
+      returningFields_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      primaryKeyField_ = "";
+      sqlQuery_ = "";
+      deleteWithJoin_ = false;
+      deleteTableAlias_ = "";
       return this;
     }
 
@@ -1582,6 +2325,47 @@ com.sqlengine.grpc.SortDirection defaultValue) {
       }
       if (((from_bitField0_ & 0x00080000) != 0)) {
         result.updatedAt_ = updatedAt_;
+      }
+      if (((from_bitField0_ & 0x00100000) != 0)) {
+        result.insertValues_ = internalGetInsertValues();
+        result.insertValues_.makeImmutable();
+      }
+      if (((from_bitField0_ & 0x00200000) != 0)) {
+        result.insertFromSelect_ = insertFromSelect_;
+      }
+      if (((from_bitField0_ & 0x00400000) != 0)) {
+        insertColumns_.makeImmutable();
+        result.insertColumns_ = insertColumns_;
+      }
+      if (((from_bitField0_ & 0x00800000) != 0)) {
+        conflictColumns_.makeImmutable();
+        result.conflictColumns_ = conflictColumns_;
+      }
+      if (((from_bitField0_ & 0x01000000) != 0)) {
+        result.upsertValues_ = internalGetUpsertValues();
+        result.upsertValues_.makeImmutable();
+      }
+      if (((from_bitField0_ & 0x02000000) != 0)) {
+        result.useReplace_ = useReplace_;
+      }
+      if (((from_bitField0_ & 0x04000000) != 0)) {
+        result.useMerge_ = useMerge_;
+      }
+      if (((from_bitField0_ & 0x08000000) != 0)) {
+        returningFields_.makeImmutable();
+        result.returningFields_ = returningFields_;
+      }
+      if (((from_bitField0_ & 0x10000000) != 0)) {
+        result.primaryKeyField_ = primaryKeyField_;
+      }
+      if (((from_bitField0_ & 0x20000000) != 0)) {
+        result.sqlQuery_ = sqlQuery_;
+      }
+      if (((from_bitField0_ & 0x40000000) != 0)) {
+        result.deleteWithJoin_ = deleteWithJoin_;
+      }
+      if (((from_bitField0_ & 0x80000000) != 0)) {
+        result.deleteTableAlias_ = deleteTableAlias_;
       }
     }
 
@@ -1871,6 +2655,69 @@ com.sqlengine.grpc.SortDirection defaultValue) {
         bitField0_ |= 0x00080000;
         onChanged();
       }
+      internalGetMutableInsertValues().mergeFrom(
+          other.internalGetInsertValues());
+      bitField0_ |= 0x00100000;
+      if (other.getInsertFromSelect() != false) {
+        setInsertFromSelect(other.getInsertFromSelect());
+      }
+      if (!other.insertColumns_.isEmpty()) {
+        if (insertColumns_.isEmpty()) {
+          insertColumns_ = other.insertColumns_;
+          bitField0_ |= 0x00400000;
+        } else {
+          ensureInsertColumnsIsMutable();
+          insertColumns_.addAll(other.insertColumns_);
+        }
+        onChanged();
+      }
+      if (!other.conflictColumns_.isEmpty()) {
+        if (conflictColumns_.isEmpty()) {
+          conflictColumns_ = other.conflictColumns_;
+          bitField0_ |= 0x00800000;
+        } else {
+          ensureConflictColumnsIsMutable();
+          conflictColumns_.addAll(other.conflictColumns_);
+        }
+        onChanged();
+      }
+      internalGetMutableUpsertValues().mergeFrom(
+          other.internalGetUpsertValues());
+      bitField0_ |= 0x01000000;
+      if (other.getUseReplace() != false) {
+        setUseReplace(other.getUseReplace());
+      }
+      if (other.getUseMerge() != false) {
+        setUseMerge(other.getUseMerge());
+      }
+      if (!other.returningFields_.isEmpty()) {
+        if (returningFields_.isEmpty()) {
+          returningFields_ = other.returningFields_;
+          bitField0_ |= 0x08000000;
+        } else {
+          ensureReturningFieldsIsMutable();
+          returningFields_.addAll(other.returningFields_);
+        }
+        onChanged();
+      }
+      if (!other.getPrimaryKeyField().isEmpty()) {
+        primaryKeyField_ = other.primaryKeyField_;
+        bitField0_ |= 0x10000000;
+        onChanged();
+      }
+      if (!other.getSqlQuery().isEmpty()) {
+        sqlQuery_ = other.sqlQuery_;
+        bitField0_ |= 0x20000000;
+        onChanged();
+      }
+      if (other.getDeleteWithJoin() != false) {
+        setDeleteWithJoin(other.getDeleteWithJoin());
+      }
+      if (!other.getDeleteTableAlias().isEmpty()) {
+        deleteTableAlias_ = other.deleteTableAlias_;
+        bitField0_ |= 0x80000000;
+        onChanged();
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -2062,6 +2909,77 @@ com.sqlengine.grpc.SortDirection defaultValue) {
               bitField0_ |= 0x00080000;
               break;
             } // case 162
+            case 170: {
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              insertValues__ = input.readMessage(
+                  InsertValuesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              internalGetMutableInsertValues().getMutableMap().put(
+                  insertValues__.getKey(), insertValues__.getValue());
+              bitField0_ |= 0x00100000;
+              break;
+            } // case 170
+            case 176: {
+              insertFromSelect_ = input.readBool();
+              bitField0_ |= 0x00200000;
+              break;
+            } // case 176
+            case 186: {
+              java.lang.String s = input.readStringRequireUtf8();
+              ensureInsertColumnsIsMutable();
+              insertColumns_.add(s);
+              break;
+            } // case 186
+            case 194: {
+              java.lang.String s = input.readStringRequireUtf8();
+              ensureConflictColumnsIsMutable();
+              conflictColumns_.add(s);
+              break;
+            } // case 194
+            case 202: {
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              upsertValues__ = input.readMessage(
+                  UpsertValuesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              internalGetMutableUpsertValues().getMutableMap().put(
+                  upsertValues__.getKey(), upsertValues__.getValue());
+              bitField0_ |= 0x01000000;
+              break;
+            } // case 202
+            case 208: {
+              useReplace_ = input.readBool();
+              bitField0_ |= 0x02000000;
+              break;
+            } // case 208
+            case 216: {
+              useMerge_ = input.readBool();
+              bitField0_ |= 0x04000000;
+              break;
+            } // case 216
+            case 226: {
+              java.lang.String s = input.readStringRequireUtf8();
+              ensureReturningFieldsIsMutable();
+              returningFields_.add(s);
+              break;
+            } // case 226
+            case 234: {
+              primaryKeyField_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x10000000;
+              break;
+            } // case 234
+            case 242: {
+              sqlQuery_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x20000000;
+              break;
+            } // case 242
+            case 248: {
+              deleteWithJoin_ = input.readBool();
+              bitField0_ |= 0x40000000;
+              break;
+            } // case 248
+            case 258: {
+              deleteTableAlias_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x80000000;
+              break;
+            } // case 258
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -4801,6 +5719,1169 @@ com.sqlengine.grpc.SortDirection defaultValue) {
       checkByteStringIsUtf8(value);
       updatedAt_ = value;
       bitField0_ |= 0x00080000;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> insertValues_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetInsertValues() {
+      if (insertValues_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            InsertValuesDefaultEntryHolder.defaultEntry);
+      }
+      return insertValues_;
+    }
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetMutableInsertValues() {
+      if (insertValues_ == null) {
+        insertValues_ = com.google.protobuf.MapField.newMapField(
+            InsertValuesDefaultEntryHolder.defaultEntry);
+      }
+      if (!insertValues_.isMutable()) {
+        insertValues_ = insertValues_.copy();
+      }
+      bitField0_ |= 0x00100000;
+      onChanged();
+      return insertValues_;
+    }
+    public int getInsertValuesCount() {
+      return internalGetInsertValues().getMap().size();
+    }
+    /**
+     * <pre>
+     * Key-value pairs for single row insert
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; insertValues = 21;</code>
+     */
+    @java.lang.Override
+    public boolean containsInsertValues(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetInsertValues().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getInsertValuesMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getInsertValues() {
+      return getInsertValuesMap();
+    }
+    /**
+     * <pre>
+     * Key-value pairs for single row insert
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; insertValues = 21;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getInsertValuesMap() {
+      return internalGetInsertValues().getMap();
+    }
+    /**
+     * <pre>
+     * Key-value pairs for single row insert
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; insertValues = 21;</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getInsertValuesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetInsertValues().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * Key-value pairs for single row insert
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; insertValues = 21;</code>
+     */
+    @java.lang.Override
+    public java.lang.String getInsertValuesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetInsertValues().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+    public Builder clearInsertValues() {
+      bitField0_ = (bitField0_ & ~0x00100000);
+      internalGetMutableInsertValues().getMutableMap()
+          .clear();
+      return this;
+    }
+    /**
+     * <pre>
+     * Key-value pairs for single row insert
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; insertValues = 21;</code>
+     */
+    public Builder removeInsertValues(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      internalGetMutableInsertValues().getMutableMap()
+          .remove(key);
+      return this;
+    }
+    /**
+     * Use alternate mutation accessors instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String>
+        getMutableInsertValues() {
+      bitField0_ |= 0x00100000;
+      return internalGetMutableInsertValues().getMutableMap();
+    }
+    /**
+     * <pre>
+     * Key-value pairs for single row insert
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; insertValues = 21;</code>
+     */
+    public Builder putInsertValues(
+        java.lang.String key,
+        java.lang.String value) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      if (value == null) { throw new NullPointerException("map value"); }
+      internalGetMutableInsertValues().getMutableMap()
+          .put(key, value);
+      bitField0_ |= 0x00100000;
+      return this;
+    }
+    /**
+     * <pre>
+     * Key-value pairs for single row insert
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; insertValues = 21;</code>
+     */
+    public Builder putAllInsertValues(
+        java.util.Map<java.lang.String, java.lang.String> values) {
+      internalGetMutableInsertValues().getMutableMap()
+          .putAll(values);
+      bitField0_ |= 0x00100000;
+      return this;
+    }
+
+    private boolean insertFromSelect_ ;
+    /**
+     * <pre>
+     * If true, use INSERT INTO ... SELECT ...
+     * </pre>
+     *
+     * <code>bool insertFromSelect = 22;</code>
+     * @return The insertFromSelect.
+     */
+    @java.lang.Override
+    public boolean getInsertFromSelect() {
+      return insertFromSelect_;
+    }
+    /**
+     * <pre>
+     * If true, use INSERT INTO ... SELECT ...
+     * </pre>
+     *
+     * <code>bool insertFromSelect = 22;</code>
+     * @param value The insertFromSelect to set.
+     * @return This builder for chaining.
+     */
+    public Builder setInsertFromSelect(boolean value) {
+
+      insertFromSelect_ = value;
+      bitField0_ |= 0x00200000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * If true, use INSERT INTO ... SELECT ...
+     * </pre>
+     *
+     * <code>bool insertFromSelect = 22;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearInsertFromSelect() {
+      bitField0_ = (bitField0_ & ~0x00200000);
+      insertFromSelect_ = false;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.LazyStringArrayList insertColumns_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    private void ensureInsertColumnsIsMutable() {
+      if (!insertColumns_.isModifiable()) {
+        insertColumns_ = new com.google.protobuf.LazyStringArrayList(insertColumns_);
+      }
+      bitField0_ |= 0x00400000;
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @return A list containing the insertColumns.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getInsertColumnsList() {
+      insertColumns_.makeImmutable();
+      return insertColumns_;
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @return The count of insertColumns.
+     */
+    public int getInsertColumnsCount() {
+      return insertColumns_.size();
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @param index The index of the element to return.
+     * @return The insertColumns at the given index.
+     */
+    public java.lang.String getInsertColumns(int index) {
+      return insertColumns_.get(index);
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the insertColumns at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getInsertColumnsBytes(int index) {
+      return insertColumns_.getByteString(index);
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @param index The index to set the value at.
+     * @param value The insertColumns to set.
+     * @return This builder for chaining.
+     */
+    public Builder setInsertColumns(
+        int index, java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureInsertColumnsIsMutable();
+      insertColumns_.set(index, value);
+      bitField0_ |= 0x00400000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @param value The insertColumns to add.
+     * @return This builder for chaining.
+     */
+    public Builder addInsertColumns(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureInsertColumnsIsMutable();
+      insertColumns_.add(value);
+      bitField0_ |= 0x00400000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @param values The insertColumns to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllInsertColumns(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureInsertColumnsIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, insertColumns_);
+      bitField0_ |= 0x00400000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearInsertColumns() {
+      insertColumns_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+      bitField0_ = (bitField0_ & ~0x00400000);;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Columns to insert into (used with insertFromSelect + subqueries)
+     * </pre>
+     *
+     * <code>repeated string insertColumns = 23;</code>
+     * @param value The bytes of the insertColumns to add.
+     * @return This builder for chaining.
+     */
+    public Builder addInsertColumnsBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      ensureInsertColumnsIsMutable();
+      insertColumns_.add(value);
+      bitField0_ |= 0x00400000;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.LazyStringArrayList conflictColumns_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    private void ensureConflictColumnsIsMutable() {
+      if (!conflictColumns_.isModifiable()) {
+        conflictColumns_ = new com.google.protobuf.LazyStringArrayList(conflictColumns_);
+      }
+      bitField0_ |= 0x00800000;
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @return A list containing the conflictColumns.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getConflictColumnsList() {
+      conflictColumns_.makeImmutable();
+      return conflictColumns_;
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @return The count of conflictColumns.
+     */
+    public int getConflictColumnsCount() {
+      return conflictColumns_.size();
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @param index The index of the element to return.
+     * @return The conflictColumns at the given index.
+     */
+    public java.lang.String getConflictColumns(int index) {
+      return conflictColumns_.get(index);
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the conflictColumns at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getConflictColumnsBytes(int index) {
+      return conflictColumns_.getByteString(index);
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @param index The index to set the value at.
+     * @param value The conflictColumns to set.
+     * @return This builder for chaining.
+     */
+    public Builder setConflictColumns(
+        int index, java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureConflictColumnsIsMutable();
+      conflictColumns_.set(index, value);
+      bitField0_ |= 0x00800000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @param value The conflictColumns to add.
+     * @return This builder for chaining.
+     */
+    public Builder addConflictColumns(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureConflictColumnsIsMutable();
+      conflictColumns_.add(value);
+      bitField0_ |= 0x00800000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @param values The conflictColumns to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllConflictColumns(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureConflictColumnsIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, conflictColumns_);
+      bitField0_ |= 0x00800000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearConflictColumns() {
+      conflictColumns_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+      bitField0_ = (bitField0_ & ~0x00800000);;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+     * </pre>
+     *
+     * <code>repeated string conflictColumns = 24;</code>
+     * @param value The bytes of the conflictColumns to add.
+     * @return This builder for chaining.
+     */
+    public Builder addConflictColumnsBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      ensureConflictColumnsIsMutable();
+      conflictColumns_.add(value);
+      bitField0_ |= 0x00800000;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> upsertValues_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetUpsertValues() {
+      if (upsertValues_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            UpsertValuesDefaultEntryHolder.defaultEntry);
+      }
+      return upsertValues_;
+    }
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetMutableUpsertValues() {
+      if (upsertValues_ == null) {
+        upsertValues_ = com.google.protobuf.MapField.newMapField(
+            UpsertValuesDefaultEntryHolder.defaultEntry);
+      }
+      if (!upsertValues_.isMutable()) {
+        upsertValues_ = upsertValues_.copy();
+      }
+      bitField0_ |= 0x01000000;
+      onChanged();
+      return upsertValues_;
+    }
+    public int getUpsertValuesCount() {
+      return internalGetUpsertValues().getMap().size();
+    }
+    /**
+     * <pre>
+     * Columns and values to update on conflict (Upsert behavior)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+     */
+    @java.lang.Override
+    public boolean containsUpsertValues(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetUpsertValues().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getUpsertValuesMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getUpsertValues() {
+      return getUpsertValuesMap();
+    }
+    /**
+     * <pre>
+     * Columns and values to update on conflict (Upsert behavior)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getUpsertValuesMap() {
+      return internalGetUpsertValues().getMap();
+    }
+    /**
+     * <pre>
+     * Columns and values to update on conflict (Upsert behavior)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getUpsertValuesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUpsertValues().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <pre>
+     * Columns and values to update on conflict (Upsert behavior)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+     */
+    @java.lang.Override
+    public java.lang.String getUpsertValuesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUpsertValues().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+    public Builder clearUpsertValues() {
+      bitField0_ = (bitField0_ & ~0x01000000);
+      internalGetMutableUpsertValues().getMutableMap()
+          .clear();
+      return this;
+    }
+    /**
+     * <pre>
+     * Columns and values to update on conflict (Upsert behavior)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+     */
+    public Builder removeUpsertValues(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      internalGetMutableUpsertValues().getMutableMap()
+          .remove(key);
+      return this;
+    }
+    /**
+     * Use alternate mutation accessors instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String>
+        getMutableUpsertValues() {
+      bitField0_ |= 0x01000000;
+      return internalGetMutableUpsertValues().getMutableMap();
+    }
+    /**
+     * <pre>
+     * Columns and values to update on conflict (Upsert behavior)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+     */
+    public Builder putUpsertValues(
+        java.lang.String key,
+        java.lang.String value) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      if (value == null) { throw new NullPointerException("map value"); }
+      internalGetMutableUpsertValues().getMutableMap()
+          .put(key, value);
+      bitField0_ |= 0x01000000;
+      return this;
+    }
+    /**
+     * <pre>
+     * Columns and values to update on conflict (Upsert behavior)
+     * </pre>
+     *
+     * <code>map&lt;string, string&gt; upsertValues = 25;</code>
+     */
+    public Builder putAllUpsertValues(
+        java.util.Map<java.lang.String, java.lang.String> values) {
+      internalGetMutableUpsertValues().getMutableMap()
+          .putAll(values);
+      bitField0_ |= 0x01000000;
+      return this;
+    }
+
+    private boolean useReplace_ ;
+    /**
+     * <pre>
+     * Use REPLACE INTO / INSERT OR REPLACE (MySQL/MariaDB/SQLite)
+     * </pre>
+     *
+     * <code>bool useReplace = 26;</code>
+     * @return The useReplace.
+     */
+    @java.lang.Override
+    public boolean getUseReplace() {
+      return useReplace_;
+    }
+    /**
+     * <pre>
+     * Use REPLACE INTO / INSERT OR REPLACE (MySQL/MariaDB/SQLite)
+     * </pre>
+     *
+     * <code>bool useReplace = 26;</code>
+     * @param value The useReplace to set.
+     * @return This builder for chaining.
+     */
+    public Builder setUseReplace(boolean value) {
+
+      useReplace_ = value;
+      bitField0_ |= 0x02000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Use REPLACE INTO / INSERT OR REPLACE (MySQL/MariaDB/SQLite)
+     * </pre>
+     *
+     * <code>bool useReplace = 26;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearUseReplace() {
+      bitField0_ = (bitField0_ & ~0x02000000);
+      useReplace_ = false;
+      onChanged();
+      return this;
+    }
+
+    private boolean useMerge_ ;
+    /**
+     * <pre>
+     * Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+)
+     * </pre>
+     *
+     * <code>bool useMerge = 27;</code>
+     * @return The useMerge.
+     */
+    @java.lang.Override
+    public boolean getUseMerge() {
+      return useMerge_;
+    }
+    /**
+     * <pre>
+     * Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+)
+     * </pre>
+     *
+     * <code>bool useMerge = 27;</code>
+     * @param value The useMerge to set.
+     * @return This builder for chaining.
+     */
+    public Builder setUseMerge(boolean value) {
+
+      useMerge_ = value;
+      bitField0_ |= 0x04000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+)
+     * </pre>
+     *
+     * <code>bool useMerge = 27;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearUseMerge() {
+      bitField0_ = (bitField0_ & ~0x04000000);
+      useMerge_ = false;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.LazyStringArrayList returningFields_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    private void ensureReturningFieldsIsMutable() {
+      if (!returningFields_.isModifiable()) {
+        returningFields_ = new com.google.protobuf.LazyStringArrayList(returningFields_);
+      }
+      bitField0_ |= 0x08000000;
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @return A list containing the returningFields.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getReturningFieldsList() {
+      returningFields_.makeImmutable();
+      return returningFields_;
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @return The count of returningFields.
+     */
+    public int getReturningFieldsCount() {
+      return returningFields_.size();
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @param index The index of the element to return.
+     * @return The returningFields at the given index.
+     */
+    public java.lang.String getReturningFields(int index) {
+      return returningFields_.get(index);
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the returningFields at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getReturningFieldsBytes(int index) {
+      return returningFields_.getByteString(index);
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @param index The index to set the value at.
+     * @param value The returningFields to set.
+     * @return This builder for chaining.
+     */
+    public Builder setReturningFields(
+        int index, java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureReturningFieldsIsMutable();
+      returningFields_.set(index, value);
+      bitField0_ |= 0x08000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @param value The returningFields to add.
+     * @return This builder for chaining.
+     */
+    public Builder addReturningFields(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureReturningFieldsIsMutable();
+      returningFields_.add(value);
+      bitField0_ |= 0x08000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @param values The returningFields to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllReturningFields(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureReturningFieldsIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, returningFields_);
+      bitField0_ |= 0x08000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearReturningFields() {
+      returningFields_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+      bitField0_ = (bitField0_ & ~0x08000000);;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * RETURNING support
+     * </pre>
+     *
+     * <code>repeated string returningFields = 28;</code>
+     * @param value The bytes of the returningFields to add.
+     * @return This builder for chaining.
+     */
+    public Builder addReturningFieldsBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      ensureReturningFieldsIsMutable();
+      returningFields_.add(value);
+      bitField0_ |= 0x08000000;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object primaryKeyField_ = "";
+    /**
+     * <pre>
+     * Optional primary key field (default: "id")
+     * </pre>
+     *
+     * <code>string primaryKeyField = 29;</code>
+     * @return The primaryKeyField.
+     */
+    public java.lang.String getPrimaryKeyField() {
+      java.lang.Object ref = primaryKeyField_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        primaryKeyField_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional primary key field (default: "id")
+     * </pre>
+     *
+     * <code>string primaryKeyField = 29;</code>
+     * @return The bytes for primaryKeyField.
+     */
+    public com.google.protobuf.ByteString
+        getPrimaryKeyFieldBytes() {
+      java.lang.Object ref = primaryKeyField_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        primaryKeyField_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * Optional primary key field (default: "id")
+     * </pre>
+     *
+     * <code>string primaryKeyField = 29;</code>
+     * @param value The primaryKeyField to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPrimaryKeyField(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      primaryKeyField_ = value;
+      bitField0_ |= 0x10000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional primary key field (default: "id")
+     * </pre>
+     *
+     * <code>string primaryKeyField = 29;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearPrimaryKeyField() {
+      primaryKeyField_ = getDefaultInstance().getPrimaryKeyField();
+      bitField0_ = (bitField0_ & ~0x10000000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * Optional primary key field (default: "id")
+     * </pre>
+     *
+     * <code>string primaryKeyField = 29;</code>
+     * @param value The bytes for primaryKeyField to set.
+     * @return This builder for chaining.
+     */
+    public Builder setPrimaryKeyFieldBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      primaryKeyField_ = value;
+      bitField0_ |= 0x10000000;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object sqlQuery_ = "";
+    /**
+     * <code>string sqlQuery = 30;</code>
+     * @return The sqlQuery.
+     */
+    public java.lang.String getSqlQuery() {
+      java.lang.Object ref = sqlQuery_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sqlQuery_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string sqlQuery = 30;</code>
+     * @return The bytes for sqlQuery.
+     */
+    public com.google.protobuf.ByteString
+        getSqlQueryBytes() {
+      java.lang.Object ref = sqlQuery_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sqlQuery_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string sqlQuery = 30;</code>
+     * @param value The sqlQuery to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSqlQuery(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      sqlQuery_ = value;
+      bitField0_ |= 0x20000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string sqlQuery = 30;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearSqlQuery() {
+      sqlQuery_ = getDefaultInstance().getSqlQuery();
+      bitField0_ = (bitField0_ & ~0x20000000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string sqlQuery = 30;</code>
+     * @param value The bytes for sqlQuery to set.
+     * @return This builder for chaining.
+     */
+    public Builder setSqlQueryBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      sqlQuery_ = value;
+      bitField0_ |= 0x20000000;
+      onChanged();
+      return this;
+    }
+
+    private boolean deleteWithJoin_ ;
+    /**
+     * <pre>
+     * --- DELETE-specific fields ---
+     * </pre>
+     *
+     * <code>bool deleteWithJoin = 31;</code>
+     * @return The deleteWithJoin.
+     */
+    @java.lang.Override
+    public boolean getDeleteWithJoin() {
+      return deleteWithJoin_;
+    }
+    /**
+     * <pre>
+     * --- DELETE-specific fields ---
+     * </pre>
+     *
+     * <code>bool deleteWithJoin = 31;</code>
+     * @param value The deleteWithJoin to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDeleteWithJoin(boolean value) {
+
+      deleteWithJoin_ = value;
+      bitField0_ |= 0x40000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * --- DELETE-specific fields ---
+     * </pre>
+     *
+     * <code>bool deleteWithJoin = 31;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDeleteWithJoin() {
+      bitField0_ = (bitField0_ & ~0x40000000);
+      deleteWithJoin_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object deleteTableAlias_ = "";
+    /**
+     * <code>string deleteTableAlias = 32;</code>
+     * @return The deleteTableAlias.
+     */
+    public java.lang.String getDeleteTableAlias() {
+      java.lang.Object ref = deleteTableAlias_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        deleteTableAlias_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string deleteTableAlias = 32;</code>
+     * @return The bytes for deleteTableAlias.
+     */
+    public com.google.protobuf.ByteString
+        getDeleteTableAliasBytes() {
+      java.lang.Object ref = deleteTableAlias_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        deleteTableAlias_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string deleteTableAlias = 32;</code>
+     * @param value The deleteTableAlias to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDeleteTableAlias(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      deleteTableAlias_ = value;
+      bitField0_ |= 0x80000000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string deleteTableAlias = 32;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDeleteTableAlias() {
+      deleteTableAlias_ = getDefaultInstance().getDeleteTableAlias();
+      bitField0_ = (bitField0_ & ~0x80000000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string deleteTableAlias = 32;</code>
+     * @param value The bytes for deleteTableAlias to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDeleteTableAliasBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      deleteTableAlias_ = value;
+      bitField0_ |= 0x80000000;
       onChanged();
       return this;
     }
