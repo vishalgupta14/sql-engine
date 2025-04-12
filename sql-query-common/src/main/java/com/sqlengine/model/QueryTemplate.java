@@ -100,4 +100,28 @@ public class QueryTemplate {
 
     /** Timestamp when the query template was last updated. */
     private LocalDateTime updatedAt;
+
+    // --- INSERT specific fields ---
+
+    /** Key-value pairs for single row insert. */
+    private Map<String, Object> insertValues;
+
+    /** If true, use INSERT INTO ... SELECT ... instead of VALUES */
+    private boolean insertFromSelect;
+
+    /** Columns to insert into (used with insertFromSelect + subqueries) */
+    private List<String> insertColumns;
+
+    /** Conflict resolution: unique keys for ON CONFLICT (PostgreSQL) */
+    private List<String> conflictColumns;
+
+    /** Columns and values to update on conflict (Upsert behavior) */
+    private Map<String, Object> upsertValues;
+
+    /** Use REPLACE INTO / INSERT OR REPLACE (MySQL/MariaDB/SQLite) */
+    private boolean useReplace;
+
+    /** Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+) */
+    private boolean useMerge;
+
 }
