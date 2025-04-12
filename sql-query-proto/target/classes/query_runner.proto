@@ -5,6 +5,19 @@ option java_package = "com.sqlengine.grpc";
 
 package queryrunner;
 
+enum SortDirection {
+  ASC = 0;
+  DESC = 1;
+}
+
+enum JoinType {
+  INNER = 0;
+  LEFT = 1;
+  RIGHT = 2;
+  FULL = 3;
+  CROSS = 4;
+}
+
 message QueryCondition {
   string fieldName = 1;
   string value = 2;
@@ -12,17 +25,62 @@ message QueryCondition {
   string filterOperator = 4;
 }
 
+message SelectedColumn {
+  string columnName = 1;
+  string alias = 2;
+  string expression = 3;
+}
+
+message JoinConfig {
+  JoinType joinType = 1;
+  string table = 2;
+  string alias = 3;
+  string onCondition = 4;
+}
+
+message SubqueryBlock {
+  string name = 1;
+  string query = 2;
+}
+
+message CteBlock {
+  string name = 1;
+  string query = 2;
+}
+
+message UnionQuery {
+  QueryTemplate template = 1;
+  bool unionAll = 2;
+}
+
 message QueryTemplate {
   string id = 1;
   string templateName = 2;
   string createdBy = 3;
   string queryType = 4;
-  string tableName = 5;
-  repeated QueryCondition conditions = 6;
-  repeated QueryCondition havingConditions = 7;
-  bool distinct = 8;
-  int32 limit = 9;
-  int32 offset = 10;
+
+  repeated CteBlock ctes = 5;
+  string tableName = 6;
+  repeated UnionQuery unions = 7;
+  repeated JoinConfig joins = 8;
+  repeated SelectedColumn selectedColumns = 9;
+  bool distinct = 10;
+
+  map<string, string> updatedValues = 11;
+
+  repeated QueryCondition conditions = 12;
+  repeated QueryCondition havingConditions = 13;
+  repeated SubqueryBlock subqueries = 14;
+
+  map<string, SortDirection> orderBy = 15;
+
+  int32 limit = 16;
+  int32 offset = 17;
+
+  repeated string groupBy = 18;
+
+  string createdAt = 19;
+  string updatedAt = 20;
 }
 
 message DatabaseConfig {
@@ -62,10 +120,7 @@ message TableSchemaResponse {
   repeated ColumnInfo columns = 1;
 }
 
-
 service QueryRunnerService {
   rpc RunQuery(QueryRunRequest) returns (QueryRunResponse);
   rpc GetTableSchema(TableSchemaRequest) returns (TableSchemaResponse);
 }
-
-

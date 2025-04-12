@@ -1,5 +1,6 @@
 package com.sqlengine.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sqlengine.enums.SortDirection;
 import com.sqlengine.model.query.CteBlock;
 import com.sqlengine.model.query.JoinConfig;
@@ -21,6 +22,7 @@ import java.util.Map;
  * This model supports advanced SQL features such as CTEs, joins, subqueries,
  * group by, order by, and unions. Designed for dynamic and reusable query generation.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @Document("query_templates")
@@ -57,6 +59,15 @@ public class QueryTemplate {
     /** Whether to select distinct records. */
     private boolean distinct = false;
 
+    /**
+     * Key-value map representing columns to be updated and their values.
+     * Example: {"status": "COMPLETED", "updated_at": "now()"}
+     */
+    private Map<String, Object> updatedValues;
+
+    /** Optional primary key field (defaults to 'id') */
+    private String primaryKeyField = "id";
+
     /** Conditions for the WHERE clause. */
     private List<QueryCondition> conditions;
 
@@ -81,6 +92,8 @@ public class QueryTemplate {
 
     /** List of columns to group the results by. */
     private List<String> groupBy;
+
+    private List<String> returningFields; // e.g., ["id", "email", "status"]
 
     /** Timestamp when the query template was created. */
     private LocalDateTime createdAt;

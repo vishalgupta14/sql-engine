@@ -20,9 +20,18 @@ private static final long serialVersionUID = 0L;
     templateName_ = "";
     createdBy_ = "";
     queryType_ = "";
+    ctes_ = java.util.Collections.emptyList();
     tableName_ = "";
+    unions_ = java.util.Collections.emptyList();
+    joins_ = java.util.Collections.emptyList();
+    selectedColumns_ = java.util.Collections.emptyList();
     conditions_ = java.util.Collections.emptyList();
     havingConditions_ = java.util.Collections.emptyList();
+    subqueries_ = java.util.Collections.emptyList();
+    groupBy_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    createdAt_ = "";
+    updatedAt_ = "";
   }
 
   @java.lang.Override
@@ -37,6 +46,20 @@ private static final long serialVersionUID = 0L;
     return com.sqlengine.grpc.QueryRunner.internal_static_queryrunner_QueryTemplate_descriptor;
   }
 
+  @SuppressWarnings({"rawtypes"})
+  @java.lang.Override
+  protected com.google.protobuf.MapField internalGetMapField(
+      int number) {
+    switch (number) {
+      case 11:
+        return internalGetUpdatedValues();
+      case 15:
+        return internalGetOrderBy();
+      default:
+        throw new RuntimeException(
+            "Invalid map field number: " + number);
+    }
+  }
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
@@ -201,11 +224,52 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int TABLENAME_FIELD_NUMBER = 5;
+  public static final int CTES_FIELD_NUMBER = 5;
+  @SuppressWarnings("serial")
+  private java.util.List<com.sqlengine.grpc.CteBlock> ctes_;
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  @java.lang.Override
+  public java.util.List<com.sqlengine.grpc.CteBlock> getCtesList() {
+    return ctes_;
+  }
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends com.sqlengine.grpc.CteBlockOrBuilder> 
+      getCtesOrBuilderList() {
+    return ctes_;
+  }
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  @java.lang.Override
+  public int getCtesCount() {
+    return ctes_.size();
+  }
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.CteBlock getCtes(int index) {
+    return ctes_.get(index);
+  }
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.CteBlockOrBuilder getCtesOrBuilder(
+      int index) {
+    return ctes_.get(index);
+  }
+
+  public static final int TABLENAME_FIELD_NUMBER = 6;
   @SuppressWarnings("serial")
   private volatile java.lang.Object tableName_ = "";
   /**
-   * <code>string tableName = 5;</code>
+   * <code>string tableName = 6;</code>
    * @return The tableName.
    */
   @java.lang.Override
@@ -222,7 +286,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string tableName = 5;</code>
+   * <code>string tableName = 6;</code>
    * @return The bytes for tableName.
    */
   @java.lang.Override
@@ -240,92 +304,133 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int CONDITIONS_FIELD_NUMBER = 6;
+  public static final int UNIONS_FIELD_NUMBER = 7;
   @SuppressWarnings("serial")
-  private java.util.List<com.sqlengine.grpc.QueryCondition> conditions_;
+  private java.util.List<com.sqlengine.grpc.UnionQuery> unions_;
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
   @java.lang.Override
-  public java.util.List<com.sqlengine.grpc.QueryCondition> getConditionsList() {
-    return conditions_;
+  public java.util.List<com.sqlengine.grpc.UnionQuery> getUnionsList() {
+    return unions_;
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
   @java.lang.Override
-  public java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
-      getConditionsOrBuilderList() {
-    return conditions_;
+  public java.util.List<? extends com.sqlengine.grpc.UnionQueryOrBuilder> 
+      getUnionsOrBuilderList() {
+    return unions_;
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
   @java.lang.Override
-  public int getConditionsCount() {
-    return conditions_.size();
+  public int getUnionsCount() {
+    return unions_.size();
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
   @java.lang.Override
-  public com.sqlengine.grpc.QueryCondition getConditions(int index) {
-    return conditions_.get(index);
+  public com.sqlengine.grpc.UnionQuery getUnions(int index) {
+    return unions_.get(index);
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
   @java.lang.Override
-  public com.sqlengine.grpc.QueryConditionOrBuilder getConditionsOrBuilder(
+  public com.sqlengine.grpc.UnionQueryOrBuilder getUnionsOrBuilder(
       int index) {
-    return conditions_.get(index);
+    return unions_.get(index);
   }
 
-  public static final int HAVINGCONDITIONS_FIELD_NUMBER = 7;
+  public static final int JOINS_FIELD_NUMBER = 8;
   @SuppressWarnings("serial")
-  private java.util.List<com.sqlengine.grpc.QueryCondition> havingConditions_;
+  private java.util.List<com.sqlengine.grpc.JoinConfig> joins_;
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
   @java.lang.Override
-  public java.util.List<com.sqlengine.grpc.QueryCondition> getHavingConditionsList() {
-    return havingConditions_;
+  public java.util.List<com.sqlengine.grpc.JoinConfig> getJoinsList() {
+    return joins_;
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
   @java.lang.Override
-  public java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
-      getHavingConditionsOrBuilderList() {
-    return havingConditions_;
+  public java.util.List<? extends com.sqlengine.grpc.JoinConfigOrBuilder> 
+      getJoinsOrBuilderList() {
+    return joins_;
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
   @java.lang.Override
-  public int getHavingConditionsCount() {
-    return havingConditions_.size();
+  public int getJoinsCount() {
+    return joins_.size();
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
   @java.lang.Override
-  public com.sqlengine.grpc.QueryCondition getHavingConditions(int index) {
-    return havingConditions_.get(index);
+  public com.sqlengine.grpc.JoinConfig getJoins(int index) {
+    return joins_.get(index);
   }
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
   @java.lang.Override
-  public com.sqlengine.grpc.QueryConditionOrBuilder getHavingConditionsOrBuilder(
+  public com.sqlengine.grpc.JoinConfigOrBuilder getJoinsOrBuilder(
       int index) {
-    return havingConditions_.get(index);
+    return joins_.get(index);
   }
 
-  public static final int DISTINCT_FIELD_NUMBER = 8;
+  public static final int SELECTEDCOLUMNS_FIELD_NUMBER = 9;
+  @SuppressWarnings("serial")
+  private java.util.List<com.sqlengine.grpc.SelectedColumn> selectedColumns_;
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  @java.lang.Override
+  public java.util.List<com.sqlengine.grpc.SelectedColumn> getSelectedColumnsList() {
+    return selectedColumns_;
+  }
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends com.sqlengine.grpc.SelectedColumnOrBuilder> 
+      getSelectedColumnsOrBuilderList() {
+    return selectedColumns_;
+  }
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  @java.lang.Override
+  public int getSelectedColumnsCount() {
+    return selectedColumns_.size();
+  }
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.SelectedColumn getSelectedColumns(int index) {
+    return selectedColumns_.get(index);
+  }
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.SelectedColumnOrBuilder getSelectedColumnsOrBuilder(
+      int index) {
+    return selectedColumns_.get(index);
+  }
+
+  public static final int DISTINCT_FIELD_NUMBER = 10;
   private boolean distinct_ = false;
   /**
-   * <code>bool distinct = 8;</code>
+   * <code>bool distinct = 10;</code>
    * @return The distinct.
    */
   @java.lang.Override
@@ -333,10 +438,351 @@ private static final long serialVersionUID = 0L;
     return distinct_;
   }
 
-  public static final int LIMIT_FIELD_NUMBER = 9;
+  public static final int UPDATEDVALUES_FIELD_NUMBER = 11;
+  private static final class UpdatedValuesDefaultEntryHolder {
+    static final com.google.protobuf.MapEntry<
+        java.lang.String, java.lang.String> defaultEntry =
+            com.google.protobuf.MapEntry
+            .<java.lang.String, java.lang.String>newDefaultInstance(
+                com.sqlengine.grpc.QueryRunner.internal_static_queryrunner_QueryTemplate_UpdatedValuesEntry_descriptor, 
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "",
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "");
+  }
+  @SuppressWarnings("serial")
+  private com.google.protobuf.MapField<
+      java.lang.String, java.lang.String> updatedValues_;
+  private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+  internalGetUpdatedValues() {
+    if (updatedValues_ == null) {
+      return com.google.protobuf.MapField.emptyMapField(
+          UpdatedValuesDefaultEntryHolder.defaultEntry);
+    }
+    return updatedValues_;
+  }
+  public int getUpdatedValuesCount() {
+    return internalGetUpdatedValues().getMap().size();
+  }
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  @java.lang.Override
+  public boolean containsUpdatedValues(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    return internalGetUpdatedValues().getMap().containsKey(key);
+  }
+  /**
+   * Use {@link #getUpdatedValuesMap()} instead.
+   */
+  @java.lang.Override
+  @java.lang.Deprecated
+  public java.util.Map<java.lang.String, java.lang.String> getUpdatedValues() {
+    return getUpdatedValuesMap();
+  }
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  @java.lang.Override
+  public java.util.Map<java.lang.String, java.lang.String> getUpdatedValuesMap() {
+    return internalGetUpdatedValues().getMap();
+  }
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  @java.lang.Override
+  public /* nullable */
+java.lang.String getUpdatedValuesOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetUpdatedValues().getMap();
+    return map.containsKey(key) ? map.get(key) : defaultValue;
+  }
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  @java.lang.Override
+  public java.lang.String getUpdatedValuesOrThrow(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.String> map =
+        internalGetUpdatedValues().getMap();
+    if (!map.containsKey(key)) {
+      throw new java.lang.IllegalArgumentException();
+    }
+    return map.get(key);
+  }
+
+  public static final int CONDITIONS_FIELD_NUMBER = 12;
+  @SuppressWarnings("serial")
+  private java.util.List<com.sqlengine.grpc.QueryCondition> conditions_;
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  @java.lang.Override
+  public java.util.List<com.sqlengine.grpc.QueryCondition> getConditionsList() {
+    return conditions_;
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
+      getConditionsOrBuilderList() {
+    return conditions_;
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  @java.lang.Override
+  public int getConditionsCount() {
+    return conditions_.size();
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.QueryCondition getConditions(int index) {
+    return conditions_.get(index);
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.QueryConditionOrBuilder getConditionsOrBuilder(
+      int index) {
+    return conditions_.get(index);
+  }
+
+  public static final int HAVINGCONDITIONS_FIELD_NUMBER = 13;
+  @SuppressWarnings("serial")
+  private java.util.List<com.sqlengine.grpc.QueryCondition> havingConditions_;
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  @java.lang.Override
+  public java.util.List<com.sqlengine.grpc.QueryCondition> getHavingConditionsList() {
+    return havingConditions_;
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
+      getHavingConditionsOrBuilderList() {
+    return havingConditions_;
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  @java.lang.Override
+  public int getHavingConditionsCount() {
+    return havingConditions_.size();
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.QueryCondition getHavingConditions(int index) {
+    return havingConditions_.get(index);
+  }
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.QueryConditionOrBuilder getHavingConditionsOrBuilder(
+      int index) {
+    return havingConditions_.get(index);
+  }
+
+  public static final int SUBQUERIES_FIELD_NUMBER = 14;
+  @SuppressWarnings("serial")
+  private java.util.List<com.sqlengine.grpc.SubqueryBlock> subqueries_;
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  @java.lang.Override
+  public java.util.List<com.sqlengine.grpc.SubqueryBlock> getSubqueriesList() {
+    return subqueries_;
+  }
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  @java.lang.Override
+  public java.util.List<? extends com.sqlengine.grpc.SubqueryBlockOrBuilder> 
+      getSubqueriesOrBuilderList() {
+    return subqueries_;
+  }
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  @java.lang.Override
+  public int getSubqueriesCount() {
+    return subqueries_.size();
+  }
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.SubqueryBlock getSubqueries(int index) {
+    return subqueries_.get(index);
+  }
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.SubqueryBlockOrBuilder getSubqueriesOrBuilder(
+      int index) {
+    return subqueries_.get(index);
+  }
+
+  public static final int ORDERBY_FIELD_NUMBER = 15;
+  private static final class OrderByDefaultEntryHolder {
+    static final com.google.protobuf.MapEntry<
+        java.lang.String, java.lang.Integer> defaultEntry =
+            com.google.protobuf.MapEntry
+            .<java.lang.String, java.lang.Integer>newDefaultInstance(
+                com.sqlengine.grpc.QueryRunner.internal_static_queryrunner_QueryTemplate_OrderByEntry_descriptor, 
+                com.google.protobuf.WireFormat.FieldType.STRING,
+                "",
+                com.google.protobuf.WireFormat.FieldType.ENUM,
+                com.sqlengine.grpc.SortDirection.ASC.getNumber());
+  }
+  @SuppressWarnings("serial")
+  private com.google.protobuf.MapField<
+      java.lang.String, java.lang.Integer> orderBy_;
+  private com.google.protobuf.MapField<java.lang.String, java.lang.Integer>
+  internalGetOrderBy() {
+    if (orderBy_ == null) {
+      return com.google.protobuf.MapField.emptyMapField(
+          OrderByDefaultEntryHolder.defaultEntry);
+    }
+    return orderBy_;
+  }
+  private static final
+  com.google.protobuf.Internal.MapAdapter.Converter<
+      java.lang.Integer, com.sqlengine.grpc.SortDirection> orderByValueConverter =
+          com.google.protobuf.Internal.MapAdapter.newEnumConverter(
+              com.sqlengine.grpc.SortDirection.internalGetValueMap(),
+              com.sqlengine.grpc.SortDirection.UNRECOGNIZED);
+  private static final java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+  internalGetAdaptedOrderByMap(
+      java.util.Map<java.lang.String, java.lang.Integer> map) {
+    return new com.google.protobuf.Internal.MapAdapter<
+        java.lang.String, com.sqlengine.grpc.SortDirection, java.lang.Integer>(
+            map, orderByValueConverter);
+  }
+  public int getOrderByCount() {
+    return internalGetOrderBy().getMap().size();
+  }
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  @java.lang.Override
+  public boolean containsOrderBy(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    return internalGetOrderBy().getMap().containsKey(key);
+  }
+  /**
+   * Use {@link #getOrderByMap()} instead.
+   */
+  @java.lang.Override
+  @java.lang.Deprecated
+  public java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+  getOrderBy() {
+    return getOrderByMap();
+  }
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  @java.lang.Override
+  public java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+  getOrderByMap() {
+    return internalGetAdaptedOrderByMap(
+        internalGetOrderBy().getMap());}
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  @java.lang.Override
+  public /* nullable */
+com.sqlengine.grpc.SortDirection getOrderByOrDefault(
+      java.lang.String key,
+      /* nullable */
+com.sqlengine.grpc.SortDirection defaultValue) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.Integer> map =
+        internalGetOrderBy().getMap();
+    return map.containsKey(key)
+           ? orderByValueConverter.doForward(map.get(key))
+           : defaultValue;
+  }
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  @java.lang.Override
+  public com.sqlengine.grpc.SortDirection getOrderByOrThrow(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.Integer> map =
+        internalGetOrderBy().getMap();
+    if (!map.containsKey(key)) {
+      throw new java.lang.IllegalArgumentException();
+    }
+    return orderByValueConverter.doForward(map.get(key));
+  }
+  /**
+   * Use {@link #getOrderByValueMap()} instead.
+   */
+  @java.lang.Override
+  @java.lang.Deprecated
+  public java.util.Map<java.lang.String, java.lang.Integer>
+  getOrderByValue() {
+    return getOrderByValueMap();
+  }
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  @java.lang.Override
+  public java.util.Map<java.lang.String, java.lang.Integer>
+  getOrderByValueMap() {
+    return internalGetOrderBy().getMap();
+  }
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  @java.lang.Override
+  public int getOrderByValueOrDefault(
+      java.lang.String key,
+      int defaultValue) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.Integer> map =
+        internalGetOrderBy().getMap();
+    return map.containsKey(key) ? map.get(key) : defaultValue;
+  }
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  @java.lang.Override
+  public int getOrderByValueOrThrow(
+      java.lang.String key) {
+    if (key == null) { throw new NullPointerException("map key"); }
+    java.util.Map<java.lang.String, java.lang.Integer> map =
+        internalGetOrderBy().getMap();
+    if (!map.containsKey(key)) {
+      throw new java.lang.IllegalArgumentException();
+    }
+    return map.get(key);
+  }
+
+  public static final int LIMIT_FIELD_NUMBER = 16;
   private int limit_ = 0;
   /**
-   * <code>int32 limit = 9;</code>
+   * <code>int32 limit = 16;</code>
    * @return The limit.
    */
   @java.lang.Override
@@ -344,15 +790,130 @@ private static final long serialVersionUID = 0L;
     return limit_;
   }
 
-  public static final int OFFSET_FIELD_NUMBER = 10;
+  public static final int OFFSET_FIELD_NUMBER = 17;
   private int offset_ = 0;
   /**
-   * <code>int32 offset = 10;</code>
+   * <code>int32 offset = 17;</code>
    * @return The offset.
    */
   @java.lang.Override
   public int getOffset() {
     return offset_;
+  }
+
+  public static final int GROUPBY_FIELD_NUMBER = 18;
+  @SuppressWarnings("serial")
+  private com.google.protobuf.LazyStringArrayList groupBy_ =
+      com.google.protobuf.LazyStringArrayList.emptyList();
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @return A list containing the groupBy.
+   */
+  public com.google.protobuf.ProtocolStringList
+      getGroupByList() {
+    return groupBy_;
+  }
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @return The count of groupBy.
+   */
+  public int getGroupByCount() {
+    return groupBy_.size();
+  }
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @param index The index of the element to return.
+   * @return The groupBy at the given index.
+   */
+  public java.lang.String getGroupBy(int index) {
+    return groupBy_.get(index);
+  }
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the groupBy at the given index.
+   */
+  public com.google.protobuf.ByteString
+      getGroupByBytes(int index) {
+    return groupBy_.getByteString(index);
+  }
+
+  public static final int CREATEDAT_FIELD_NUMBER = 19;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object createdAt_ = "";
+  /**
+   * <code>string createdAt = 19;</code>
+   * @return The createdAt.
+   */
+  @java.lang.Override
+  public java.lang.String getCreatedAt() {
+    java.lang.Object ref = createdAt_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      createdAt_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string createdAt = 19;</code>
+   * @return The bytes for createdAt.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getCreatedAtBytes() {
+    java.lang.Object ref = createdAt_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      createdAt_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int UPDATEDAT_FIELD_NUMBER = 20;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object updatedAt_ = "";
+  /**
+   * <code>string updatedAt = 20;</code>
+   * @return The updatedAt.
+   */
+  @java.lang.Override
+  public java.lang.String getUpdatedAt() {
+    java.lang.Object ref = updatedAt_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      updatedAt_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string updatedAt = 20;</code>
+   * @return The bytes for updatedAt.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getUpdatedAtBytes() {
+    java.lang.Object ref = updatedAt_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      updatedAt_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -381,23 +942,59 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(queryType_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, queryType_);
     }
+    for (int i = 0; i < ctes_.size(); i++) {
+      output.writeMessage(5, ctes_.get(i));
+    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(tableName_)) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, tableName_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, tableName_);
     }
-    for (int i = 0; i < conditions_.size(); i++) {
-      output.writeMessage(6, conditions_.get(i));
+    for (int i = 0; i < unions_.size(); i++) {
+      output.writeMessage(7, unions_.get(i));
     }
-    for (int i = 0; i < havingConditions_.size(); i++) {
-      output.writeMessage(7, havingConditions_.get(i));
+    for (int i = 0; i < joins_.size(); i++) {
+      output.writeMessage(8, joins_.get(i));
+    }
+    for (int i = 0; i < selectedColumns_.size(); i++) {
+      output.writeMessage(9, selectedColumns_.get(i));
     }
     if (distinct_ != false) {
-      output.writeBool(8, distinct_);
+      output.writeBool(10, distinct_);
     }
+    com.google.protobuf.GeneratedMessageV3
+      .serializeStringMapTo(
+        output,
+        internalGetUpdatedValues(),
+        UpdatedValuesDefaultEntryHolder.defaultEntry,
+        11);
+    for (int i = 0; i < conditions_.size(); i++) {
+      output.writeMessage(12, conditions_.get(i));
+    }
+    for (int i = 0; i < havingConditions_.size(); i++) {
+      output.writeMessage(13, havingConditions_.get(i));
+    }
+    for (int i = 0; i < subqueries_.size(); i++) {
+      output.writeMessage(14, subqueries_.get(i));
+    }
+    com.google.protobuf.GeneratedMessageV3
+      .serializeStringMapTo(
+        output,
+        internalGetOrderBy(),
+        OrderByDefaultEntryHolder.defaultEntry,
+        15);
     if (limit_ != 0) {
-      output.writeInt32(9, limit_);
+      output.writeInt32(16, limit_);
     }
     if (offset_ != 0) {
-      output.writeInt32(10, offset_);
+      output.writeInt32(17, offset_);
+    }
+    for (int i = 0; i < groupBy_.size(); i++) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 18, groupBy_.getRaw(i));
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(createdAt_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 19, createdAt_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(updatedAt_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 20, updatedAt_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -420,28 +1017,82 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(queryType_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, queryType_);
     }
+    for (int i = 0; i < ctes_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(5, ctes_.get(i));
+    }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(tableName_)) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, tableName_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, tableName_);
     }
-    for (int i = 0; i < conditions_.size(); i++) {
+    for (int i = 0; i < unions_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(6, conditions_.get(i));
+        .computeMessageSize(7, unions_.get(i));
     }
-    for (int i = 0; i < havingConditions_.size(); i++) {
+    for (int i = 0; i < joins_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(7, havingConditions_.get(i));
+        .computeMessageSize(8, joins_.get(i));
+    }
+    for (int i = 0; i < selectedColumns_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(9, selectedColumns_.get(i));
     }
     if (distinct_ != false) {
       size += com.google.protobuf.CodedOutputStream
-        .computeBoolSize(8, distinct_);
+        .computeBoolSize(10, distinct_);
+    }
+    for (java.util.Map.Entry<java.lang.String, java.lang.String> entry
+         : internalGetUpdatedValues().getMap().entrySet()) {
+      com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+      updatedValues__ = UpdatedValuesDefaultEntryHolder.defaultEntry.newBuilderForType()
+          .setKey(entry.getKey())
+          .setValue(entry.getValue())
+          .build();
+      size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(11, updatedValues__);
+    }
+    for (int i = 0; i < conditions_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(12, conditions_.get(i));
+    }
+    for (int i = 0; i < havingConditions_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(13, havingConditions_.get(i));
+    }
+    for (int i = 0; i < subqueries_.size(); i++) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(14, subqueries_.get(i));
+    }
+    for (java.util.Map.Entry<java.lang.String, java.lang.Integer> entry
+         : internalGetOrderBy().getMap().entrySet()) {
+      com.google.protobuf.MapEntry<java.lang.String, java.lang.Integer>
+      orderBy__ = OrderByDefaultEntryHolder.defaultEntry.newBuilderForType()
+          .setKey(entry.getKey())
+          .setValue(entry.getValue())
+          .build();
+      size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(15, orderBy__);
     }
     if (limit_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(9, limit_);
+        .computeInt32Size(16, limit_);
     }
     if (offset_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(10, offset_);
+        .computeInt32Size(17, offset_);
+    }
+    {
+      int dataSize = 0;
+      for (int i = 0; i < groupBy_.size(); i++) {
+        dataSize += computeStringSizeNoTag(groupBy_.getRaw(i));
+      }
+      size += dataSize;
+      size += 2 * getGroupByList().size();
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(createdAt_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(19, createdAt_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(updatedAt_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, updatedAt_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -466,18 +1117,38 @@ private static final long serialVersionUID = 0L;
         .equals(other.getCreatedBy())) return false;
     if (!getQueryType()
         .equals(other.getQueryType())) return false;
+    if (!getCtesList()
+        .equals(other.getCtesList())) return false;
     if (!getTableName()
         .equals(other.getTableName())) return false;
+    if (!getUnionsList()
+        .equals(other.getUnionsList())) return false;
+    if (!getJoinsList()
+        .equals(other.getJoinsList())) return false;
+    if (!getSelectedColumnsList()
+        .equals(other.getSelectedColumnsList())) return false;
+    if (getDistinct()
+        != other.getDistinct()) return false;
+    if (!internalGetUpdatedValues().equals(
+        other.internalGetUpdatedValues())) return false;
     if (!getConditionsList()
         .equals(other.getConditionsList())) return false;
     if (!getHavingConditionsList()
         .equals(other.getHavingConditionsList())) return false;
-    if (getDistinct()
-        != other.getDistinct()) return false;
+    if (!getSubqueriesList()
+        .equals(other.getSubqueriesList())) return false;
+    if (!internalGetOrderBy().equals(
+        other.internalGetOrderBy())) return false;
     if (getLimit()
         != other.getLimit()) return false;
     if (getOffset()
         != other.getOffset()) return false;
+    if (!getGroupByList()
+        .equals(other.getGroupByList())) return false;
+    if (!getCreatedAt()
+        .equals(other.getCreatedAt())) return false;
+    if (!getUpdatedAt()
+        .equals(other.getUpdatedAt())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -497,8 +1168,31 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getCreatedBy().hashCode();
     hash = (37 * hash) + QUERYTYPE_FIELD_NUMBER;
     hash = (53 * hash) + getQueryType().hashCode();
+    if (getCtesCount() > 0) {
+      hash = (37 * hash) + CTES_FIELD_NUMBER;
+      hash = (53 * hash) + getCtesList().hashCode();
+    }
     hash = (37 * hash) + TABLENAME_FIELD_NUMBER;
     hash = (53 * hash) + getTableName().hashCode();
+    if (getUnionsCount() > 0) {
+      hash = (37 * hash) + UNIONS_FIELD_NUMBER;
+      hash = (53 * hash) + getUnionsList().hashCode();
+    }
+    if (getJoinsCount() > 0) {
+      hash = (37 * hash) + JOINS_FIELD_NUMBER;
+      hash = (53 * hash) + getJoinsList().hashCode();
+    }
+    if (getSelectedColumnsCount() > 0) {
+      hash = (37 * hash) + SELECTEDCOLUMNS_FIELD_NUMBER;
+      hash = (53 * hash) + getSelectedColumnsList().hashCode();
+    }
+    hash = (37 * hash) + DISTINCT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getDistinct());
+    if (!internalGetUpdatedValues().getMap().isEmpty()) {
+      hash = (37 * hash) + UPDATEDVALUES_FIELD_NUMBER;
+      hash = (53 * hash) + internalGetUpdatedValues().hashCode();
+    }
     if (getConditionsCount() > 0) {
       hash = (37 * hash) + CONDITIONS_FIELD_NUMBER;
       hash = (53 * hash) + getConditionsList().hashCode();
@@ -507,13 +1201,26 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + HAVINGCONDITIONS_FIELD_NUMBER;
       hash = (53 * hash) + getHavingConditionsList().hashCode();
     }
-    hash = (37 * hash) + DISTINCT_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-        getDistinct());
+    if (getSubqueriesCount() > 0) {
+      hash = (37 * hash) + SUBQUERIES_FIELD_NUMBER;
+      hash = (53 * hash) + getSubqueriesList().hashCode();
+    }
+    if (!internalGetOrderBy().getMap().isEmpty()) {
+      hash = (37 * hash) + ORDERBY_FIELD_NUMBER;
+      hash = (53 * hash) + internalGetOrderBy().hashCode();
+    }
     hash = (37 * hash) + LIMIT_FIELD_NUMBER;
     hash = (53 * hash) + getLimit();
     hash = (37 * hash) + OFFSET_FIELD_NUMBER;
     hash = (53 * hash) + getOffset();
+    if (getGroupByCount() > 0) {
+      hash = (37 * hash) + GROUPBY_FIELD_NUMBER;
+      hash = (53 * hash) + getGroupByList().hashCode();
+    }
+    hash = (37 * hash) + CREATEDAT_FIELD_NUMBER;
+    hash = (53 * hash) + getCreatedAt().hashCode();
+    hash = (37 * hash) + UPDATEDAT_FIELD_NUMBER;
+    hash = (53 * hash) + getUpdatedAt().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -623,6 +1330,32 @@ private static final long serialVersionUID = 0L;
       return com.sqlengine.grpc.QueryRunner.internal_static_queryrunner_QueryTemplate_descriptor;
     }
 
+    @SuppressWarnings({"rawtypes"})
+    protected com.google.protobuf.MapField internalGetMapField(
+        int number) {
+      switch (number) {
+        case 11:
+          return internalGetUpdatedValues();
+        case 15:
+          return internalGetOrderBy();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
+    @SuppressWarnings({"rawtypes"})
+    protected com.google.protobuf.MapField internalGetMutableMapField(
+        int number) {
+      switch (number) {
+        case 11:
+          return internalGetMutableUpdatedValues();
+        case 15:
+          return internalGetMutableOrderBy();
+        default:
+          throw new RuntimeException(
+              "Invalid map field number: " + number);
+      }
+    }
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
@@ -649,24 +1382,65 @@ private static final long serialVersionUID = 0L;
       templateName_ = "";
       createdBy_ = "";
       queryType_ = "";
+      if (ctesBuilder_ == null) {
+        ctes_ = java.util.Collections.emptyList();
+      } else {
+        ctes_ = null;
+        ctesBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00000010);
       tableName_ = "";
+      if (unionsBuilder_ == null) {
+        unions_ = java.util.Collections.emptyList();
+      } else {
+        unions_ = null;
+        unionsBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00000040);
+      if (joinsBuilder_ == null) {
+        joins_ = java.util.Collections.emptyList();
+      } else {
+        joins_ = null;
+        joinsBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00000080);
+      if (selectedColumnsBuilder_ == null) {
+        selectedColumns_ = java.util.Collections.emptyList();
+      } else {
+        selectedColumns_ = null;
+        selectedColumnsBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00000100);
+      distinct_ = false;
+      internalGetMutableUpdatedValues().clear();
       if (conditionsBuilder_ == null) {
         conditions_ = java.util.Collections.emptyList();
       } else {
         conditions_ = null;
         conditionsBuilder_.clear();
       }
-      bitField0_ = (bitField0_ & ~0x00000020);
+      bitField0_ = (bitField0_ & ~0x00000800);
       if (havingConditionsBuilder_ == null) {
         havingConditions_ = java.util.Collections.emptyList();
       } else {
         havingConditions_ = null;
         havingConditionsBuilder_.clear();
       }
-      bitField0_ = (bitField0_ & ~0x00000040);
-      distinct_ = false;
+      bitField0_ = (bitField0_ & ~0x00001000);
+      if (subqueriesBuilder_ == null) {
+        subqueries_ = java.util.Collections.emptyList();
+      } else {
+        subqueries_ = null;
+        subqueriesBuilder_.clear();
+      }
+      bitField0_ = (bitField0_ & ~0x00002000);
+      internalGetMutableOrderBy().clear();
       limit_ = 0;
       offset_ = 0;
+      groupBy_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      createdAt_ = "";
+      updatedAt_ = "";
       return this;
     }
 
@@ -700,23 +1474,68 @@ private static final long serialVersionUID = 0L;
     }
 
     private void buildPartialRepeatedFields(com.sqlengine.grpc.QueryTemplate result) {
+      if (ctesBuilder_ == null) {
+        if (((bitField0_ & 0x00000010) != 0)) {
+          ctes_ = java.util.Collections.unmodifiableList(ctes_);
+          bitField0_ = (bitField0_ & ~0x00000010);
+        }
+        result.ctes_ = ctes_;
+      } else {
+        result.ctes_ = ctesBuilder_.build();
+      }
+      if (unionsBuilder_ == null) {
+        if (((bitField0_ & 0x00000040) != 0)) {
+          unions_ = java.util.Collections.unmodifiableList(unions_);
+          bitField0_ = (bitField0_ & ~0x00000040);
+        }
+        result.unions_ = unions_;
+      } else {
+        result.unions_ = unionsBuilder_.build();
+      }
+      if (joinsBuilder_ == null) {
+        if (((bitField0_ & 0x00000080) != 0)) {
+          joins_ = java.util.Collections.unmodifiableList(joins_);
+          bitField0_ = (bitField0_ & ~0x00000080);
+        }
+        result.joins_ = joins_;
+      } else {
+        result.joins_ = joinsBuilder_.build();
+      }
+      if (selectedColumnsBuilder_ == null) {
+        if (((bitField0_ & 0x00000100) != 0)) {
+          selectedColumns_ = java.util.Collections.unmodifiableList(selectedColumns_);
+          bitField0_ = (bitField0_ & ~0x00000100);
+        }
+        result.selectedColumns_ = selectedColumns_;
+      } else {
+        result.selectedColumns_ = selectedColumnsBuilder_.build();
+      }
       if (conditionsBuilder_ == null) {
-        if (((bitField0_ & 0x00000020) != 0)) {
+        if (((bitField0_ & 0x00000800) != 0)) {
           conditions_ = java.util.Collections.unmodifiableList(conditions_);
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000800);
         }
         result.conditions_ = conditions_;
       } else {
         result.conditions_ = conditionsBuilder_.build();
       }
       if (havingConditionsBuilder_ == null) {
-        if (((bitField0_ & 0x00000040) != 0)) {
+        if (((bitField0_ & 0x00001000) != 0)) {
           havingConditions_ = java.util.Collections.unmodifiableList(havingConditions_);
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00001000);
         }
         result.havingConditions_ = havingConditions_;
       } else {
         result.havingConditions_ = havingConditionsBuilder_.build();
+      }
+      if (subqueriesBuilder_ == null) {
+        if (((bitField0_ & 0x00002000) != 0)) {
+          subqueries_ = java.util.Collections.unmodifiableList(subqueries_);
+          bitField0_ = (bitField0_ & ~0x00002000);
+        }
+        result.subqueries_ = subqueries_;
+      } else {
+        result.subqueries_ = subqueriesBuilder_.build();
       }
     }
 
@@ -734,17 +1553,35 @@ private static final long serialVersionUID = 0L;
       if (((from_bitField0_ & 0x00000008) != 0)) {
         result.queryType_ = queryType_;
       }
-      if (((from_bitField0_ & 0x00000010) != 0)) {
+      if (((from_bitField0_ & 0x00000020) != 0)) {
         result.tableName_ = tableName_;
       }
-      if (((from_bitField0_ & 0x00000080) != 0)) {
+      if (((from_bitField0_ & 0x00000200) != 0)) {
         result.distinct_ = distinct_;
       }
-      if (((from_bitField0_ & 0x00000100) != 0)) {
+      if (((from_bitField0_ & 0x00000400) != 0)) {
+        result.updatedValues_ = internalGetUpdatedValues();
+        result.updatedValues_.makeImmutable();
+      }
+      if (((from_bitField0_ & 0x00004000) != 0)) {
+        result.orderBy_ = internalGetOrderBy();
+        result.orderBy_.makeImmutable();
+      }
+      if (((from_bitField0_ & 0x00008000) != 0)) {
         result.limit_ = limit_;
       }
-      if (((from_bitField0_ & 0x00000200) != 0)) {
+      if (((from_bitField0_ & 0x00010000) != 0)) {
         result.offset_ = offset_;
+      }
+      if (((from_bitField0_ & 0x00020000) != 0)) {
+        groupBy_.makeImmutable();
+        result.groupBy_ = groupBy_;
+      }
+      if (((from_bitField0_ & 0x00040000) != 0)) {
+        result.createdAt_ = createdAt_;
+      }
+      if (((from_bitField0_ & 0x00080000) != 0)) {
+        result.updatedAt_ = updatedAt_;
       }
     }
 
@@ -812,16 +1649,126 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000008;
         onChanged();
       }
+      if (ctesBuilder_ == null) {
+        if (!other.ctes_.isEmpty()) {
+          if (ctes_.isEmpty()) {
+            ctes_ = other.ctes_;
+            bitField0_ = (bitField0_ & ~0x00000010);
+          } else {
+            ensureCtesIsMutable();
+            ctes_.addAll(other.ctes_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.ctes_.isEmpty()) {
+          if (ctesBuilder_.isEmpty()) {
+            ctesBuilder_.dispose();
+            ctesBuilder_ = null;
+            ctes_ = other.ctes_;
+            bitField0_ = (bitField0_ & ~0x00000010);
+            ctesBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getCtesFieldBuilder() : null;
+          } else {
+            ctesBuilder_.addAllMessages(other.ctes_);
+          }
+        }
+      }
       if (!other.getTableName().isEmpty()) {
         tableName_ = other.tableName_;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
       }
+      if (unionsBuilder_ == null) {
+        if (!other.unions_.isEmpty()) {
+          if (unions_.isEmpty()) {
+            unions_ = other.unions_;
+            bitField0_ = (bitField0_ & ~0x00000040);
+          } else {
+            ensureUnionsIsMutable();
+            unions_.addAll(other.unions_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.unions_.isEmpty()) {
+          if (unionsBuilder_.isEmpty()) {
+            unionsBuilder_.dispose();
+            unionsBuilder_ = null;
+            unions_ = other.unions_;
+            bitField0_ = (bitField0_ & ~0x00000040);
+            unionsBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getUnionsFieldBuilder() : null;
+          } else {
+            unionsBuilder_.addAllMessages(other.unions_);
+          }
+        }
+      }
+      if (joinsBuilder_ == null) {
+        if (!other.joins_.isEmpty()) {
+          if (joins_.isEmpty()) {
+            joins_ = other.joins_;
+            bitField0_ = (bitField0_ & ~0x00000080);
+          } else {
+            ensureJoinsIsMutable();
+            joins_.addAll(other.joins_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.joins_.isEmpty()) {
+          if (joinsBuilder_.isEmpty()) {
+            joinsBuilder_.dispose();
+            joinsBuilder_ = null;
+            joins_ = other.joins_;
+            bitField0_ = (bitField0_ & ~0x00000080);
+            joinsBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getJoinsFieldBuilder() : null;
+          } else {
+            joinsBuilder_.addAllMessages(other.joins_);
+          }
+        }
+      }
+      if (selectedColumnsBuilder_ == null) {
+        if (!other.selectedColumns_.isEmpty()) {
+          if (selectedColumns_.isEmpty()) {
+            selectedColumns_ = other.selectedColumns_;
+            bitField0_ = (bitField0_ & ~0x00000100);
+          } else {
+            ensureSelectedColumnsIsMutable();
+            selectedColumns_.addAll(other.selectedColumns_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.selectedColumns_.isEmpty()) {
+          if (selectedColumnsBuilder_.isEmpty()) {
+            selectedColumnsBuilder_.dispose();
+            selectedColumnsBuilder_ = null;
+            selectedColumns_ = other.selectedColumns_;
+            bitField0_ = (bitField0_ & ~0x00000100);
+            selectedColumnsBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getSelectedColumnsFieldBuilder() : null;
+          } else {
+            selectedColumnsBuilder_.addAllMessages(other.selectedColumns_);
+          }
+        }
+      }
+      if (other.getDistinct() != false) {
+        setDistinct(other.getDistinct());
+      }
+      internalGetMutableUpdatedValues().mergeFrom(
+          other.internalGetUpdatedValues());
+      bitField0_ |= 0x00000400;
       if (conditionsBuilder_ == null) {
         if (!other.conditions_.isEmpty()) {
           if (conditions_.isEmpty()) {
             conditions_ = other.conditions_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000800);
           } else {
             ensureConditionsIsMutable();
             conditions_.addAll(other.conditions_);
@@ -834,7 +1781,7 @@ private static final long serialVersionUID = 0L;
             conditionsBuilder_.dispose();
             conditionsBuilder_ = null;
             conditions_ = other.conditions_;
-            bitField0_ = (bitField0_ & ~0x00000020);
+            bitField0_ = (bitField0_ & ~0x00000800);
             conditionsBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getConditionsFieldBuilder() : null;
@@ -847,7 +1794,7 @@ private static final long serialVersionUID = 0L;
         if (!other.havingConditions_.isEmpty()) {
           if (havingConditions_.isEmpty()) {
             havingConditions_ = other.havingConditions_;
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00001000);
           } else {
             ensureHavingConditionsIsMutable();
             havingConditions_.addAll(other.havingConditions_);
@@ -860,7 +1807,7 @@ private static final long serialVersionUID = 0L;
             havingConditionsBuilder_.dispose();
             havingConditionsBuilder_ = null;
             havingConditions_ = other.havingConditions_;
-            bitField0_ = (bitField0_ & ~0x00000040);
+            bitField0_ = (bitField0_ & ~0x00001000);
             havingConditionsBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                  getHavingConditionsFieldBuilder() : null;
@@ -869,14 +1816,60 @@ private static final long serialVersionUID = 0L;
           }
         }
       }
-      if (other.getDistinct() != false) {
-        setDistinct(other.getDistinct());
+      if (subqueriesBuilder_ == null) {
+        if (!other.subqueries_.isEmpty()) {
+          if (subqueries_.isEmpty()) {
+            subqueries_ = other.subqueries_;
+            bitField0_ = (bitField0_ & ~0x00002000);
+          } else {
+            ensureSubqueriesIsMutable();
+            subqueries_.addAll(other.subqueries_);
+          }
+          onChanged();
+        }
+      } else {
+        if (!other.subqueries_.isEmpty()) {
+          if (subqueriesBuilder_.isEmpty()) {
+            subqueriesBuilder_.dispose();
+            subqueriesBuilder_ = null;
+            subqueries_ = other.subqueries_;
+            bitField0_ = (bitField0_ & ~0x00002000);
+            subqueriesBuilder_ = 
+              com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                 getSubqueriesFieldBuilder() : null;
+          } else {
+            subqueriesBuilder_.addAllMessages(other.subqueries_);
+          }
+        }
       }
+      internalGetMutableOrderBy().mergeFrom(
+          other.internalGetOrderBy());
+      bitField0_ |= 0x00004000;
       if (other.getLimit() != 0) {
         setLimit(other.getLimit());
       }
       if (other.getOffset() != 0) {
         setOffset(other.getOffset());
+      }
+      if (!other.groupBy_.isEmpty()) {
+        if (groupBy_.isEmpty()) {
+          groupBy_ = other.groupBy_;
+          bitField0_ |= 0x00020000;
+        } else {
+          ensureGroupByIsMutable();
+          groupBy_.addAll(other.groupBy_);
+        }
+        onChanged();
+      }
+      if (!other.getCreatedAt().isEmpty()) {
+        createdAt_ = other.createdAt_;
+        bitField0_ |= 0x00040000;
+        onChanged();
+      }
+      if (!other.getUpdatedAt().isEmpty()) {
+        updatedAt_ = other.updatedAt_;
+        bitField0_ |= 0x00080000;
+        onChanged();
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -925,11 +1918,77 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 34
             case 42: {
-              tableName_ = input.readStringRequireUtf8();
-              bitField0_ |= 0x00000010;
+              com.sqlengine.grpc.CteBlock m =
+                  input.readMessage(
+                      com.sqlengine.grpc.CteBlock.parser(),
+                      extensionRegistry);
+              if (ctesBuilder_ == null) {
+                ensureCtesIsMutable();
+                ctes_.add(m);
+              } else {
+                ctesBuilder_.addMessage(m);
+              }
               break;
             } // case 42
             case 50: {
+              tableName_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 50
+            case 58: {
+              com.sqlengine.grpc.UnionQuery m =
+                  input.readMessage(
+                      com.sqlengine.grpc.UnionQuery.parser(),
+                      extensionRegistry);
+              if (unionsBuilder_ == null) {
+                ensureUnionsIsMutable();
+                unions_.add(m);
+              } else {
+                unionsBuilder_.addMessage(m);
+              }
+              break;
+            } // case 58
+            case 66: {
+              com.sqlengine.grpc.JoinConfig m =
+                  input.readMessage(
+                      com.sqlengine.grpc.JoinConfig.parser(),
+                      extensionRegistry);
+              if (joinsBuilder_ == null) {
+                ensureJoinsIsMutable();
+                joins_.add(m);
+              } else {
+                joinsBuilder_.addMessage(m);
+              }
+              break;
+            } // case 66
+            case 74: {
+              com.sqlengine.grpc.SelectedColumn m =
+                  input.readMessage(
+                      com.sqlengine.grpc.SelectedColumn.parser(),
+                      extensionRegistry);
+              if (selectedColumnsBuilder_ == null) {
+                ensureSelectedColumnsIsMutable();
+                selectedColumns_.add(m);
+              } else {
+                selectedColumnsBuilder_.addMessage(m);
+              }
+              break;
+            } // case 74
+            case 80: {
+              distinct_ = input.readBool();
+              bitField0_ |= 0x00000200;
+              break;
+            } // case 80
+            case 90: {
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.String>
+              updatedValues__ = input.readMessage(
+                  UpdatedValuesDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              internalGetMutableUpdatedValues().getMutableMap().put(
+                  updatedValues__.getKey(), updatedValues__.getValue());
+              bitField0_ |= 0x00000400;
+              break;
+            } // case 90
+            case 98: {
               com.sqlengine.grpc.QueryCondition m =
                   input.readMessage(
                       com.sqlengine.grpc.QueryCondition.parser(),
@@ -941,8 +2000,8 @@ private static final long serialVersionUID = 0L;
                 conditionsBuilder_.addMessage(m);
               }
               break;
-            } // case 50
-            case 58: {
+            } // case 98
+            case 106: {
               com.sqlengine.grpc.QueryCondition m =
                   input.readMessage(
                       com.sqlengine.grpc.QueryCondition.parser(),
@@ -954,22 +2013,55 @@ private static final long serialVersionUID = 0L;
                 havingConditionsBuilder_.addMessage(m);
               }
               break;
-            } // case 58
-            case 64: {
-              distinct_ = input.readBool();
-              bitField0_ |= 0x00000080;
+            } // case 106
+            case 114: {
+              com.sqlengine.grpc.SubqueryBlock m =
+                  input.readMessage(
+                      com.sqlengine.grpc.SubqueryBlock.parser(),
+                      extensionRegistry);
+              if (subqueriesBuilder_ == null) {
+                ensureSubqueriesIsMutable();
+                subqueries_.add(m);
+              } else {
+                subqueriesBuilder_.addMessage(m);
+              }
               break;
-            } // case 64
-            case 72: {
+            } // case 114
+            case 122: {
+              com.google.protobuf.MapEntry<java.lang.String, java.lang.Integer>
+              orderBy__ = input.readMessage(
+                  OrderByDefaultEntryHolder.defaultEntry.getParserForType(), extensionRegistry);
+              internalGetMutableOrderBy().getMutableMap().put(
+                  orderBy__.getKey(), orderBy__.getValue());
+              bitField0_ |= 0x00004000;
+              break;
+            } // case 122
+            case 128: {
               limit_ = input.readInt32();
-              bitField0_ |= 0x00000100;
+              bitField0_ |= 0x00008000;
               break;
-            } // case 72
-            case 80: {
+            } // case 128
+            case 136: {
               offset_ = input.readInt32();
-              bitField0_ |= 0x00000200;
+              bitField0_ |= 0x00010000;
               break;
-            } // case 80
+            } // case 136
+            case 146: {
+              java.lang.String s = input.readStringRequireUtf8();
+              ensureGroupByIsMutable();
+              groupBy_.add(s);
+              break;
+            } // case 146
+            case 154: {
+              createdAt_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00040000;
+              break;
+            } // case 154
+            case 162: {
+              updatedAt_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00080000;
+              break;
+            } // case 162
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1275,9 +2367,249 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private java.util.List<com.sqlengine.grpc.CteBlock> ctes_ =
+      java.util.Collections.emptyList();
+    private void ensureCtesIsMutable() {
+      if (!((bitField0_ & 0x00000010) != 0)) {
+        ctes_ = new java.util.ArrayList<com.sqlengine.grpc.CteBlock>(ctes_);
+        bitField0_ |= 0x00000010;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.CteBlock, com.sqlengine.grpc.CteBlock.Builder, com.sqlengine.grpc.CteBlockOrBuilder> ctesBuilder_;
+
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.CteBlock> getCtesList() {
+      if (ctesBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(ctes_);
+      } else {
+        return ctesBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public int getCtesCount() {
+      if (ctesBuilder_ == null) {
+        return ctes_.size();
+      } else {
+        return ctesBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public com.sqlengine.grpc.CteBlock getCtes(int index) {
+      if (ctesBuilder_ == null) {
+        return ctes_.get(index);
+      } else {
+        return ctesBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder setCtes(
+        int index, com.sqlengine.grpc.CteBlock value) {
+      if (ctesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureCtesIsMutable();
+        ctes_.set(index, value);
+        onChanged();
+      } else {
+        ctesBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder setCtes(
+        int index, com.sqlengine.grpc.CteBlock.Builder builderForValue) {
+      if (ctesBuilder_ == null) {
+        ensureCtesIsMutable();
+        ctes_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        ctesBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder addCtes(com.sqlengine.grpc.CteBlock value) {
+      if (ctesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureCtesIsMutable();
+        ctes_.add(value);
+        onChanged();
+      } else {
+        ctesBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder addCtes(
+        int index, com.sqlengine.grpc.CteBlock value) {
+      if (ctesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureCtesIsMutable();
+        ctes_.add(index, value);
+        onChanged();
+      } else {
+        ctesBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder addCtes(
+        com.sqlengine.grpc.CteBlock.Builder builderForValue) {
+      if (ctesBuilder_ == null) {
+        ensureCtesIsMutable();
+        ctes_.add(builderForValue.build());
+        onChanged();
+      } else {
+        ctesBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder addCtes(
+        int index, com.sqlengine.grpc.CteBlock.Builder builderForValue) {
+      if (ctesBuilder_ == null) {
+        ensureCtesIsMutable();
+        ctes_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        ctesBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder addAllCtes(
+        java.lang.Iterable<? extends com.sqlengine.grpc.CteBlock> values) {
+      if (ctesBuilder_ == null) {
+        ensureCtesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, ctes_);
+        onChanged();
+      } else {
+        ctesBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder clearCtes() {
+      if (ctesBuilder_ == null) {
+        ctes_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+      } else {
+        ctesBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public Builder removeCtes(int index) {
+      if (ctesBuilder_ == null) {
+        ensureCtesIsMutable();
+        ctes_.remove(index);
+        onChanged();
+      } else {
+        ctesBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public com.sqlengine.grpc.CteBlock.Builder getCtesBuilder(
+        int index) {
+      return getCtesFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public com.sqlengine.grpc.CteBlockOrBuilder getCtesOrBuilder(
+        int index) {
+      if (ctesBuilder_ == null) {
+        return ctes_.get(index);  } else {
+        return ctesBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public java.util.List<? extends com.sqlengine.grpc.CteBlockOrBuilder> 
+         getCtesOrBuilderList() {
+      if (ctesBuilder_ != null) {
+        return ctesBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(ctes_);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public com.sqlengine.grpc.CteBlock.Builder addCtesBuilder() {
+      return getCtesFieldBuilder().addBuilder(
+          com.sqlengine.grpc.CteBlock.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public com.sqlengine.grpc.CteBlock.Builder addCtesBuilder(
+        int index) {
+      return getCtesFieldBuilder().addBuilder(
+          index, com.sqlengine.grpc.CteBlock.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.CteBlock.Builder> 
+         getCtesBuilderList() {
+      return getCtesFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.CteBlock, com.sqlengine.grpc.CteBlock.Builder, com.sqlengine.grpc.CteBlockOrBuilder> 
+        getCtesFieldBuilder() {
+      if (ctesBuilder_ == null) {
+        ctesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            com.sqlengine.grpc.CteBlock, com.sqlengine.grpc.CteBlock.Builder, com.sqlengine.grpc.CteBlockOrBuilder>(
+                ctes_,
+                ((bitField0_ & 0x00000010) != 0),
+                getParentForChildren(),
+                isClean());
+        ctes_ = null;
+      }
+      return ctesBuilder_;
+    }
+
     private java.lang.Object tableName_ = "";
     /**
-     * <code>string tableName = 5;</code>
+     * <code>string tableName = 6;</code>
      * @return The tableName.
      */
     public java.lang.String getTableName() {
@@ -1293,7 +2625,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string tableName = 5;</code>
+     * <code>string tableName = 6;</code>
      * @return The bytes for tableName.
      */
     public com.google.protobuf.ByteString
@@ -1310,7 +2642,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string tableName = 5;</code>
+     * <code>string tableName = 6;</code>
      * @param value The tableName to set.
      * @return This builder for chaining.
      */
@@ -1318,22 +2650,22 @@ private static final long serialVersionUID = 0L;
         java.lang.String value) {
       if (value == null) { throw new NullPointerException(); }
       tableName_ = value;
-      bitField0_ |= 0x00000010;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }
     /**
-     * <code>string tableName = 5;</code>
+     * <code>string tableName = 6;</code>
      * @return This builder for chaining.
      */
     public Builder clearTableName() {
       tableName_ = getDefaultInstance().getTableName();
-      bitField0_ = (bitField0_ & ~0x00000010);
+      bitField0_ = (bitField0_ & ~0x00000020);
       onChanged();
       return this;
     }
     /**
-     * <code>string tableName = 5;</code>
+     * <code>string tableName = 6;</code>
      * @param value The bytes for tableName to set.
      * @return This builder for chaining.
      */
@@ -1342,17 +2674,896 @@ private static final long serialVersionUID = 0L;
       if (value == null) { throw new NullPointerException(); }
       checkByteStringIsUtf8(value);
       tableName_ = value;
-      bitField0_ |= 0x00000010;
+      bitField0_ |= 0x00000020;
       onChanged();
+      return this;
+    }
+
+    private java.util.List<com.sqlengine.grpc.UnionQuery> unions_ =
+      java.util.Collections.emptyList();
+    private void ensureUnionsIsMutable() {
+      if (!((bitField0_ & 0x00000040) != 0)) {
+        unions_ = new java.util.ArrayList<com.sqlengine.grpc.UnionQuery>(unions_);
+        bitField0_ |= 0x00000040;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.UnionQuery, com.sqlengine.grpc.UnionQuery.Builder, com.sqlengine.grpc.UnionQueryOrBuilder> unionsBuilder_;
+
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.UnionQuery> getUnionsList() {
+      if (unionsBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(unions_);
+      } else {
+        return unionsBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public int getUnionsCount() {
+      if (unionsBuilder_ == null) {
+        return unions_.size();
+      } else {
+        return unionsBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public com.sqlengine.grpc.UnionQuery getUnions(int index) {
+      if (unionsBuilder_ == null) {
+        return unions_.get(index);
+      } else {
+        return unionsBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder setUnions(
+        int index, com.sqlengine.grpc.UnionQuery value) {
+      if (unionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureUnionsIsMutable();
+        unions_.set(index, value);
+        onChanged();
+      } else {
+        unionsBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder setUnions(
+        int index, com.sqlengine.grpc.UnionQuery.Builder builderForValue) {
+      if (unionsBuilder_ == null) {
+        ensureUnionsIsMutable();
+        unions_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        unionsBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder addUnions(com.sqlengine.grpc.UnionQuery value) {
+      if (unionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureUnionsIsMutable();
+        unions_.add(value);
+        onChanged();
+      } else {
+        unionsBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder addUnions(
+        int index, com.sqlengine.grpc.UnionQuery value) {
+      if (unionsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureUnionsIsMutable();
+        unions_.add(index, value);
+        onChanged();
+      } else {
+        unionsBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder addUnions(
+        com.sqlengine.grpc.UnionQuery.Builder builderForValue) {
+      if (unionsBuilder_ == null) {
+        ensureUnionsIsMutable();
+        unions_.add(builderForValue.build());
+        onChanged();
+      } else {
+        unionsBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder addUnions(
+        int index, com.sqlengine.grpc.UnionQuery.Builder builderForValue) {
+      if (unionsBuilder_ == null) {
+        ensureUnionsIsMutable();
+        unions_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        unionsBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder addAllUnions(
+        java.lang.Iterable<? extends com.sqlengine.grpc.UnionQuery> values) {
+      if (unionsBuilder_ == null) {
+        ensureUnionsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, unions_);
+        onChanged();
+      } else {
+        unionsBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder clearUnions() {
+      if (unionsBuilder_ == null) {
+        unions_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000040);
+        onChanged();
+      } else {
+        unionsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public Builder removeUnions(int index) {
+      if (unionsBuilder_ == null) {
+        ensureUnionsIsMutable();
+        unions_.remove(index);
+        onChanged();
+      } else {
+        unionsBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public com.sqlengine.grpc.UnionQuery.Builder getUnionsBuilder(
+        int index) {
+      return getUnionsFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public com.sqlengine.grpc.UnionQueryOrBuilder getUnionsOrBuilder(
+        int index) {
+      if (unionsBuilder_ == null) {
+        return unions_.get(index);  } else {
+        return unionsBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public java.util.List<? extends com.sqlengine.grpc.UnionQueryOrBuilder> 
+         getUnionsOrBuilderList() {
+      if (unionsBuilder_ != null) {
+        return unionsBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(unions_);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public com.sqlengine.grpc.UnionQuery.Builder addUnionsBuilder() {
+      return getUnionsFieldBuilder().addBuilder(
+          com.sqlengine.grpc.UnionQuery.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public com.sqlengine.grpc.UnionQuery.Builder addUnionsBuilder(
+        int index) {
+      return getUnionsFieldBuilder().addBuilder(
+          index, com.sqlengine.grpc.UnionQuery.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.UnionQuery.Builder> 
+         getUnionsBuilderList() {
+      return getUnionsFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.UnionQuery, com.sqlengine.grpc.UnionQuery.Builder, com.sqlengine.grpc.UnionQueryOrBuilder> 
+        getUnionsFieldBuilder() {
+      if (unionsBuilder_ == null) {
+        unionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            com.sqlengine.grpc.UnionQuery, com.sqlengine.grpc.UnionQuery.Builder, com.sqlengine.grpc.UnionQueryOrBuilder>(
+                unions_,
+                ((bitField0_ & 0x00000040) != 0),
+                getParentForChildren(),
+                isClean());
+        unions_ = null;
+      }
+      return unionsBuilder_;
+    }
+
+    private java.util.List<com.sqlengine.grpc.JoinConfig> joins_ =
+      java.util.Collections.emptyList();
+    private void ensureJoinsIsMutable() {
+      if (!((bitField0_ & 0x00000080) != 0)) {
+        joins_ = new java.util.ArrayList<com.sqlengine.grpc.JoinConfig>(joins_);
+        bitField0_ |= 0x00000080;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.JoinConfig, com.sqlengine.grpc.JoinConfig.Builder, com.sqlengine.grpc.JoinConfigOrBuilder> joinsBuilder_;
+
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.JoinConfig> getJoinsList() {
+      if (joinsBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(joins_);
+      } else {
+        return joinsBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public int getJoinsCount() {
+      if (joinsBuilder_ == null) {
+        return joins_.size();
+      } else {
+        return joinsBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public com.sqlengine.grpc.JoinConfig getJoins(int index) {
+      if (joinsBuilder_ == null) {
+        return joins_.get(index);
+      } else {
+        return joinsBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder setJoins(
+        int index, com.sqlengine.grpc.JoinConfig value) {
+      if (joinsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureJoinsIsMutable();
+        joins_.set(index, value);
+        onChanged();
+      } else {
+        joinsBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder setJoins(
+        int index, com.sqlengine.grpc.JoinConfig.Builder builderForValue) {
+      if (joinsBuilder_ == null) {
+        ensureJoinsIsMutable();
+        joins_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        joinsBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder addJoins(com.sqlengine.grpc.JoinConfig value) {
+      if (joinsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureJoinsIsMutable();
+        joins_.add(value);
+        onChanged();
+      } else {
+        joinsBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder addJoins(
+        int index, com.sqlengine.grpc.JoinConfig value) {
+      if (joinsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureJoinsIsMutable();
+        joins_.add(index, value);
+        onChanged();
+      } else {
+        joinsBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder addJoins(
+        com.sqlengine.grpc.JoinConfig.Builder builderForValue) {
+      if (joinsBuilder_ == null) {
+        ensureJoinsIsMutable();
+        joins_.add(builderForValue.build());
+        onChanged();
+      } else {
+        joinsBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder addJoins(
+        int index, com.sqlengine.grpc.JoinConfig.Builder builderForValue) {
+      if (joinsBuilder_ == null) {
+        ensureJoinsIsMutable();
+        joins_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        joinsBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder addAllJoins(
+        java.lang.Iterable<? extends com.sqlengine.grpc.JoinConfig> values) {
+      if (joinsBuilder_ == null) {
+        ensureJoinsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, joins_);
+        onChanged();
+      } else {
+        joinsBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder clearJoins() {
+      if (joinsBuilder_ == null) {
+        joins_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000080);
+        onChanged();
+      } else {
+        joinsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public Builder removeJoins(int index) {
+      if (joinsBuilder_ == null) {
+        ensureJoinsIsMutable();
+        joins_.remove(index);
+        onChanged();
+      } else {
+        joinsBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public com.sqlengine.grpc.JoinConfig.Builder getJoinsBuilder(
+        int index) {
+      return getJoinsFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public com.sqlengine.grpc.JoinConfigOrBuilder getJoinsOrBuilder(
+        int index) {
+      if (joinsBuilder_ == null) {
+        return joins_.get(index);  } else {
+        return joinsBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public java.util.List<? extends com.sqlengine.grpc.JoinConfigOrBuilder> 
+         getJoinsOrBuilderList() {
+      if (joinsBuilder_ != null) {
+        return joinsBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(joins_);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public com.sqlengine.grpc.JoinConfig.Builder addJoinsBuilder() {
+      return getJoinsFieldBuilder().addBuilder(
+          com.sqlengine.grpc.JoinConfig.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public com.sqlengine.grpc.JoinConfig.Builder addJoinsBuilder(
+        int index) {
+      return getJoinsFieldBuilder().addBuilder(
+          index, com.sqlengine.grpc.JoinConfig.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.JoinConfig.Builder> 
+         getJoinsBuilderList() {
+      return getJoinsFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.JoinConfig, com.sqlengine.grpc.JoinConfig.Builder, com.sqlengine.grpc.JoinConfigOrBuilder> 
+        getJoinsFieldBuilder() {
+      if (joinsBuilder_ == null) {
+        joinsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            com.sqlengine.grpc.JoinConfig, com.sqlengine.grpc.JoinConfig.Builder, com.sqlengine.grpc.JoinConfigOrBuilder>(
+                joins_,
+                ((bitField0_ & 0x00000080) != 0),
+                getParentForChildren(),
+                isClean());
+        joins_ = null;
+      }
+      return joinsBuilder_;
+    }
+
+    private java.util.List<com.sqlengine.grpc.SelectedColumn> selectedColumns_ =
+      java.util.Collections.emptyList();
+    private void ensureSelectedColumnsIsMutable() {
+      if (!((bitField0_ & 0x00000100) != 0)) {
+        selectedColumns_ = new java.util.ArrayList<com.sqlengine.grpc.SelectedColumn>(selectedColumns_);
+        bitField0_ |= 0x00000100;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.SelectedColumn, com.sqlengine.grpc.SelectedColumn.Builder, com.sqlengine.grpc.SelectedColumnOrBuilder> selectedColumnsBuilder_;
+
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.SelectedColumn> getSelectedColumnsList() {
+      if (selectedColumnsBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(selectedColumns_);
+      } else {
+        return selectedColumnsBuilder_.getMessageList();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public int getSelectedColumnsCount() {
+      if (selectedColumnsBuilder_ == null) {
+        return selectedColumns_.size();
+      } else {
+        return selectedColumnsBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public com.sqlengine.grpc.SelectedColumn getSelectedColumns(int index) {
+      if (selectedColumnsBuilder_ == null) {
+        return selectedColumns_.get(index);
+      } else {
+        return selectedColumnsBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder setSelectedColumns(
+        int index, com.sqlengine.grpc.SelectedColumn value) {
+      if (selectedColumnsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSelectedColumnsIsMutable();
+        selectedColumns_.set(index, value);
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.setMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder setSelectedColumns(
+        int index, com.sqlengine.grpc.SelectedColumn.Builder builderForValue) {
+      if (selectedColumnsBuilder_ == null) {
+        ensureSelectedColumnsIsMutable();
+        selectedColumns_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder addSelectedColumns(com.sqlengine.grpc.SelectedColumn value) {
+      if (selectedColumnsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSelectedColumnsIsMutable();
+        selectedColumns_.add(value);
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder addSelectedColumns(
+        int index, com.sqlengine.grpc.SelectedColumn value) {
+      if (selectedColumnsBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSelectedColumnsIsMutable();
+        selectedColumns_.add(index, value);
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder addSelectedColumns(
+        com.sqlengine.grpc.SelectedColumn.Builder builderForValue) {
+      if (selectedColumnsBuilder_ == null) {
+        ensureSelectedColumnsIsMutable();
+        selectedColumns_.add(builderForValue.build());
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder addSelectedColumns(
+        int index, com.sqlengine.grpc.SelectedColumn.Builder builderForValue) {
+      if (selectedColumnsBuilder_ == null) {
+        ensureSelectedColumnsIsMutable();
+        selectedColumns_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder addAllSelectedColumns(
+        java.lang.Iterable<? extends com.sqlengine.grpc.SelectedColumn> values) {
+      if (selectedColumnsBuilder_ == null) {
+        ensureSelectedColumnsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, selectedColumns_);
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder clearSelectedColumns() {
+      if (selectedColumnsBuilder_ == null) {
+        selectedColumns_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000100);
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public Builder removeSelectedColumns(int index) {
+      if (selectedColumnsBuilder_ == null) {
+        ensureSelectedColumnsIsMutable();
+        selectedColumns_.remove(index);
+        onChanged();
+      } else {
+        selectedColumnsBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public com.sqlengine.grpc.SelectedColumn.Builder getSelectedColumnsBuilder(
+        int index) {
+      return getSelectedColumnsFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public com.sqlengine.grpc.SelectedColumnOrBuilder getSelectedColumnsOrBuilder(
+        int index) {
+      if (selectedColumnsBuilder_ == null) {
+        return selectedColumns_.get(index);  } else {
+        return selectedColumnsBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public java.util.List<? extends com.sqlengine.grpc.SelectedColumnOrBuilder> 
+         getSelectedColumnsOrBuilderList() {
+      if (selectedColumnsBuilder_ != null) {
+        return selectedColumnsBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(selectedColumns_);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public com.sqlengine.grpc.SelectedColumn.Builder addSelectedColumnsBuilder() {
+      return getSelectedColumnsFieldBuilder().addBuilder(
+          com.sqlengine.grpc.SelectedColumn.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public com.sqlengine.grpc.SelectedColumn.Builder addSelectedColumnsBuilder(
+        int index) {
+      return getSelectedColumnsFieldBuilder().addBuilder(
+          index, com.sqlengine.grpc.SelectedColumn.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.SelectedColumn.Builder> 
+         getSelectedColumnsBuilderList() {
+      return getSelectedColumnsFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.SelectedColumn, com.sqlengine.grpc.SelectedColumn.Builder, com.sqlengine.grpc.SelectedColumnOrBuilder> 
+        getSelectedColumnsFieldBuilder() {
+      if (selectedColumnsBuilder_ == null) {
+        selectedColumnsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            com.sqlengine.grpc.SelectedColumn, com.sqlengine.grpc.SelectedColumn.Builder, com.sqlengine.grpc.SelectedColumnOrBuilder>(
+                selectedColumns_,
+                ((bitField0_ & 0x00000100) != 0),
+                getParentForChildren(),
+                isClean());
+        selectedColumns_ = null;
+      }
+      return selectedColumnsBuilder_;
+    }
+
+    private boolean distinct_ ;
+    /**
+     * <code>bool distinct = 10;</code>
+     * @return The distinct.
+     */
+    @java.lang.Override
+    public boolean getDistinct() {
+      return distinct_;
+    }
+    /**
+     * <code>bool distinct = 10;</code>
+     * @param value The distinct to set.
+     * @return This builder for chaining.
+     */
+    public Builder setDistinct(boolean value) {
+
+      distinct_ = value;
+      bitField0_ |= 0x00000200;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool distinct = 10;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearDistinct() {
+      bitField0_ = (bitField0_ & ~0x00000200);
+      distinct_ = false;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.String> updatedValues_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetUpdatedValues() {
+      if (updatedValues_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            UpdatedValuesDefaultEntryHolder.defaultEntry);
+      }
+      return updatedValues_;
+    }
+    private com.google.protobuf.MapField<java.lang.String, java.lang.String>
+        internalGetMutableUpdatedValues() {
+      if (updatedValues_ == null) {
+        updatedValues_ = com.google.protobuf.MapField.newMapField(
+            UpdatedValuesDefaultEntryHolder.defaultEntry);
+      }
+      if (!updatedValues_.isMutable()) {
+        updatedValues_ = updatedValues_.copy();
+      }
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return updatedValues_;
+    }
+    public int getUpdatedValuesCount() {
+      return internalGetUpdatedValues().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+     */
+    @java.lang.Override
+    public boolean containsUpdatedValues(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetUpdatedValues().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getUpdatedValuesMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String> getUpdatedValues() {
+      return getUpdatedValuesMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.String> getUpdatedValuesMap() {
+      return internalGetUpdatedValues().getMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+java.lang.String getUpdatedValuesOrDefault(
+        java.lang.String key,
+        /* nullable */
+java.lang.String defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUpdatedValues().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+     */
+    @java.lang.Override
+    public java.lang.String getUpdatedValuesOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.String> map =
+          internalGetUpdatedValues().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+    public Builder clearUpdatedValues() {
+      bitField0_ = (bitField0_ & ~0x00000400);
+      internalGetMutableUpdatedValues().getMutableMap()
+          .clear();
+      return this;
+    }
+    /**
+     * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+     */
+    public Builder removeUpdatedValues(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      internalGetMutableUpdatedValues().getMutableMap()
+          .remove(key);
+      return this;
+    }
+    /**
+     * Use alternate mutation accessors instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.String>
+        getMutableUpdatedValues() {
+      bitField0_ |= 0x00000400;
+      return internalGetMutableUpdatedValues().getMutableMap();
+    }
+    /**
+     * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+     */
+    public Builder putUpdatedValues(
+        java.lang.String key,
+        java.lang.String value) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      if (value == null) { throw new NullPointerException("map value"); }
+      internalGetMutableUpdatedValues().getMutableMap()
+          .put(key, value);
+      bitField0_ |= 0x00000400;
+      return this;
+    }
+    /**
+     * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+     */
+    public Builder putAllUpdatedValues(
+        java.util.Map<java.lang.String, java.lang.String> values) {
+      internalGetMutableUpdatedValues().getMutableMap()
+          .putAll(values);
+      bitField0_ |= 0x00000400;
       return this;
     }
 
     private java.util.List<com.sqlengine.grpc.QueryCondition> conditions_ =
       java.util.Collections.emptyList();
     private void ensureConditionsIsMutable() {
-      if (!((bitField0_ & 0x00000020) != 0)) {
+      if (!((bitField0_ & 0x00000800) != 0)) {
         conditions_ = new java.util.ArrayList<com.sqlengine.grpc.QueryCondition>(conditions_);
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000800;
        }
     }
 
@@ -1360,7 +3571,7 @@ private static final long serialVersionUID = 0L;
         com.sqlengine.grpc.QueryCondition, com.sqlengine.grpc.QueryCondition.Builder, com.sqlengine.grpc.QueryConditionOrBuilder> conditionsBuilder_;
 
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public java.util.List<com.sqlengine.grpc.QueryCondition> getConditionsList() {
       if (conditionsBuilder_ == null) {
@@ -1370,7 +3581,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public int getConditionsCount() {
       if (conditionsBuilder_ == null) {
@@ -1380,7 +3591,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public com.sqlengine.grpc.QueryCondition getConditions(int index) {
       if (conditionsBuilder_ == null) {
@@ -1390,7 +3601,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder setConditions(
         int index, com.sqlengine.grpc.QueryCondition value) {
@@ -1407,7 +3618,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder setConditions(
         int index, com.sqlengine.grpc.QueryCondition.Builder builderForValue) {
@@ -1421,7 +3632,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder addConditions(com.sqlengine.grpc.QueryCondition value) {
       if (conditionsBuilder_ == null) {
@@ -1437,7 +3648,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder addConditions(
         int index, com.sqlengine.grpc.QueryCondition value) {
@@ -1454,7 +3665,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder addConditions(
         com.sqlengine.grpc.QueryCondition.Builder builderForValue) {
@@ -1468,7 +3679,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder addConditions(
         int index, com.sqlengine.grpc.QueryCondition.Builder builderForValue) {
@@ -1482,7 +3693,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder addAllConditions(
         java.lang.Iterable<? extends com.sqlengine.grpc.QueryCondition> values) {
@@ -1497,12 +3708,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder clearConditions() {
       if (conditionsBuilder_ == null) {
         conditions_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000800);
         onChanged();
       } else {
         conditionsBuilder_.clear();
@@ -1510,7 +3721,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public Builder removeConditions(int index) {
       if (conditionsBuilder_ == null) {
@@ -1523,14 +3734,14 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public com.sqlengine.grpc.QueryCondition.Builder getConditionsBuilder(
         int index) {
       return getConditionsFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public com.sqlengine.grpc.QueryConditionOrBuilder getConditionsOrBuilder(
         int index) {
@@ -1540,7 +3751,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
          getConditionsOrBuilderList() {
@@ -1551,14 +3762,14 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public com.sqlengine.grpc.QueryCondition.Builder addConditionsBuilder() {
       return getConditionsFieldBuilder().addBuilder(
           com.sqlengine.grpc.QueryCondition.getDefaultInstance());
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public com.sqlengine.grpc.QueryCondition.Builder addConditionsBuilder(
         int index) {
@@ -1566,7 +3777,7 @@ private static final long serialVersionUID = 0L;
           index, com.sqlengine.grpc.QueryCondition.getDefaultInstance());
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+     * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
      */
     public java.util.List<com.sqlengine.grpc.QueryCondition.Builder> 
          getConditionsBuilderList() {
@@ -1579,7 +3790,7 @@ private static final long serialVersionUID = 0L;
         conditionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.sqlengine.grpc.QueryCondition, com.sqlengine.grpc.QueryCondition.Builder, com.sqlengine.grpc.QueryConditionOrBuilder>(
                 conditions_,
-                ((bitField0_ & 0x00000020) != 0),
+                ((bitField0_ & 0x00000800) != 0),
                 getParentForChildren(),
                 isClean());
         conditions_ = null;
@@ -1590,9 +3801,9 @@ private static final long serialVersionUID = 0L;
     private java.util.List<com.sqlengine.grpc.QueryCondition> havingConditions_ =
       java.util.Collections.emptyList();
     private void ensureHavingConditionsIsMutable() {
-      if (!((bitField0_ & 0x00000040) != 0)) {
+      if (!((bitField0_ & 0x00001000) != 0)) {
         havingConditions_ = new java.util.ArrayList<com.sqlengine.grpc.QueryCondition>(havingConditions_);
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00001000;
        }
     }
 
@@ -1600,7 +3811,7 @@ private static final long serialVersionUID = 0L;
         com.sqlengine.grpc.QueryCondition, com.sqlengine.grpc.QueryCondition.Builder, com.sqlengine.grpc.QueryConditionOrBuilder> havingConditionsBuilder_;
 
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public java.util.List<com.sqlengine.grpc.QueryCondition> getHavingConditionsList() {
       if (havingConditionsBuilder_ == null) {
@@ -1610,7 +3821,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public int getHavingConditionsCount() {
       if (havingConditionsBuilder_ == null) {
@@ -1620,7 +3831,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public com.sqlengine.grpc.QueryCondition getHavingConditions(int index) {
       if (havingConditionsBuilder_ == null) {
@@ -1630,7 +3841,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder setHavingConditions(
         int index, com.sqlengine.grpc.QueryCondition value) {
@@ -1647,7 +3858,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder setHavingConditions(
         int index, com.sqlengine.grpc.QueryCondition.Builder builderForValue) {
@@ -1661,7 +3872,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder addHavingConditions(com.sqlengine.grpc.QueryCondition value) {
       if (havingConditionsBuilder_ == null) {
@@ -1677,7 +3888,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder addHavingConditions(
         int index, com.sqlengine.grpc.QueryCondition value) {
@@ -1694,7 +3905,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder addHavingConditions(
         com.sqlengine.grpc.QueryCondition.Builder builderForValue) {
@@ -1708,7 +3919,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder addHavingConditions(
         int index, com.sqlengine.grpc.QueryCondition.Builder builderForValue) {
@@ -1722,7 +3933,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder addAllHavingConditions(
         java.lang.Iterable<? extends com.sqlengine.grpc.QueryCondition> values) {
@@ -1737,12 +3948,12 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder clearHavingConditions() {
       if (havingConditionsBuilder_ == null) {
         havingConditions_ = java.util.Collections.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00001000);
         onChanged();
       } else {
         havingConditionsBuilder_.clear();
@@ -1750,7 +3961,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public Builder removeHavingConditions(int index) {
       if (havingConditionsBuilder_ == null) {
@@ -1763,14 +3974,14 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public com.sqlengine.grpc.QueryCondition.Builder getHavingConditionsBuilder(
         int index) {
       return getHavingConditionsFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public com.sqlengine.grpc.QueryConditionOrBuilder getHavingConditionsOrBuilder(
         int index) {
@@ -1780,7 +3991,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
          getHavingConditionsOrBuilderList() {
@@ -1791,14 +4002,14 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public com.sqlengine.grpc.QueryCondition.Builder addHavingConditionsBuilder() {
       return getHavingConditionsFieldBuilder().addBuilder(
           com.sqlengine.grpc.QueryCondition.getDefaultInstance());
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public com.sqlengine.grpc.QueryCondition.Builder addHavingConditionsBuilder(
         int index) {
@@ -1806,7 +4017,7 @@ private static final long serialVersionUID = 0L;
           index, com.sqlengine.grpc.QueryCondition.getDefaultInstance());
     }
     /**
-     * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+     * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
      */
     public java.util.List<com.sqlengine.grpc.QueryCondition.Builder> 
          getHavingConditionsBuilderList() {
@@ -1819,7 +4030,7 @@ private static final long serialVersionUID = 0L;
         havingConditionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
             com.sqlengine.grpc.QueryCondition, com.sqlengine.grpc.QueryCondition.Builder, com.sqlengine.grpc.QueryConditionOrBuilder>(
                 havingConditions_,
-                ((bitField0_ & 0x00000040) != 0),
+                ((bitField0_ & 0x00001000) != 0),
                 getParentForChildren(),
                 isClean());
         havingConditions_ = null;
@@ -1827,41 +4038,457 @@ private static final long serialVersionUID = 0L;
       return havingConditionsBuilder_;
     }
 
-    private boolean distinct_ ;
+    private java.util.List<com.sqlengine.grpc.SubqueryBlock> subqueries_ =
+      java.util.Collections.emptyList();
+    private void ensureSubqueriesIsMutable() {
+      if (!((bitField0_ & 0x00002000) != 0)) {
+        subqueries_ = new java.util.ArrayList<com.sqlengine.grpc.SubqueryBlock>(subqueries_);
+        bitField0_ |= 0x00002000;
+       }
+    }
+
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.SubqueryBlock, com.sqlengine.grpc.SubqueryBlock.Builder, com.sqlengine.grpc.SubqueryBlockOrBuilder> subqueriesBuilder_;
+
     /**
-     * <code>bool distinct = 8;</code>
-     * @return The distinct.
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
      */
-    @java.lang.Override
-    public boolean getDistinct() {
-      return distinct_;
+    public java.util.List<com.sqlengine.grpc.SubqueryBlock> getSubqueriesList() {
+      if (subqueriesBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(subqueries_);
+      } else {
+        return subqueriesBuilder_.getMessageList();
+      }
     }
     /**
-     * <code>bool distinct = 8;</code>
-     * @param value The distinct to set.
-     * @return This builder for chaining.
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
      */
-    public Builder setDistinct(boolean value) {
-
-      distinct_ = value;
-      bitField0_ |= 0x00000080;
-      onChanged();
+    public int getSubqueriesCount() {
+      if (subqueriesBuilder_ == null) {
+        return subqueries_.size();
+      } else {
+        return subqueriesBuilder_.getCount();
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public com.sqlengine.grpc.SubqueryBlock getSubqueries(int index) {
+      if (subqueriesBuilder_ == null) {
+        return subqueries_.get(index);
+      } else {
+        return subqueriesBuilder_.getMessage(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder setSubqueries(
+        int index, com.sqlengine.grpc.SubqueryBlock value) {
+      if (subqueriesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSubqueriesIsMutable();
+        subqueries_.set(index, value);
+        onChanged();
+      } else {
+        subqueriesBuilder_.setMessage(index, value);
+      }
       return this;
     }
     /**
-     * <code>bool distinct = 8;</code>
-     * @return This builder for chaining.
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
      */
-    public Builder clearDistinct() {
-      bitField0_ = (bitField0_ & ~0x00000080);
-      distinct_ = false;
+    public Builder setSubqueries(
+        int index, com.sqlengine.grpc.SubqueryBlock.Builder builderForValue) {
+      if (subqueriesBuilder_ == null) {
+        ensureSubqueriesIsMutable();
+        subqueries_.set(index, builderForValue.build());
+        onChanged();
+      } else {
+        subqueriesBuilder_.setMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder addSubqueries(com.sqlengine.grpc.SubqueryBlock value) {
+      if (subqueriesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSubqueriesIsMutable();
+        subqueries_.add(value);
+        onChanged();
+      } else {
+        subqueriesBuilder_.addMessage(value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder addSubqueries(
+        int index, com.sqlengine.grpc.SubqueryBlock value) {
+      if (subqueriesBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        ensureSubqueriesIsMutable();
+        subqueries_.add(index, value);
+        onChanged();
+      } else {
+        subqueriesBuilder_.addMessage(index, value);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder addSubqueries(
+        com.sqlengine.grpc.SubqueryBlock.Builder builderForValue) {
+      if (subqueriesBuilder_ == null) {
+        ensureSubqueriesIsMutable();
+        subqueries_.add(builderForValue.build());
+        onChanged();
+      } else {
+        subqueriesBuilder_.addMessage(builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder addSubqueries(
+        int index, com.sqlengine.grpc.SubqueryBlock.Builder builderForValue) {
+      if (subqueriesBuilder_ == null) {
+        ensureSubqueriesIsMutable();
+        subqueries_.add(index, builderForValue.build());
+        onChanged();
+      } else {
+        subqueriesBuilder_.addMessage(index, builderForValue.build());
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder addAllSubqueries(
+        java.lang.Iterable<? extends com.sqlengine.grpc.SubqueryBlock> values) {
+      if (subqueriesBuilder_ == null) {
+        ensureSubqueriesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, subqueries_);
+        onChanged();
+      } else {
+        subqueriesBuilder_.addAllMessages(values);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder clearSubqueries() {
+      if (subqueriesBuilder_ == null) {
+        subqueries_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00002000);
+        onChanged();
+      } else {
+        subqueriesBuilder_.clear();
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public Builder removeSubqueries(int index) {
+      if (subqueriesBuilder_ == null) {
+        ensureSubqueriesIsMutable();
+        subqueries_.remove(index);
+        onChanged();
+      } else {
+        subqueriesBuilder_.remove(index);
+      }
+      return this;
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public com.sqlengine.grpc.SubqueryBlock.Builder getSubqueriesBuilder(
+        int index) {
+      return getSubqueriesFieldBuilder().getBuilder(index);
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public com.sqlengine.grpc.SubqueryBlockOrBuilder getSubqueriesOrBuilder(
+        int index) {
+      if (subqueriesBuilder_ == null) {
+        return subqueries_.get(index);  } else {
+        return subqueriesBuilder_.getMessageOrBuilder(index);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public java.util.List<? extends com.sqlengine.grpc.SubqueryBlockOrBuilder> 
+         getSubqueriesOrBuilderList() {
+      if (subqueriesBuilder_ != null) {
+        return subqueriesBuilder_.getMessageOrBuilderList();
+      } else {
+        return java.util.Collections.unmodifiableList(subqueries_);
+      }
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public com.sqlengine.grpc.SubqueryBlock.Builder addSubqueriesBuilder() {
+      return getSubqueriesFieldBuilder().addBuilder(
+          com.sqlengine.grpc.SubqueryBlock.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public com.sqlengine.grpc.SubqueryBlock.Builder addSubqueriesBuilder(
+        int index) {
+      return getSubqueriesFieldBuilder().addBuilder(
+          index, com.sqlengine.grpc.SubqueryBlock.getDefaultInstance());
+    }
+    /**
+     * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+     */
+    public java.util.List<com.sqlengine.grpc.SubqueryBlock.Builder> 
+         getSubqueriesBuilderList() {
+      return getSubqueriesFieldBuilder().getBuilderList();
+    }
+    private com.google.protobuf.RepeatedFieldBuilderV3<
+        com.sqlengine.grpc.SubqueryBlock, com.sqlengine.grpc.SubqueryBlock.Builder, com.sqlengine.grpc.SubqueryBlockOrBuilder> 
+        getSubqueriesFieldBuilder() {
+      if (subqueriesBuilder_ == null) {
+        subqueriesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            com.sqlengine.grpc.SubqueryBlock, com.sqlengine.grpc.SubqueryBlock.Builder, com.sqlengine.grpc.SubqueryBlockOrBuilder>(
+                subqueries_,
+                ((bitField0_ & 0x00002000) != 0),
+                getParentForChildren(),
+                isClean());
+        subqueries_ = null;
+      }
+      return subqueriesBuilder_;
+    }
+
+    private com.google.protobuf.MapField<
+        java.lang.String, java.lang.Integer> orderBy_;
+    private com.google.protobuf.MapField<java.lang.String, java.lang.Integer>
+        internalGetOrderBy() {
+      if (orderBy_ == null) {
+        return com.google.protobuf.MapField.emptyMapField(
+            OrderByDefaultEntryHolder.defaultEntry);
+      }
+      return orderBy_;
+    }
+    private com.google.protobuf.MapField<java.lang.String, java.lang.Integer>
+        internalGetMutableOrderBy() {
+      if (orderBy_ == null) {
+        orderBy_ = com.google.protobuf.MapField.newMapField(
+            OrderByDefaultEntryHolder.defaultEntry);
+      }
+      if (!orderBy_.isMutable()) {
+        orderBy_ = orderBy_.copy();
+      }
+      bitField0_ |= 0x00004000;
       onChanged();
+      return orderBy_;
+    }
+    public int getOrderByCount() {
+      return internalGetOrderBy().getMap().size();
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    @java.lang.Override
+    public boolean containsOrderBy(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      return internalGetOrderBy().getMap().containsKey(key);
+    }
+    /**
+     * Use {@link #getOrderByMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+    getOrderBy() {
+      return getOrderByMap();
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+    getOrderByMap() {
+      return internalGetAdaptedOrderByMap(
+          internalGetOrderBy().getMap());}
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    @java.lang.Override
+    public /* nullable */
+com.sqlengine.grpc.SortDirection getOrderByOrDefault(
+        java.lang.String key,
+        /* nullable */
+com.sqlengine.grpc.SortDirection defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.Integer> map =
+          internalGetOrderBy().getMap();
+      return map.containsKey(key)
+             ? orderByValueConverter.doForward(map.get(key))
+             : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    @java.lang.Override
+    public com.sqlengine.grpc.SortDirection getOrderByOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.Integer> map =
+          internalGetOrderBy().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return orderByValueConverter.doForward(map.get(key));
+    }
+    /**
+     * Use {@link #getOrderByValueMap()} instead.
+     */
+    @java.lang.Override
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.Integer>
+    getOrderByValue() {
+      return getOrderByValueMap();
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    @java.lang.Override
+    public java.util.Map<java.lang.String, java.lang.Integer>
+    getOrderByValueMap() {
+      return internalGetOrderBy().getMap();
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    @java.lang.Override
+    public int getOrderByValueOrDefault(
+        java.lang.String key,
+        int defaultValue) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.Integer> map =
+          internalGetOrderBy().getMap();
+      return map.containsKey(key) ? map.get(key) : defaultValue;
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    @java.lang.Override
+    public int getOrderByValueOrThrow(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      java.util.Map<java.lang.String, java.lang.Integer> map =
+          internalGetOrderBy().getMap();
+      if (!map.containsKey(key)) {
+        throw new java.lang.IllegalArgumentException();
+      }
+      return map.get(key);
+    }
+    public Builder clearOrderBy() {
+      bitField0_ = (bitField0_ & ~0x00004000);
+      internalGetMutableOrderBy().getMutableMap()
+          .clear();
+      return this;
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    public Builder removeOrderBy(
+        java.lang.String key) {
+      if (key == null) { throw new NullPointerException("map key"); }
+      internalGetMutableOrderBy().getMutableMap()
+          .remove(key);
+      return this;
+    }
+    /**
+     * Use alternate mutation accessors instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+        getMutableOrderBy() {
+      bitField0_ |= 0x00004000;
+      return internalGetAdaptedOrderByMap(
+           internalGetMutableOrderBy().getMutableMap());
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    public Builder putOrderBy(
+        java.lang.String key,
+        com.sqlengine.grpc.SortDirection value) {
+      if (key == null) { throw new NullPointerException("map key"); }
+
+      internalGetMutableOrderBy().getMutableMap()
+          .put(key, orderByValueConverter.doBackward(value));
+      bitField0_ |= 0x00004000;
+      return this;
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    public Builder putAllOrderBy(
+        java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection> values) {
+      internalGetAdaptedOrderByMap(
+          internalGetMutableOrderBy().getMutableMap())
+              .putAll(values);
+      bitField0_ |= 0x00004000;
+      return this;
+    }
+    /**
+     * Use alternate mutation accessors instead.
+     */
+    @java.lang.Deprecated
+    public java.util.Map<java.lang.String, java.lang.Integer>
+    getMutableOrderByValue() {
+      bitField0_ |= 0x00004000;
+      return internalGetMutableOrderBy().getMutableMap();
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    public Builder putOrderByValue(
+        java.lang.String key,
+        int value) {
+      if (key == null) { throw new NullPointerException("map key"); }
+
+      internalGetMutableOrderBy().getMutableMap()
+          .put(key, value);
+      bitField0_ |= 0x00004000;
+      return this;
+    }
+    /**
+     * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+     */
+    public Builder putAllOrderByValue(
+        java.util.Map<java.lang.String, java.lang.Integer> values) {
+      internalGetMutableOrderBy().getMutableMap()
+          .putAll(values);
+      bitField0_ |= 0x00004000;
       return this;
     }
 
     private int limit_ ;
     /**
-     * <code>int32 limit = 9;</code>
+     * <code>int32 limit = 16;</code>
      * @return The limit.
      */
     @java.lang.Override
@@ -1869,23 +4496,23 @@ private static final long serialVersionUID = 0L;
       return limit_;
     }
     /**
-     * <code>int32 limit = 9;</code>
+     * <code>int32 limit = 16;</code>
      * @param value The limit to set.
      * @return This builder for chaining.
      */
     public Builder setLimit(int value) {
 
       limit_ = value;
-      bitField0_ |= 0x00000100;
+      bitField0_ |= 0x00008000;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 limit = 9;</code>
+     * <code>int32 limit = 16;</code>
      * @return This builder for chaining.
      */
     public Builder clearLimit() {
-      bitField0_ = (bitField0_ & ~0x00000100);
+      bitField0_ = (bitField0_ & ~0x00008000);
       limit_ = 0;
       onChanged();
       return this;
@@ -1893,7 +4520,7 @@ private static final long serialVersionUID = 0L;
 
     private int offset_ ;
     /**
-     * <code>int32 offset = 10;</code>
+     * <code>int32 offset = 17;</code>
      * @return The offset.
      */
     @java.lang.Override
@@ -1901,24 +4528,279 @@ private static final long serialVersionUID = 0L;
       return offset_;
     }
     /**
-     * <code>int32 offset = 10;</code>
+     * <code>int32 offset = 17;</code>
      * @param value The offset to set.
      * @return This builder for chaining.
      */
     public Builder setOffset(int value) {
 
       offset_ = value;
-      bitField0_ |= 0x00000200;
+      bitField0_ |= 0x00010000;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 offset = 10;</code>
+     * <code>int32 offset = 17;</code>
      * @return This builder for chaining.
      */
     public Builder clearOffset() {
-      bitField0_ = (bitField0_ & ~0x00000200);
+      bitField0_ = (bitField0_ & ~0x00010000);
       offset_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.LazyStringArrayList groupBy_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    private void ensureGroupByIsMutable() {
+      if (!groupBy_.isModifiable()) {
+        groupBy_ = new com.google.protobuf.LazyStringArrayList(groupBy_);
+      }
+      bitField0_ |= 0x00020000;
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @return A list containing the groupBy.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getGroupByList() {
+      groupBy_.makeImmutable();
+      return groupBy_;
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @return The count of groupBy.
+     */
+    public int getGroupByCount() {
+      return groupBy_.size();
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @param index The index of the element to return.
+     * @return The groupBy at the given index.
+     */
+    public java.lang.String getGroupBy(int index) {
+      return groupBy_.get(index);
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the groupBy at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getGroupByBytes(int index) {
+      return groupBy_.getByteString(index);
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @param index The index to set the value at.
+     * @param value The groupBy to set.
+     * @return This builder for chaining.
+     */
+    public Builder setGroupBy(
+        int index, java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureGroupByIsMutable();
+      groupBy_.set(index, value);
+      bitField0_ |= 0x00020000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @param value The groupBy to add.
+     * @return This builder for chaining.
+     */
+    public Builder addGroupBy(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      ensureGroupByIsMutable();
+      groupBy_.add(value);
+      bitField0_ |= 0x00020000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @param values The groupBy to add.
+     * @return This builder for chaining.
+     */
+    public Builder addAllGroupBy(
+        java.lang.Iterable<java.lang.String> values) {
+      ensureGroupByIsMutable();
+      com.google.protobuf.AbstractMessageLite.Builder.addAll(
+          values, groupBy_);
+      bitField0_ |= 0x00020000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearGroupBy() {
+      groupBy_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+      bitField0_ = (bitField0_ & ~0x00020000);;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>repeated string groupBy = 18;</code>
+     * @param value The bytes of the groupBy to add.
+     * @return This builder for chaining.
+     */
+    public Builder addGroupByBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      ensureGroupByIsMutable();
+      groupBy_.add(value);
+      bitField0_ |= 0x00020000;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object createdAt_ = "";
+    /**
+     * <code>string createdAt = 19;</code>
+     * @return The createdAt.
+     */
+    public java.lang.String getCreatedAt() {
+      java.lang.Object ref = createdAt_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        createdAt_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string createdAt = 19;</code>
+     * @return The bytes for createdAt.
+     */
+    public com.google.protobuf.ByteString
+        getCreatedAtBytes() {
+      java.lang.Object ref = createdAt_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        createdAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string createdAt = 19;</code>
+     * @param value The createdAt to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCreatedAt(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      createdAt_ = value;
+      bitField0_ |= 0x00040000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string createdAt = 19;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearCreatedAt() {
+      createdAt_ = getDefaultInstance().getCreatedAt();
+      bitField0_ = (bitField0_ & ~0x00040000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string createdAt = 19;</code>
+     * @param value The bytes for createdAt to set.
+     * @return This builder for chaining.
+     */
+    public Builder setCreatedAtBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      createdAt_ = value;
+      bitField0_ |= 0x00040000;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object updatedAt_ = "";
+    /**
+     * <code>string updatedAt = 20;</code>
+     * @return The updatedAt.
+     */
+    public java.lang.String getUpdatedAt() {
+      java.lang.Object ref = updatedAt_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        updatedAt_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string updatedAt = 20;</code>
+     * @return The bytes for updatedAt.
+     */
+    public com.google.protobuf.ByteString
+        getUpdatedAtBytes() {
+      java.lang.Object ref = updatedAt_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        updatedAt_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string updatedAt = 20;</code>
+     * @param value The updatedAt to set.
+     * @return This builder for chaining.
+     */
+    public Builder setUpdatedAt(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      updatedAt_ = value;
+      bitField0_ |= 0x00080000;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string updatedAt = 20;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearUpdatedAt() {
+      updatedAt_ = getDefaultInstance().getUpdatedAt();
+      bitField0_ = (bitField0_ & ~0x00080000);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string updatedAt = 20;</code>
+     * @param value The bytes for updatedAt to set.
+     * @return This builder for chaining.
+     */
+    public Builder setUpdatedAtBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      updatedAt_ = value;
+      bitField0_ |= 0x00080000;
       onChanged();
       return this;
     }

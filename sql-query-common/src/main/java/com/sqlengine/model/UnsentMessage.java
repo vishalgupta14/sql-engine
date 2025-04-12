@@ -1,5 +1,6 @@
 package com.sqlengine.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sqlengine.dto.MessagingMode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Document("unsent_messages")
 @Data
 @NoArgsConstructor

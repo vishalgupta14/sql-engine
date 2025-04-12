@@ -56,80 +56,339 @@ public interface QueryTemplateOrBuilder extends
       getQueryTypeBytes();
 
   /**
-   * <code>string tableName = 5;</code>
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  java.util.List<com.sqlengine.grpc.CteBlock> 
+      getCtesList();
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  com.sqlengine.grpc.CteBlock getCtes(int index);
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  int getCtesCount();
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  java.util.List<? extends com.sqlengine.grpc.CteBlockOrBuilder> 
+      getCtesOrBuilderList();
+  /**
+   * <code>repeated .queryrunner.CteBlock ctes = 5;</code>
+   */
+  com.sqlengine.grpc.CteBlockOrBuilder getCtesOrBuilder(
+      int index);
+
+  /**
+   * <code>string tableName = 6;</code>
    * @return The tableName.
    */
   java.lang.String getTableName();
   /**
-   * <code>string tableName = 5;</code>
+   * <code>string tableName = 6;</code>
    * @return The bytes for tableName.
    */
   com.google.protobuf.ByteString
       getTableNameBytes();
 
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
-  java.util.List<com.sqlengine.grpc.QueryCondition> 
-      getConditionsList();
+  java.util.List<com.sqlengine.grpc.UnionQuery> 
+      getUnionsList();
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
-  com.sqlengine.grpc.QueryCondition getConditions(int index);
+  com.sqlengine.grpc.UnionQuery getUnions(int index);
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
-  int getConditionsCount();
+  int getUnionsCount();
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
-  java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
-      getConditionsOrBuilderList();
+  java.util.List<? extends com.sqlengine.grpc.UnionQueryOrBuilder> 
+      getUnionsOrBuilderList();
   /**
-   * <code>repeated .queryrunner.QueryCondition conditions = 6;</code>
+   * <code>repeated .queryrunner.UnionQuery unions = 7;</code>
    */
-  com.sqlengine.grpc.QueryConditionOrBuilder getConditionsOrBuilder(
+  com.sqlengine.grpc.UnionQueryOrBuilder getUnionsOrBuilder(
       int index);
 
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
-  java.util.List<com.sqlengine.grpc.QueryCondition> 
-      getHavingConditionsList();
+  java.util.List<com.sqlengine.grpc.JoinConfig> 
+      getJoinsList();
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
-  com.sqlengine.grpc.QueryCondition getHavingConditions(int index);
+  com.sqlengine.grpc.JoinConfig getJoins(int index);
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
-  int getHavingConditionsCount();
+  int getJoinsCount();
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
-  java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
-      getHavingConditionsOrBuilderList();
+  java.util.List<? extends com.sqlengine.grpc.JoinConfigOrBuilder> 
+      getJoinsOrBuilderList();
   /**
-   * <code>repeated .queryrunner.QueryCondition havingConditions = 7;</code>
+   * <code>repeated .queryrunner.JoinConfig joins = 8;</code>
    */
-  com.sqlengine.grpc.QueryConditionOrBuilder getHavingConditionsOrBuilder(
+  com.sqlengine.grpc.JoinConfigOrBuilder getJoinsOrBuilder(
       int index);
 
   /**
-   * <code>bool distinct = 8;</code>
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  java.util.List<com.sqlengine.grpc.SelectedColumn> 
+      getSelectedColumnsList();
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  com.sqlengine.grpc.SelectedColumn getSelectedColumns(int index);
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  int getSelectedColumnsCount();
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  java.util.List<? extends com.sqlengine.grpc.SelectedColumnOrBuilder> 
+      getSelectedColumnsOrBuilderList();
+  /**
+   * <code>repeated .queryrunner.SelectedColumn selectedColumns = 9;</code>
+   */
+  com.sqlengine.grpc.SelectedColumnOrBuilder getSelectedColumnsOrBuilder(
+      int index);
+
+  /**
+   * <code>bool distinct = 10;</code>
    * @return The distinct.
    */
   boolean getDistinct();
 
   /**
-   * <code>int32 limit = 9;</code>
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  int getUpdatedValuesCount();
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  boolean containsUpdatedValues(
+      java.lang.String key);
+  /**
+   * Use {@link #getUpdatedValuesMap()} instead.
+   */
+  @java.lang.Deprecated
+  java.util.Map<java.lang.String, java.lang.String>
+  getUpdatedValues();
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  java.util.Map<java.lang.String, java.lang.String>
+  getUpdatedValuesMap();
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  /* nullable */
+java.lang.String getUpdatedValuesOrDefault(
+      java.lang.String key,
+      /* nullable */
+java.lang.String defaultValue);
+  /**
+   * <code>map&lt;string, string&gt; updatedValues = 11;</code>
+   */
+  java.lang.String getUpdatedValuesOrThrow(
+      java.lang.String key);
+
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  java.util.List<com.sqlengine.grpc.QueryCondition> 
+      getConditionsList();
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  com.sqlengine.grpc.QueryCondition getConditions(int index);
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  int getConditionsCount();
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
+      getConditionsOrBuilderList();
+  /**
+   * <code>repeated .queryrunner.QueryCondition conditions = 12;</code>
+   */
+  com.sqlengine.grpc.QueryConditionOrBuilder getConditionsOrBuilder(
+      int index);
+
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  java.util.List<com.sqlengine.grpc.QueryCondition> 
+      getHavingConditionsList();
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  com.sqlengine.grpc.QueryCondition getHavingConditions(int index);
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  int getHavingConditionsCount();
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  java.util.List<? extends com.sqlengine.grpc.QueryConditionOrBuilder> 
+      getHavingConditionsOrBuilderList();
+  /**
+   * <code>repeated .queryrunner.QueryCondition havingConditions = 13;</code>
+   */
+  com.sqlengine.grpc.QueryConditionOrBuilder getHavingConditionsOrBuilder(
+      int index);
+
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  java.util.List<com.sqlengine.grpc.SubqueryBlock> 
+      getSubqueriesList();
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  com.sqlengine.grpc.SubqueryBlock getSubqueries(int index);
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  int getSubqueriesCount();
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  java.util.List<? extends com.sqlengine.grpc.SubqueryBlockOrBuilder> 
+      getSubqueriesOrBuilderList();
+  /**
+   * <code>repeated .queryrunner.SubqueryBlock subqueries = 14;</code>
+   */
+  com.sqlengine.grpc.SubqueryBlockOrBuilder getSubqueriesOrBuilder(
+      int index);
+
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  int getOrderByCount();
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  boolean containsOrderBy(
+      java.lang.String key);
+  /**
+   * Use {@link #getOrderByMap()} instead.
+   */
+  @java.lang.Deprecated
+  java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+  getOrderBy();
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  java.util.Map<java.lang.String, com.sqlengine.grpc.SortDirection>
+  getOrderByMap();
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  /* nullable */
+com.sqlengine.grpc.SortDirection getOrderByOrDefault(
+      java.lang.String key,
+      /* nullable */
+com.sqlengine.grpc.SortDirection         defaultValue);
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  com.sqlengine.grpc.SortDirection getOrderByOrThrow(
+      java.lang.String key);
+  /**
+   * Use {@link #getOrderByValueMap()} instead.
+   */
+  @java.lang.Deprecated
+  java.util.Map<java.lang.String, java.lang.Integer>
+  getOrderByValue();
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  java.util.Map<java.lang.String, java.lang.Integer>
+  getOrderByValueMap();
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  int getOrderByValueOrDefault(
+      java.lang.String key,
+      int defaultValue);
+  /**
+   * <code>map&lt;string, .queryrunner.SortDirection&gt; orderBy = 15;</code>
+   */
+  int getOrderByValueOrThrow(
+      java.lang.String key);
+
+  /**
+   * <code>int32 limit = 16;</code>
    * @return The limit.
    */
   int getLimit();
 
   /**
-   * <code>int32 offset = 10;</code>
+   * <code>int32 offset = 17;</code>
    * @return The offset.
    */
   int getOffset();
+
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @return A list containing the groupBy.
+   */
+  java.util.List<java.lang.String>
+      getGroupByList();
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @return The count of groupBy.
+   */
+  int getGroupByCount();
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @param index The index of the element to return.
+   * @return The groupBy at the given index.
+   */
+  java.lang.String getGroupBy(int index);
+  /**
+   * <code>repeated string groupBy = 18;</code>
+   * @param index The index of the value to return.
+   * @return The bytes of the groupBy at the given index.
+   */
+  com.google.protobuf.ByteString
+      getGroupByBytes(int index);
+
+  /**
+   * <code>string createdAt = 19;</code>
+   * @return The createdAt.
+   */
+  java.lang.String getCreatedAt();
+  /**
+   * <code>string createdAt = 19;</code>
+   * @return The bytes for createdAt.
+   */
+  com.google.protobuf.ByteString
+      getCreatedAtBytes();
+
+  /**
+   * <code>string updatedAt = 20;</code>
+   * @return The updatedAt.
+   */
+  java.lang.String getUpdatedAt();
+  /**
+   * <code>string updatedAt = 20;</code>
+   * @return The bytes for updatedAt.
+   */
+  com.google.protobuf.ByteString
+      getUpdatedAtBytes();
 }

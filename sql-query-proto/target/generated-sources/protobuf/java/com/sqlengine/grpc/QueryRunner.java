@@ -20,10 +20,45 @@ public final class QueryRunner {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_queryrunner_QueryCondition_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_queryrunner_SelectedColumn_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_queryrunner_SelectedColumn_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_queryrunner_JoinConfig_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_queryrunner_JoinConfig_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_queryrunner_SubqueryBlock_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_queryrunner_SubqueryBlock_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_queryrunner_CteBlock_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_queryrunner_CteBlock_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_queryrunner_UnionQuery_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_queryrunner_UnionQuery_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_queryrunner_QueryTemplate_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_queryrunner_QueryTemplate_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_queryrunner_QueryTemplate_UpdatedValuesEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_queryrunner_QueryTemplate_UpdatedValuesEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_queryrunner_QueryTemplate_OrderByEntry_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_queryrunner_QueryTemplate_OrderByEntry_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_queryrunner_DatabaseConfig_descriptor;
   static final 
@@ -76,39 +111,63 @@ public final class QueryRunner {
       "\n\022query_runner.proto\022\013queryrunner\"\\\n\016Que" +
       "ryCondition\022\021\n\tfieldName\030\001 \001(\t\022\r\n\005value\030" +
       "\002 \001(\t\022\020\n\010operator\030\003 \001(\t\022\026\n\016filterOperato" +
-      "r\030\004 \001(\t\"\203\002\n\rQueryTemplate\022\n\n\002id\030\001 \001(\t\022\024\n" +
-      "\014templateName\030\002 \001(\t\022\021\n\tcreatedBy\030\003 \001(\t\022\021" +
-      "\n\tqueryType\030\004 \001(\t\022\021\n\ttableName\030\005 \001(\t\022/\n\n" +
-      "conditions\030\006 \003(\0132\033.queryrunner.QueryCond" +
-      "ition\0225\n\020havingConditions\030\007 \003(\0132\033.queryr" +
-      "unner.QueryCondition\022\020\n\010distinct\030\010 \001(\010\022\r" +
-      "\n\005limit\030\t \001(\005\022\016\n\006offset\030\n \001(\005\"\367\002\n\016Databa" +
-      "seConfig\022\n\n\002id\030\001 \001(\t\022\036\n\026databaseConnecti" +
-      "onName\030\002 \001(\t\022\020\n\010provider\030\003 \001(\t\0227\n\006config" +
-      "\030\004 \003(\0132\'.queryrunner.DatabaseConfig.Conf" +
-      "igEntry\022\020\n\010isActive\030\005 \001(\010\022\030\n\020fallbackCon" +
-      "figId\030\006 \001(\t\022U\n\025privacyFallbackConfig\030\007 \003" +
-      "(\01326.queryrunner.DatabaseConfig.PrivacyF" +
-      "allbackConfigEntry\032-\n\013ConfigEntry\022\013\n\003key" +
-      "\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032<\n\032PrivacyFall" +
-      "backConfigEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 " +
-      "\001(\t:\0028\001\"\245\001\n\017QueryRunRequest\022,\n\010template\030" +
-      "\001 \001(\0132\032.queryrunner.QueryTemplate\022+\n\006con" +
-      "fig\030\002 \001(\0132\033.queryrunner.DatabaseConfig\0227" +
-      "\n\022overrideConditions\030\003 \003(\0132\033.queryrunner" +
-      ".QueryCondition\"&\n\020QueryRunResponse\022\022\n\nj" +
-      "sonResult\030\001 \001(\t\"9\n\022TableSchemaRequest\022\020\n" +
-      "\010configId\030\001 \001(\t\022\021\n\ttableName\030\002 \001(\t\"Y\n\nCo" +
-      "lumnInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\014\n\004" +
-      "size\030\003 \001(\005\022\020\n\010nullable\030\004 \001(\010\022\017\n\007remarks\030" +
-      "\005 \001(\t\"?\n\023TableSchemaResponse\022(\n\007columns\030" +
-      "\001 \003(\0132\027.queryrunner.ColumnInfo2\262\001\n\022Query" +
-      "RunnerService\022G\n\010RunQuery\022\034.queryrunner." +
-      "QueryRunRequest\032\035.queryrunner.QueryRunRe" +
-      "sponse\022S\n\016GetTableSchema\022\037.queryrunner.T" +
-      "ableSchemaRequest\032 .queryrunner.TableSch" +
-      "emaResponseB\026\n\022com.sqlengine.grpcP\001b\006pro" +
-      "to3"
+      "r\030\004 \001(\t\"G\n\016SelectedColumn\022\022\n\ncolumnName\030" +
+      "\001 \001(\t\022\r\n\005alias\030\002 \001(\t\022\022\n\nexpression\030\003 \001(\t" +
+      "\"h\n\nJoinConfig\022\'\n\010joinType\030\001 \001(\0162\025.query" +
+      "runner.JoinType\022\r\n\005table\030\002 \001(\t\022\r\n\005alias\030" +
+      "\003 \001(\t\022\023\n\013onCondition\030\004 \001(\t\",\n\rSubqueryBl" +
+      "ock\022\014\n\004name\030\001 \001(\t\022\r\n\005query\030\002 \001(\t\"\'\n\010CteB" +
+      "lock\022\014\n\004name\030\001 \001(\t\022\r\n\005query\030\002 \001(\t\"L\n\nUni" +
+      "onQuery\022,\n\010template\030\001 \001(\0132\032.queryrunner." +
+      "QueryTemplate\022\020\n\010unionAll\030\002 \001(\010\"\230\006\n\rQuer" +
+      "yTemplate\022\n\n\002id\030\001 \001(\t\022\024\n\014templateName\030\002 " +
+      "\001(\t\022\021\n\tcreatedBy\030\003 \001(\t\022\021\n\tqueryType\030\004 \001(" +
+      "\t\022#\n\004ctes\030\005 \003(\0132\025.queryrunner.CteBlock\022\021" +
+      "\n\ttableName\030\006 \001(\t\022\'\n\006unions\030\007 \003(\0132\027.quer" +
+      "yrunner.UnionQuery\022&\n\005joins\030\010 \003(\0132\027.quer" +
+      "yrunner.JoinConfig\0224\n\017selectedColumns\030\t " +
+      "\003(\0132\033.queryrunner.SelectedColumn\022\020\n\010dist" +
+      "inct\030\n \001(\010\022D\n\rupdatedValues\030\013 \003(\0132-.quer" +
+      "yrunner.QueryTemplate.UpdatedValuesEntry" +
+      "\022/\n\nconditions\030\014 \003(\0132\033.queryrunner.Query" +
+      "Condition\0225\n\020havingConditions\030\r \003(\0132\033.qu" +
+      "eryrunner.QueryCondition\022.\n\nsubqueries\030\016" +
+      " \003(\0132\032.queryrunner.SubqueryBlock\0228\n\007orde" +
+      "rBy\030\017 \003(\0132\'.queryrunner.QueryTemplate.Or" +
+      "derByEntry\022\r\n\005limit\030\020 \001(\005\022\016\n\006offset\030\021 \001(" +
+      "\005\022\017\n\007groupBy\030\022 \003(\t\022\021\n\tcreatedAt\030\023 \001(\t\022\021\n" +
+      "\tupdatedAt\030\024 \001(\t\0324\n\022UpdatedValuesEntry\022\013" +
+      "\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032J\n\014OrderB" +
+      "yEntry\022\013\n\003key\030\001 \001(\t\022)\n\005value\030\002 \001(\0162\032.que" +
+      "ryrunner.SortDirection:\0028\001\"\367\002\n\016DatabaseC" +
+      "onfig\022\n\n\002id\030\001 \001(\t\022\036\n\026databaseConnectionN" +
+      "ame\030\002 \001(\t\022\020\n\010provider\030\003 \001(\t\0227\n\006config\030\004 " +
+      "\003(\0132\'.queryrunner.DatabaseConfig.ConfigE" +
+      "ntry\022\020\n\010isActive\030\005 \001(\010\022\030\n\020fallbackConfig" +
+      "Id\030\006 \001(\t\022U\n\025privacyFallbackConfig\030\007 \003(\0132" +
+      "6.queryrunner.DatabaseConfig.PrivacyFall" +
+      "backConfigEntry\032-\n\013ConfigEntry\022\013\n\003key\030\001 " +
+      "\001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\032<\n\032PrivacyFallbac" +
+      "kConfigEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t" +
+      ":\0028\001\"\245\001\n\017QueryRunRequest\022,\n\010template\030\001 \001" +
+      "(\0132\032.queryrunner.QueryTemplate\022+\n\006config" +
+      "\030\002 \001(\0132\033.queryrunner.DatabaseConfig\0227\n\022o" +
+      "verrideConditions\030\003 \003(\0132\033.queryrunner.Qu" +
+      "eryCondition\"&\n\020QueryRunResponse\022\022\n\njson" +
+      "Result\030\001 \001(\t\"9\n\022TableSchemaRequest\022\020\n\010co" +
+      "nfigId\030\001 \001(\t\022\021\n\ttableName\030\002 \001(\t\"Y\n\nColum" +
+      "nInfo\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\t\022\014\n\004siz" +
+      "e\030\003 \001(\005\022\020\n\010nullable\030\004 \001(\010\022\017\n\007remarks\030\005 \001" +
+      "(\t\"?\n\023TableSchemaResponse\022(\n\007columns\030\001 \003" +
+      "(\0132\027.queryrunner.ColumnInfo*\"\n\rSortDirec" +
+      "tion\022\007\n\003ASC\020\000\022\010\n\004DESC\020\001*?\n\010JoinType\022\t\n\005I" +
+      "NNER\020\000\022\010\n\004LEFT\020\001\022\t\n\005RIGHT\020\002\022\010\n\004FULL\020\003\022\t\n" +
+      "\005CROSS\020\0042\262\001\n\022QueryRunnerService\022G\n\010RunQu" +
+      "ery\022\034.queryrunner.QueryRunRequest\032\035.quer" +
+      "yrunner.QueryRunResponse\022S\n\016GetTableSche" +
+      "ma\022\037.queryrunner.TableSchemaRequest\032 .qu" +
+      "eryrunner.TableSchemaResponseB\026\n\022com.sql" +
+      "engine.grpcP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -120,14 +179,56 @@ public final class QueryRunner {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_QueryCondition_descriptor,
         new java.lang.String[] { "FieldName", "Value", "Operator", "FilterOperator", });
-    internal_static_queryrunner_QueryTemplate_descriptor =
+    internal_static_queryrunner_SelectedColumn_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_queryrunner_SelectedColumn_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_queryrunner_SelectedColumn_descriptor,
+        new java.lang.String[] { "ColumnName", "Alias", "Expression", });
+    internal_static_queryrunner_JoinConfig_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_queryrunner_JoinConfig_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_queryrunner_JoinConfig_descriptor,
+        new java.lang.String[] { "JoinType", "Table", "Alias", "OnCondition", });
+    internal_static_queryrunner_SubqueryBlock_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_queryrunner_SubqueryBlock_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_queryrunner_SubqueryBlock_descriptor,
+        new java.lang.String[] { "Name", "Query", });
+    internal_static_queryrunner_CteBlock_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_queryrunner_CteBlock_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_queryrunner_CteBlock_descriptor,
+        new java.lang.String[] { "Name", "Query", });
+    internal_static_queryrunner_UnionQuery_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_queryrunner_UnionQuery_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_queryrunner_UnionQuery_descriptor,
+        new java.lang.String[] { "Template", "UnionAll", });
+    internal_static_queryrunner_QueryTemplate_descriptor =
+      getDescriptor().getMessageTypes().get(6);
     internal_static_queryrunner_QueryTemplate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_QueryTemplate_descriptor,
-        new java.lang.String[] { "Id", "TemplateName", "CreatedBy", "QueryType", "TableName", "Conditions", "HavingConditions", "Distinct", "Limit", "Offset", });
+        new java.lang.String[] { "Id", "TemplateName", "CreatedBy", "QueryType", "Ctes", "TableName", "Unions", "Joins", "SelectedColumns", "Distinct", "UpdatedValues", "Conditions", "HavingConditions", "Subqueries", "OrderBy", "Limit", "Offset", "GroupBy", "CreatedAt", "UpdatedAt", });
+    internal_static_queryrunner_QueryTemplate_UpdatedValuesEntry_descriptor =
+      internal_static_queryrunner_QueryTemplate_descriptor.getNestedTypes().get(0);
+    internal_static_queryrunner_QueryTemplate_UpdatedValuesEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_queryrunner_QueryTemplate_UpdatedValuesEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
+    internal_static_queryrunner_QueryTemplate_OrderByEntry_descriptor =
+      internal_static_queryrunner_QueryTemplate_descriptor.getNestedTypes().get(1);
+    internal_static_queryrunner_QueryTemplate_OrderByEntry_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_queryrunner_QueryTemplate_OrderByEntry_descriptor,
+        new java.lang.String[] { "Key", "Value", });
     internal_static_queryrunner_DatabaseConfig_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_queryrunner_DatabaseConfig_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_DatabaseConfig_descriptor,
@@ -145,31 +246,31 @@ public final class QueryRunner {
         internal_static_queryrunner_DatabaseConfig_PrivacyFallbackConfigEntry_descriptor,
         new java.lang.String[] { "Key", "Value", });
     internal_static_queryrunner_QueryRunRequest_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_queryrunner_QueryRunRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_QueryRunRequest_descriptor,
         new java.lang.String[] { "Template", "Config", "OverrideConditions", });
     internal_static_queryrunner_QueryRunResponse_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_queryrunner_QueryRunResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_QueryRunResponse_descriptor,
         new java.lang.String[] { "JsonResult", });
     internal_static_queryrunner_TableSchemaRequest_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_queryrunner_TableSchemaRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_TableSchemaRequest_descriptor,
         new java.lang.String[] { "ConfigId", "TableName", });
     internal_static_queryrunner_ColumnInfo_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_queryrunner_ColumnInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_ColumnInfo_descriptor,
         new java.lang.String[] { "Name", "Type", "Size", "Nullable", "Remarks", });
     internal_static_queryrunner_TableSchemaResponse_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_queryrunner_TableSchemaResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_queryrunner_TableSchemaResponse_descriptor,

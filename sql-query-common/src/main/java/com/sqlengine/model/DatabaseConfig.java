@@ -1,5 +1,6 @@
 package com.sqlengine.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sqlengine.enums.DatabaseProvider;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +31,7 @@ import java.util.Map;
  * }
  * }</pre>
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @Document("database_config")

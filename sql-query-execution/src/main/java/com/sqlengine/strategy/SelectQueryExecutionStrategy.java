@@ -1,5 +1,6 @@
 package com.sqlengine.strategy;
 
+import com.sqlengine.enums.DatabaseProvider;
 import com.sqlengine.enums.JoinType;
 import com.sqlengine.manager.TableMetadataManager;
 import com.sqlengine.model.DatabaseConfig;
@@ -10,6 +11,7 @@ import com.sqlengine.model.query.QueryCondition;
 import com.sqlengine.model.query.SelectedColumn;
 import com.sqlengine.model.query.SubqueryBlock;
 import com.sqlengine.model.query.UnionQuery;
+import com.sqlengine.strategy.utils.SqlDialectHelper;
 import com.sqlengine.utils.QueryParamCaster;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +67,7 @@ public class SelectQueryExecutionStrategy implements QueryExecutionStrategy {
                         sql.append(cteJoiner).append(" ");
                     }
 
-                    String baseQuery = buildSingleQuery(template, columnTypes, params);
+                    String baseQuery = buildSingleQuery(template, columnTypes, params,config.getProvider());
                     sql.append(baseQuery);
 
                     // Union queries (fallback to blocking metadata call for unions)
@@ -74,7 +76,7 @@ public class SelectQueryExecutionStrategy implements QueryExecutionStrategy {
                             QueryTemplate unionTemplate = union.getTemplate();
                             Map<String, Integer> unionColumnTypes = tableMetadataManager.getColumnTypes(config, null, unionTemplate.getTableName()); // ⚠️ fallback to blocking
                             Map<String, Object> unionParams = new HashMap<>();
-                            String unionSql = buildSingleQuery(unionTemplate, unionColumnTypes, unionParams);
+                            String unionSql = buildSingleQuery(unionTemplate, unionColumnTypes, unionParams, config.getProvider());
                             sql.append(union.isUnionAll() ? " UNION ALL " : " UNION ").append(unionSql);
                             params.putAll(unionParams);
                         }
@@ -96,7 +98,7 @@ public class SelectQueryExecutionStrategy implements QueryExecutionStrategy {
     }
 
 
-    private String buildSingleQuery(QueryTemplate template, Map<String, Integer> columnTypes, Map<String, Object> params) {
+    private String buildSingleQuery(QueryTemplate template, Map<String, Integer> columnTypes, Map<String, Object> params, DatabaseProvider provider) {
         StringBuilder sql = new StringBuilder();
 
         if (template.isDistinct()) {
@@ -209,13 +211,10 @@ public class SelectQueryExecutionStrategy implements QueryExecutionStrategy {
             sql.append(" ORDER BY ").append(orderJoiner);
         }
 
-        if (template.getLimit() != null) {
-            sql.append(" LIMIT ").append(template.getLimit());
+        if (template.getLimit() != null || template.getOffset() != null) {
+            sql.append(SqlDialectHelper.buildLimitOffsetClause(provider, template.getLimit(), template.getOffset()));
         }
 
-        if (template.getOffset() != null) {
-            sql.append(" OFFSET ").append(template.getOffset());
-        }
 
         return sql.toString();
     }
