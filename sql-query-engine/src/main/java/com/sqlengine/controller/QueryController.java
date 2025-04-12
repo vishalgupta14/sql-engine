@@ -63,7 +63,7 @@ public class QueryController {
 
                     return finalTableNameMono
                             .flatMap(finalTableName ->
-                                    grpcMetadataClientService.getTableSchema(configId, finalTableName, provider)
+                                    grpcMetadataClientService.getTableSchema(configId, finalTableName)
                                             .map(columns -> ResponseEntity.ok((Object) Map.of(
                                                     "table", finalTableName,
                                                     "columns", columns

@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.sqlengine.grpc";
+
+package queryrunner;
+
+enum SortDirection {
+  ASC = 0;
+  DESC = 1;
+}
+
+enum JoinType {
+  INNER = 0;
+  LEFT = 1;
+  RIGHT = 2;
+  FULL = 3;
+  CROSS = 4;
+}
+
+message QueryCondition {
+  string fieldName = 1;
+  string value = 2;
+  string operator = 3;
+  string filterOperator = 4;
+}
+
+message SelectedColumn {
+  string columnName = 1;
+  string alias = 2;
+  string expression = 3;
+}
+
+message JoinConfig {
+  JoinType joinType = 1;
+  string table = 2;
+  string alias = 3;
+  string onCondition = 4;
+}
+
+message SubqueryBlock {
+  string name = 1;
+  string query = 2;
+}
+
+message CteBlock {
+  string name = 1;
+  string query = 2;
+}
+
+message UnionQuery {
+  QueryTemplate template = 1;
+  bool unionAll = 2;
+}
+
+message QueryTemplate {
+  string id = 1;
+  string templateName = 2;
+  string createdBy = 3;
+  string queryType = 4;
+
+  repeated CteBlock ctes = 5;
+  string tableName = 6;
+  repeated UnionQuery unions = 7;
+  repeated JoinConfig joins = 8;
+  repeated SelectedColumn selectedColumns = 9;
+  bool distinct = 10;
+
+  map<string, string> updatedValues = 11;
+
+  repeated QueryCondition conditions = 12;
+  repeated QueryCondition havingConditions = 13;
+  repeated SubqueryBlock subqueries = 14;
+
+  map<string, SortDirection> orderBy = 15;
+
+  int32 limit = 16;
+  int32 offset = 17;
+
+  repeated string groupBy = 18;
+
+  string createdAt = 19;
+  string updatedAt = 20;
+
+  // --- INSERT specific fields ---
+
+  // Key-value pairs for single row insert
+  map<string, string> insertValues = 21;
+
+  // If true, use INSERT INTO ... SELECT ...
+  bool insertFromSelect = 22;
+
+  // Columns to insert into (used with insertFromSelect + subqueries)
+  repeated string insertColumns = 23;
+
+  // Conflict resolution: unique keys for ON CONFLICT (PostgreSQL)
+  repeated string conflictColumns = 24;
+
+  // Columns and values to update on conflict (Upsert behavior)
+  map<string, string> upsertValues = 25;
+
+  // Use REPLACE INTO / INSERT OR REPLACE (MySQL/MariaDB/SQLite)
+  bool useReplace = 26;
+
+  // Use MERGE INTO (Oracle, SQL Server, MariaDB 10.3+)
+  bool useMerge = 27;
+
+  // RETURNING support
+  repeated string returningFields = 28;
+
+  // Optional primary key field (default: "id")
+  string primaryKeyField = 29;
+
+  string sqlQuery = 30;
+
+  // --- DELETE-specific fields ---
+  bool deleteWithJoin = 31;
+  string deleteTableAlias = 32;
+
+  // For CREATE TABLE and other DDL
+  string ddlStatement = 33;
+
+}
+
+message DatabaseConfig {
+  string id = 1;
+  string databaseConnectionName = 2;
+  string provider = 3;
+  map<string, string> config = 4;
+  bool isActive = 5;
+  string fallbackConfigId = 6;
+  map<string, string> privacyFallbackConfig = 7;
+}
+
+message QueryRunRequest {
+  QueryTemplate template = 1;
+  DatabaseConfig config = 2;
+  repeated QueryCondition overrideConditions = 3;
+}
+
+message QueryRunResponse {
+  string jsonResult = 1;
+}
+
+message TableSchemaRequest {
+  string configId = 1;
+  string tableName = 2;
+}
+
+message ColumnInfo {
+  string name = 1;
+  string type = 2;
+  int32 size = 3;
+  bool nullable = 4;
+  string remarks = 5;
+}
+
+message TableSchemaResponse {
+  repeated ColumnInfo columns = 1;
+}
+
+service QueryRunnerService {
+  rpc RunQuery(QueryRunRequest) returns (QueryRunResponse);
+  rpc GetTableSchema(TableSchemaRequest) returns (TableSchemaResponse);
+}
