@@ -1,3 +1,4 @@
+
 package com.sqlengine.strategy;
 
 import com.sqlengine.enums.DatabaseProvider;
@@ -49,7 +50,23 @@ public class UpdateQueryExecutionStrategy implements QueryExecutionStrategy {
                         for (Map.Entry<String, Object> entry : params.entrySet()) {
                             spec = spec.bind(entry.getKey(), Parameter.fromOrEmpty(entry.getValue(), Object.class));
                         }
-                        return spec.fetch().rowsUpdated().map(updated -> Map.of("rowsUpdated", updated));
+
+                        return spec.fetch().rowsUpdated()
+                                .flatMap(rowsUpdated -> {
+                                    if (template.getReturningFields() == null || template.getReturningFields().isEmpty()) {
+                                        return Mono.just(Map.of("rowsUpdated", rowsUpdated));
+                                    }
+                                    return emulateReturning(
+                                            template.getTableName(),
+                                            template.getReturningFields(),
+                                            template.getPrimaryKeyField() != null ? template.getPrimaryKeyField() : "id",
+                                            getWhereParamIds(params),
+                                            dbClient
+                                    ).map(returned -> Map.of(
+                                            "rowsUpdated", rowsUpdated,
+                                            "returning", returned
+                                    ));
+                                });
                     }
                 });
     }
@@ -102,7 +119,6 @@ public class UpdateQueryExecutionStrategy implements QueryExecutionStrategy {
                                                     DatabaseConfig config,
                                                     DatabaseClient dbClient,
                                                     Map<String, Integer> columnTypes) {
-
         String primaryKey = template.getPrimaryKeyField() != null ? template.getPrimaryKeyField() : "id";
         String aliasMain = "t0";
 
@@ -150,7 +166,6 @@ public class UpdateQueryExecutionStrategy implements QueryExecutionStrategy {
                                            Map<String, Integer> columnTypes,
                                            List<Object> allIds,
                                            String primaryKeyField) {
-
         List<List<Object>> batches = partitionList(allIds, BATCH_THRESHOLD);
 
         return Flux.fromIterable(batches)
@@ -172,6 +187,36 @@ public class UpdateQueryExecutionStrategy implements QueryExecutionStrategy {
                     return spec.fetch().rowsUpdated().map(Long::intValue)
                             .doOnNext(updated -> log.info("✅ Batch Updated Rows: {}", updated));
                 }, PARALLELISM);
+    }
+
+    private List<Object> getWhereParamIds(Map<String, Object> params) {
+        Object value = params.get("where_id");
+        if (value instanceof Collection) return new ArrayList<>((Collection<?>) value);
+        if (value != null) return List.of(value);
+        return List.of();
+    }
+
+    private Mono<List<Map<String, Object>>> emulateReturning(
+            String tableName,
+            List<String> returningFields,
+            String primaryKey,
+            List<Object> ids,
+            DatabaseClient dbClient
+    ) {
+        if (ids == null || ids.isEmpty() || returningFields == null || returningFields.isEmpty()) {
+            return Mono.just(List.of());
+        }
+
+        String sql = "SELECT " + String.join(", ", returningFields) +
+                " FROM " + tableName +
+                " WHERE " + primaryKey + " IN (:ids)";
+        log.debug("📤 Emulating RETURNING via SELECT: {}", sql);
+
+        return dbClient.sql(sql)
+                .bind("ids", ids)
+                .fetch()
+                .all()
+                .collectList();
     }
 
     private <T> List<List<T>> partitionList(List<T> list, int size) {
