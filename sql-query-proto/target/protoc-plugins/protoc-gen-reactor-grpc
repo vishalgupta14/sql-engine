@@ -1,8 +1,0 @@
-#!/bin/sh
-
-CP="/Users/vishalgupta/.m2/repository/com/salesforce/servicelibs/reactor-grpc/1.2.3/reactor-grpc-1.2.3.jar"
-ARGS=""
-JVMARGS=""
-
-"/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/java" $JVMARGS -cp $CP com.salesforce.reactorgrpc.ReactorGrpcGenerator $ARGS
-
