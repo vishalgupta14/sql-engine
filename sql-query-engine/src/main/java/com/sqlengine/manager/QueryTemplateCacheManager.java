@@ -1,7 +1,8 @@
 package com.sqlengine.manager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.benmanes.caffeine.cache.Cache;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.benmanes.caffeine.cache.AsyncCache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.sqlengine.dto.CachedQueryTemplate;
 import com.sqlengine.model.QueryTemplate;
@@ -12,31 +13,54 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public class QueryTemplateCacheManager {
 
     private final QueryTemplateRepository repository;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    // Blocking cache for service use
-    private final Cache<String, CachedQueryTemplate> cache = Caffeine.newBuilder()
+    public QueryTemplateCacheManager(QueryTemplateRepository repository){
+
+        this.repository = repository;
+        this.objectMapper = objectMapper.registerModule(new JavaTimeModule());
+    }
+
+    private final AsyncCache<String, CachedQueryTemplate> asyncCache = Caffeine.newBuilder()
             .expireAfterAccess(60, TimeUnit.MINUTES)
             .maximumSize(500)
-            .build(this::loadFromMongo);
+            .buildAsync((templateId, executor) -> loadFromMongo(templateId).toFuture());
 
     /**
-     * Cache loader (used only in blocking getById)
+     * Load from MongoDB reactively
      */
-    private CachedQueryTemplate loadFromMongo(String templateId) {
-        QueryTemplate template = repository.findById(templateId).block();
-        if (template == null) {
-            throw new IllegalArgumentException("QueryTemplate not found with ID: " + templateId);
-        }
-        return createCached(template);
+    private Mono<CachedQueryTemplate> loadFromMongo(String templateId) {
+        log.info("📥 Cache miss. Loading QueryTemplate from MongoDB for ID: {}", templateId);
+        return repository.findById(templateId)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("QueryTemplate not found with ID: " + templateId)))
+                .map(this::createCached);
+    }
+
+    /**
+     * Reactive get by ID using async cache
+     */
+    public Mono<QueryTemplate> getById(String templateId) {
+        return Mono.fromFuture(
+                asyncCache.get(templateId, (key, executor) -> loadFromMongo(key).toFuture())
+        ).map(CachedQueryTemplate::getTemplate);
+    }
+
+
+
+    /**
+     * Reactive get from cache if present (non-blocking)
+     */
+    public Mono<QueryTemplate> getByIdIfCached(String templateId) {
+        return Mono.justOrEmpty(asyncCache.synchronous().getIfPresent(templateId))
+                .map(CachedQueryTemplate::getTemplate);
     }
 
     /**
@@ -52,62 +76,29 @@ public class QueryTemplateCacheManager {
     }
 
     /**
-     * Blocking get by ID with fallback to DB
+     * Manual update if content changed
      */
-    public QueryTemplate getById(String templateId) {
-        CachedQueryTemplate cached = cache.getIfPresent(templateId);
-        if (cached != null) {
-            log.debug("✅ Returning cached QueryTemplate for ID: {}", templateId);
-            return cached.getTemplate();
-        }
-
-        log.info("📥 Cache miss. Loading QueryTemplate from MongoDB for ID: {}", templateId);
-        return cache.get(templateId, key -> loadFromMongo(templateId)).getTemplate();
-    }
-
-    /**
-     * Reactive get by ID with fallback and cache update
-     */
-    public Mono<QueryTemplate> getByIdReactive(String templateId) {
-        CachedQueryTemplate cached = cache.getIfPresent(templateId);
-        if (cached != null) {
-            log.debug("✅ Returning cached QueryTemplate for ID: {}", templateId);
-            return Mono.just(cached.getTemplate());
-        }
-
-        return repository.findById(templateId)
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("QueryTemplate not found: " + templateId)))
-                .map(template -> {
-                    CachedQueryTemplate wrapped = createCached(template);
-                    cache.put(templateId, wrapped);
-                    return template;
-                });
-    }
-
-    /**
-     * Update if hash has changed
-     */
-    public QueryTemplate get(QueryTemplate currentTemplate) {
+    public Mono<QueryTemplate> get(QueryTemplate currentTemplate) {
         String id = currentTemplate.getId();
-        CachedQueryTemplate cached = cache.getIfPresent(id);
         String currentHash = hash(currentTemplate);
+        CachedQueryTemplate cached = asyncCache.synchronous().getIfPresent(id);
 
         if (cached != null && cached.getHash().equals(currentHash)) {
             log.debug("✅ Returning up-to-date cached QueryTemplate: {}", currentTemplate.getTemplateName());
-            return cached.getTemplate();
+            return Mono.just(cached.getTemplate());
         }
 
         CachedQueryTemplate updated = createCached(currentTemplate);
-        cache.put(id, updated);
+        asyncCache.put(id, CompletableFuture.completedFuture(updated));
         log.info("♻️ Updated cache for QueryTemplate: {}", currentTemplate.getTemplateName());
-        return updated.getTemplate();
+        return Mono.just(updated.getTemplate());
     }
 
     /**
      * Manual preload
      */
     public void preload(QueryTemplate template) {
-        cache.put(template.getId(), createCached(template));
+        asyncCache.put(template.getId(), CompletableFuture.completedFuture(createCached(template)));
         log.info("⚡ Preloaded QueryTemplate: {}", template.getTemplateName());
     }
 
@@ -115,7 +106,7 @@ public class QueryTemplateCacheManager {
      * Manual eviction
      */
     public void evict(String templateId) {
-        cache.invalidate(templateId);
+        asyncCache.synchronous().invalidate(templateId);
         log.info("🧹 Evicted QueryTemplate from cache: {}", templateId);
     }
 
