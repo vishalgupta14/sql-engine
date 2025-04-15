@@ -103,19 +103,17 @@ public class QueryTemplateService {
             throw new IllegalArgumentException("Offset cannot be negative.");
         }
 
-        if (template.getSelectedColumns() == null || template.getSelectedColumns().isEmpty()) {
-            throw new IllegalArgumentException("At least one selected column must be provided.");
-        }
+        if (template.getSelectedColumns()!=null&&!template.getSelectedColumns().isEmpty()) {
+            for (SelectedColumn col : template.getSelectedColumns()) {
+                if (!StringUtils.hasText(col.getExpression())) {
+                    throw new IllegalArgumentException("Selected column expression must not be empty.");
+                }
 
-        for (SelectedColumn col : template.getSelectedColumns()) {
-            if (!StringUtils.hasText(col.getExpression())) {
-                throw new IllegalArgumentException("Selected column expression must not be empty.");
-            }
-
-            // Optional unsafe keyword check
-            String expr = col.getExpression().toUpperCase();
-            if (expr.contains(";") || expr.matches(".*\\b(DROP|DELETE|TRUNCATE)\\b.*")) {
-                throw new IllegalArgumentException("Unsafe expression detected in selected column: " + col.getExpression());
+                // Optional unsafe keyword check
+                String expr = col.getExpression().toUpperCase();
+                if (expr.contains(";") || expr.matches(".*\\b(DROP|DELETE|TRUNCATE)\\b.*")) {
+                    throw new IllegalArgumentException("Unsafe expression detected in selected column: " + col.getExpression());
+                }
             }
         }
 
